@@ -1,20 +1,13 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import FormLabel from "@material-ui/core/FormLabel";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import Radio from "@material-ui/core/Radio";
-import Paper from "@material-ui/core/Paper";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import IconButton from "@material-ui/core/IconButton";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import InfoIcon from "@material-ui/icons/Info";
-import StarIcon from "@material-ui/icons/Star";
 import {Rating} from "@material-ui/lab"
-import {Route, Link, useHistory} from "react-router-dom"
+import {Link} from "react-router-dom"
 import MovieDetails from "./MovieDetails"
 import {URL_IMG, IMG_SIZE_LARGE} from '../const'
 

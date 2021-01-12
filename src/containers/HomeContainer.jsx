@@ -8,10 +8,11 @@ class HomeContainer extends Component {
         return (
         <BrowserRouter>
       <div>
-        <MovieContainer />
+       
         <Switch>
           <Route path={"/movie/:id"} component={MovieDetails}></Route>
         </Switch>
+        <Route path ="/home"component={MovieContainer}/>
       </div>
     </BrowserRouter>
         );
