@@ -1,14 +1,18 @@
+import "./App.css";
+import HomeContainer from "./containers/HomeContainer";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Welcome from './components/Welcome'
+import MainApp from './containers/MainApp'
 
-import './App.css';
-import HomeContainer from "./containers/HomeContainer"
-
-
-function App() {
+export default function App() {
+  
   return (
-    <div className="App">
-      <HomeContainer/>
-    </div>
+    <Router>
+     <Switch>
+        <Route path= "/welcome" component={Welcome}/>
+        <Route path= "/" component={MainApp}/>
+
+      </Switch>
+    </Router>
   );
 }
-
-export default App;

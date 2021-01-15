@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import MovieContainer from "./MovieContainer"
-import MovieDetails from "../components/MovieDetails"
+import MovieContainer from "./MovieContainer";
+import MovieDetails from "../components/MovieDetails";
 
 class HomeContainer extends Component {
-    render() {
-        return (
-        <BrowserRouter>
+  render() {
+    return (
+      <BrowserRouter>
       <div>
-       
-        <Switch>
-          <Route path={"/movie/:id"} component={MovieDetails}></Route>
-        </Switch>
-        <Route path ="/home"component={MovieContainer}/>
+        <Route path='/home' component={MovieContainer}></Route>
+          <Switch>
+            <Route path={"/movie/:id"} component={MovieDetails}></Route>
+          </Switch>
+        
       </div>
-    </BrowserRouter>
-        );
-    }
+      </BrowserRouter>
+    );
+  }
 }
 
 export default HomeContainer;
