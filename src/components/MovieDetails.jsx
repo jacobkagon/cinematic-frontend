@@ -10,6 +10,7 @@ import { Autocomplete } from "@material-ui/lab";
 import Chip from "@material-ui/core/Chip";
 import Button from "@material-ui/core/Button";
 import AddReviewModal from "./AddReviewModal";
+import ReviewScroll from './ReviewScroll'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,7 +49,8 @@ const MovieDetails = () => {
 
   return (
     <div className={classes.root}>
-      {modal ? (
+      {movieInfo.id !== undefined  ? <ReviewScroll movieId={movieInfo.id}/> : null }
+      { modal ? (
         <AddReviewModal
           open={modal}
           closeModal={handleModal}

@@ -10,7 +10,7 @@ class HomeContainer extends Component {
       <div>
         <Route path='/home' component={MovieContainer}></Route>
           <Switch>
-            <Route path={"/movie/:id"} component={MovieDetails}></Route>
+          <Route path={"/movie/:id"} component={MovieDetails}></Route>
           </Switch>
         
       </div>
