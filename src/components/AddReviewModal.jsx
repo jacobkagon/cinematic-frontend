@@ -8,9 +8,10 @@ import Button from "@material-ui/core/Button";
 import Rating from "@material-ui/lab/Rating";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Alert from "@material-ui/lab/Alert";
-import userData from "../atoms/userState";
-import {useRecoilValue} from 'recoil'
-import loggedInState from "../atoms/login";
+import userData from "../recoil/userState";
+import {useRecoilState} from 'recoil'
+import loggedInState from "../recoil/login";
+import MovieIdState from '../recoil/movieId'
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -18,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
+
   paper: {
     position: "absolute",
     width: 300,
@@ -36,16 +38,12 @@ export default function AddReviewModal({
   poster,
   movieId,
 }) {
-
-  const user = useRecoilValue(userData)
-  const loggedIn = useRecoilValue(loggedInState)
+  
   const classes = useStyles();
   const [rating, setRating] = useState(1);
   const [text, setText] = useState("");
-  const [backendMovieId, handleBackendMovieId] = useState(0);
+  const [backendMovieId, handleBackendMovieId] = useRecoilState(MovieIdState);
   
-
-
   useEffect(() => {
     
    
@@ -100,12 +98,12 @@ export default function AddReviewModal({
         .then((data) => console.log(data));
     }
     document.getElementsByTagName("form")[0].reset();
-    setRating(1);
+    setRating(1);              
   };
 
   const body = (
     <div className={classes.paper}>
-      <h2 id="simple-modal-title">Add a Story</h2>
+      <h2 id="simple-modal-title">{title}</h2>
       {handleSubmit && text === "" ? (
         <Alert severity="warning">Review is empty</Alert>
       ) : null}

@@ -11,6 +11,7 @@ import Chip from "@material-ui/core/Chip";
 import Button from "@material-ui/core/Button";
 import AddReviewModal from "./AddReviewModal";
 import ReviewScroll from './ReviewScroll'
+import AddWatchlist from './AddWatchlist'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,6 +39,7 @@ const MovieDetails = () => {
   let { id } = useParams();
   const [movieInfo, handleMovieInfo] = useState("");
   const [modal, handleModal] = useState(false);
+  const [watchlist, handleWatchlist] = useState(false);
 
   useEffect(() => {
     fetch(
@@ -50,8 +52,11 @@ const MovieDetails = () => {
   return (
     <div className={classes.root}>
       {movieInfo.id !== undefined  ? <ReviewScroll movieId={movieInfo.id}/> : null }
+      {watchlist ? <AddWatchlist movieId={movieInfo.id} title={movieInfo.title}
+          poster={movieInfo.poster_path}/> : null}
       { modal ? (
         <AddReviewModal
+
           open={modal}
           closeModal={handleModal}
           movieId={movieInfo.id}
@@ -94,6 +99,10 @@ const MovieDetails = () => {
                 : null}
               <Button variant="contained" onClick={() => handleModal(true)}>
                 Add Review
+              </Button>
+
+              <Button variant="contained" onClick={() => handleWatchlist(true)} >
+                Add to Watchlist
               </Button>
             </Grid>
             <Grid item>

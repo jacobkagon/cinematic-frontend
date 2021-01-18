@@ -14,8 +14,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Route, useHistory } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import userState from "../atoms/userState";
-import loggedInState from '../atoms/login'
+import userState from "../recoil/userState";
+import loggedInState from '../recoil/login'
 
 
 function Copyright() {
@@ -110,6 +110,7 @@ export default function SignInSide({handleUser}) {
 
   return (
     <Grid container component="main" className={classes.root}>
+    {console.log(stateUser)}
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
