@@ -11,7 +11,6 @@ export default function App() {
      <Switch>
         <Route path= "/welcome" component={Welcome}/>
         <Route path= "/" component={MainApp}/>
-
       </Switch>
     </Router>
   );

@@ -6,6 +6,8 @@ import GridListTileBar from "@material-ui/core/GridListTileBar";
 import IconButton from "@material-ui/core/IconButton";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 
+const token = localStorage.getItem("token")
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -19,13 +21,8 @@ const useStyles = makeStyles((theme) => ({
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: "translateZ(0)",
   },
-  title: {
-    color: theme.palette.primary.light,
-  },
-  titleBar: {
-    background:
-      "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)",
-  },
+  
+ 
 }));
 
 /**
@@ -47,15 +44,22 @@ const useStyles = makeStyles((theme) => ({
  */
 export default function ReviewScroll({ movieId }) {
   const classes = useStyles();
-  const [movieReviews, handleMovieReviews] = useState([1, 2, 3]);
+  const [movieReviews, handleMovieReviews] = useState([]);
 
   useEffect(() => {
     //   error i'm getting is movieReviews is not a function. 
     //You must create a ternary to prevent data from going to state.
     
-    fetch(`http://localhost:3000/api/v1/movie_review/${movieId}`)
+    fetch(`http://localhost:3000/api/v1/movie_review/${movieId}`, {
+      Authorization: `Bearer ${token}`
+    })
       .then((resp) => resp.json())
-      .then((data) => handleMovieReviews(data)); 
+      .then((data) => { if (data.error) {
+        console.log(data.error)
+      } else {
+        handleMovieReviews(data)
+      }
+    }); 
   }, []);
 
   return (
@@ -66,7 +70,7 @@ export default function ReviewScroll({ movieId }) {
               <GridListTile key={id}>
                 <p>{review.body}</p>
                 <GridListTileBar
-                  //   title={review.user.username}
+                     title={review.user.username}
                   classes={{
                     root: classes.titleBar,
                     title: classes.title,

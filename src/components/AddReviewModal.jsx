@@ -8,6 +8,9 @@ import Button from "@material-ui/core/Button";
 import Rating from "@material-ui/lab/Rating";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Alert from "@material-ui/lab/Alert";
+import userData from "../atoms/userState";
+import {useRecoilValue} from 'recoil'
+import loggedInState from "../atoms/login";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -26,18 +29,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AddReviewModal({
+
   open,
   closeModal,
   title,
   poster,
   movieId,
 }) {
+
+  const user = useRecoilValue(userData)
+  const loggedIn = useRecoilValue(loggedInState)
   const classes = useStyles();
   const [rating, setRating] = useState(1);
   const [text, setText] = useState("");
   const [backendMovieId, handleBackendMovieId] = useState(0);
+  
+
 
   useEffect(() => {
+    
+   
     const data = {};
     data.title = title;
     data.poster = poster;
@@ -53,25 +64,28 @@ export default function AddReviewModal({
       }),
     })
       .then((resp) => resp.json())
-      .then((dataArr) => console.log(dataArr));
-  }, []);
+      .then((dataArr) => findMovie());
+  }, [])
 
-  useEffect(() => {
+  const findMovie = () => {
+
     if (movieId !== 0) {
       fetch(`http://localhost:3000/api/v1/find_movie/${movieId}`)
         .then((resp) => resp.json())
         .then((data) => handleBackendMovieId(data.id));
     }
-  }, []);
+  }
 
   const handleClose = () => {
     closeModal(false);
   };
 
   const handleSubmit = (event) => {
+   
+
     const movieData = {};
     movieData.movie_id = backendMovieId;
-    movieData.user_id = 4;
+    movieData.user_id = localStorage.getItem("user_id")
     movieData.rating = rating;
     movieData.body = text;
 
