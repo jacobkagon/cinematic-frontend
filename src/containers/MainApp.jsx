@@ -5,6 +5,7 @@ import NavBar from "../components/Navbar";
 import LoginContainer from "../components/LoginContainer"
 import SignUpContainer from "../components/SignUpContainer"
 import MovieDetails from "../components/MovieDetails";
+import UserProfile from '../components/userProfile/UserProfile'
 
 class MainApp extends Component {
   
@@ -28,6 +29,7 @@ class MainApp extends Component {
       <Route path="/home" component={HomeContainer} />
       <Switch>
       <Route path={"/movie/:id"} component={MovieDetails}></Route>
+      <Route path={'/:username/:user_id'} component={UserProfile}></Route>
       </Switch>
       </div>
       </BrowserRouter>
