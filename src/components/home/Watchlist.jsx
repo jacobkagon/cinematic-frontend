@@ -1,4 +1,6 @@
-import React from "react";
+import { responsiveFontSizes } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+
 import { makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
@@ -6,12 +8,9 @@ import IconButton from "@material-ui/core/IconButton";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import InfoIcon from "@material-ui/icons/Info";
-import { Rating } from "@material-ui/lab";
-import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { Link } from "react-router-dom";
-import MovieDetails from "./MovieDetails";
 
-import { URL_IMG, IMG_SIZE_LARGE } from "../const";
+import { URL_IMG, IMG_SIZE_LARGE } from "../../const";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden",
     backgroundColor: theme.palette.background.paper,
   },
- 
+
   gridList: {
     flexWrap: "nowrap",
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
@@ -29,57 +28,49 @@ const useStyles = makeStyles((theme) => ({
     width: 1000,
     height: 1500,
   },
-  
-  
+
   icon: {
     color: "rgba(255, 255, 255, 0.54)",
   },
 }));
 
-export default function MovieGrid({ movies }) {
-  const [spacing, setSpacing] = React.useState(2);
+const Watchlist = () => {
   const classes = useStyles();
-  const [movieShow, handleMovieShow] = React.useState(false);
-
-  const handleChange = (event) => {
-    setSpacing(Number(event.target.value));
-  };
-
-  const body = "hello";
-
-  const handleShowPage = () => {
-    handleMovieShow(true);
-    if (movieShow === true) {
-      handleMovieShow(false);
-    }
-  };
+  const [film, setFilm] = useState([]);
+  
+  useEffect(() => {
+    const userId = localStorage.getItem("user_id");
+    const token = localStorage.getItem("token");
+    fetch(`http://localhost:3000/api/v1//user_watchlist/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((resp) => resp.json())
+      .then((data) => setFilm(data));
+  }, []);
 
   return (
     <div className={classes.root}>
-
       <GridList className={classes.gridList} cols={4.5}>
-      
-        {movies.map((movie) => (
-          <GridListTile key={movie.id} style={{height: '300px'}}>
-
+        {film.map((movie, id) => (
+          <GridListTile key={id} style={{ height: "300px" }}>
             <img
-              src={URL_IMG + IMG_SIZE_LARGE + movie.poster_path}
+              src={URL_IMG + IMG_SIZE_LARGE + movie.movie.poster}
               alt={movie.title}
             />
             <GridListTileBar
-              title={movie.title}
+              title={movie.movie.title}
               classes={{
                 root: classes.titleBar,
                 title: classes.title,
               }}
               actionIcon={
-                <Link to={'/movie/'+movie.id}>
-                <IconButton
-                  aria-label={`info about ${movie.title}`}
-                  className={classes.icon}
-                   >
-                  <InfoIcon />
-                </IconButton>
+                <Link to={"/movie/" + movie.id}>
+                  <IconButton
+                    aria-label={`info about ${movie.title}`}
+                    className={classes.icon}
+                  >
+                    <InfoIcon />
+                  </IconButton>
                 </Link>
               }
             />
@@ -88,4 +79,6 @@ export default function MovieGrid({ movies }) {
       </GridList>
     </div>
   );
-}
+};
+
+export default Watchlist;

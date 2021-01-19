@@ -5,7 +5,7 @@ import NavBar from "../components/Navbar";
 import LoginContainer from "../components/LoginContainer"
 import SignUpContainer from "../components/SignUpContainer"
 import MovieDetails from "../components/MovieDetails";
-import {loggedIn} from '../actions/actionTypes';
+
 class MainApp extends Component {
   
 

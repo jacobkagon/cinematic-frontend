@@ -13,8 +13,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { BrowserRouter as Router, useHistory } from "react-router-dom";
-import userData from "../atoms/userState";
-import loggedInState from '../atoms/login'
+import userData from "../recoil/userState";
+import loggedInState from '../recoil/login'
 import { useRecoilState } from "recoil";
 
 // import PropTypes from 'prop-types';
@@ -99,6 +99,7 @@ const useStyles = makeStyles((theme) => ({
         if (data.user) {
           setUser(data.user);
           setLoggedIn(true)
+          handleUser(data.user)
           history.push("/home");
           window.location.reload();
         } else {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import MovieGrid from "../components/MovieGrid";
+import MovieGrid from "../components/home/MovieGrid";
 import {URL_LIST, API_KEY, SORT_URL} from '../const'
+import Watchlist from '../components/home/Watchlist'
 
 class MovieContainer extends Component {
   state = {
@@ -20,6 +21,8 @@ class MovieContainer extends Component {
     return (
       <div>
            <MovieGrid  movies={this.state.movies} />
+           <Watchlist/>
+   
       </div>
     );
   }
