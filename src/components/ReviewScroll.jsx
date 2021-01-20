@@ -107,7 +107,7 @@ export default function ReviewScroll({ movieId }) {
                <Link to= {'/'+review.user.username+'/'+review.user.id}>
                 <GridListTileBar
                
-                  title=<Avatar className={classes.orange}>{review.user.username[0]}</Avatar>
+                  title={<Avatar className={classes.orange}>{review.user.username[0]}</Avatar>}
                   classes={{
                     root: classes.titleBar,
                     title: classes.title,

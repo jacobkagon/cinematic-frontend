@@ -8,9 +8,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 
-
-const token = localStorage.getItem('token')
-const currentUser = localStorage.getItem('user_id')
+const token = localStorage.getItem("token");
+const currentUser = localStorage.getItem("user_id");
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -32,33 +31,53 @@ const useStyles = makeStyles((theme) => ({
 export default function Header(props) {
   const classes = useStyles();
   const { userId, sections, title } = props;
-  const [userData, handleUserData] = useState([])
+  const [userData, handleUserData] = useState([]);
+  const [userFollowers, handleUserFollowers] = useState([]);
+  const [isFollowing, handleIsFollowing] = useState("Follow")
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/v1/users/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((resp) => resp.json())
-      .then((data) => handleUserData(data));
+      .then((data) => {
+        handleUserData(data);
+        handleUserFollowers(data.followers);
+      });
   }, []);
 
   const followUser = () => {
     fetch(`http://localhost:3000/api/v1/friendships`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`},
-    body: JSON.stringify({
-      follower_id: currentUser,
-      followee_id: userId
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        follower_id: currentUser,
+        followee_id: userId,
+      }),
     })
-    }).then(resp => resp.json())
-    .then(data => console.log(data))
-  }
+      .then((resp) => resp.json())
+      .then((data) => console.log(data));
+     
+  };
+
+  useEffect(() => {
+    
+    userData.followers?.map(follower => {
+      if(follower.id == currentUser) {
+        handleIsFollowing("Following")
+      }
+    })
+  }, [userData])
+
+  
 
   return (
     <React.Fragment>
       <Toolbar className={classes.toolbar}>
-        <Button size="small" onClick={() => followUser()}>Follow</Button>
+        <Button size="small" onClick={() => followUser()}>{isFollowing}</Button>
         <Typography
           component="h2"
           variant="h5"
@@ -67,12 +86,11 @@ export default function Header(props) {
           noWrap
           className={classes.toolbarTitle}
         >
-          {userData.username} 
-  
+          {userData.username}
         </Typography>
         {userData.followers_count} Followers
       </Toolbar>
-     
+
       <Toolbar
         component="nav"
         variant="dense"
