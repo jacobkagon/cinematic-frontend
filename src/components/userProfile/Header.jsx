@@ -63,6 +63,8 @@ export default function Header(props) {
      
   };
 
+
+
   useEffect(() => {
     
     userData.followers?.map(follower => {

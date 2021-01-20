@@ -39,14 +39,10 @@ const useStyles = makeStyles((theme) => ({
     const classes = useStyles();
     let { user_id } = useParams();
     const [userData, handleUserData] = useState([])
-
+    const [isOpen, handleisOpen] = useState(false)
     useEffect(() => {
-        fetch(`http://localhost:3000/api/v1/users/${user_id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-          .then((resp) => resp.json())
-          .then((data) => handleUserData(data));
-      }, []);
+        handleisOpen(true)
+      }, );
     
     
 

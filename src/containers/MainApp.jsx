@@ -25,7 +25,7 @@ class MainApp extends Component {
           )}/>
       <Route path="/signup" component={(props) => (
             <SignUpContainer {...props} handleUser={this.handleUser}/> )}/>
-      <Route path="/home" component={NavBar}/>
+      {/* <Route path="/home" component={NavBar}/> */}
       <Route path="/home" component={HomeContainer} />
       <Switch>
       <Route path={"/movie/:id"} component={MovieDetails}></Route>

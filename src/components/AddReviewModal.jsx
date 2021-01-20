@@ -37,6 +37,7 @@ export default function AddReviewModal({
   title,
   poster,
   movieId,
+  handleAddReview
 }) {
   
   const classes = useStyles();
@@ -98,7 +99,8 @@ export default function AddReviewModal({
         .then((data) => console.log(data));
     }
     document.getElementsByTagName("form")[0].reset();
-    setRating(1);              
+    setRating(1); 
+    handleAddReview(true) 
   };
 
   const body = (

@@ -11,7 +11,8 @@ import {Link} from 'react-router-dom'
 import UserProfile from './userProfile/UserProfile'
 import Avatar from '@material-ui/core/Avatar';
 import { deepOrange, deepPurple } from '@material-ui/core/colors'
-
+import {useRecoilState} from 'recoil'
+import MovieIdState from '../recoil/movieId'
 
 const token = localStorage.getItem("token");
 
@@ -53,7 +54,9 @@ const useStyles = makeStyles((theme) => ({
  */
 export default function ReviewScroll({ movieId }) {
   const classes = useStyles();
-  const [movieReviews, handleMovieReviews] = useState("");
+  const [movieReviews, handleMovieReviews] = useState([]);
+  const [addReview, handleAddReview] = useState(false)
+  const [MovieId, handleMovieId] = useRecoilState(MovieIdState)
 
   useEffect(() => {
     //   error i'm getting is movieReviews is not a function.
@@ -72,14 +75,16 @@ export default function ReviewScroll({ movieId }) {
         } 
         
       )
-  }, []);
+  }, [addReview]);
 
   const filterReviews = (event) => {
     const newReviews = movieReviews.filter((review) => (
       review.id !== event
     ))
+    if(event !== undefined) {
     handleMovieReviews([newReviews])
     // handleMovieReviews(newReviews)
+    }
   }
 
   const deleteReview = (event) => {
@@ -87,7 +92,8 @@ export default function ReviewScroll({ movieId }) {
    method: 'DELETE',
    headers: {Authorization: `Bearer ${token}`}
 })
-.then(filterReviews(event))
+handleAddReview(true)
+
 
   }
 
@@ -95,8 +101,8 @@ export default function ReviewScroll({ movieId }) {
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={2.5}>
         {movieReviews !== ""
-          ? movieReviews.map((review, id) => (
-              <GridListTile key={id}>
+          ? movieReviews.map((review) => (
+              <GridListTile >
                 <p>{review.body}</p>
 { review.user.id == localStorage.getItem('user_id') ?
                 <Button color="secondary" value={review.id} onClick={(event) => deleteReview(event.currentTarget.value)}>

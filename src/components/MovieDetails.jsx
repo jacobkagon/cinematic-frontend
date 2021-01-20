@@ -10,10 +10,10 @@ import { Autocomplete } from "@material-ui/lab";
 import Chip from "@material-ui/core/Chip";
 import Button from "@material-ui/core/Button";
 import AddReviewModal from "./AddReviewModal";
-import ReviewScroll from './ReviewScroll'
-import AddWatchlist from './AddWatchlist'
+import ReviewScroll from "./ReviewScroll";
+import AddWatchlist from "./AddWatchlist";
 
-const token = localStorage.getItem('token')
+const token = localStorage.getItem("token");
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,21 +42,19 @@ const MovieDetails = () => {
   const [movieInfo, handleMovieInfo] = useState([]);
   const [modal, handleModal] = useState(false);
   const [watchlist, handleWatchlist] = useState(false);
+  const [reviewAdded, handleAddReview] = useState(false);
 
   useEffect(() => {
     fetch(
       `https://api.themoviedb.org/3/movie/${id}?api_key=5a9cf113085e6d11351ca2f692a38bde&language=en-US`
     )
       .then((resp) => resp.json())
-      .then((data) => 
-        handleMovieInfo(data))
-     
-      
+      .then((data) => handleMovieInfo(data));
   }, []);
 
   const createMovie = () => {
-if (movieInfo !== " ") {
-     fetch("http://localhost:3000/api/v1/movies", {
+    if (movieInfo !== " ") {
+      fetch("http://localhost:3000/api/v1/movies", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,26 +67,24 @@ if (movieInfo !== " ") {
           movie_id: movieInfo.id,
         }),
       })
-      .then(resp => resp.json())
-      .then(data => console.log(data))
-  }
+        .then((resp) => resp.json())
+        .then((data) => console.log(data));
     }
-
-
+  };
 
   return (
-   
     <div className={classes.root}>
-     {movieInfo !== [] ? createMovie() : null }
-      {movieInfo.id !== undefined  ? <ReviewScroll movieId={movieInfo.id}/> : null }
+      {movieInfo !== [] ? createMovie() : null}
+      {movieInfo.id !== undefined ? (
+        <ReviewScroll movieId={movieInfo.id} reviewAdded={reviewAdded}/>
+      ) : null}
       {watchlist ? <AddWatchlist movieId={movieInfo.id} /> : null}
-      { modal ? (
+      {modal ? (
         <AddReviewModal
-
+          handleAddReview={handleAddReview}
           open={modal}
           closeModal={handleModal}
           movieId={movieInfo.id}
-  
         />
       ) : null}
       <Grid container spacing={10}>
@@ -128,7 +124,7 @@ if (movieInfo !== " ") {
                 Add Review
               </Button>
 
-              <Button variant="contained" onClick={() => handleWatchlist(true)} >
+              <Button variant="contained" onClick={() => handleWatchlist(true)}>
                 Add to Watchlist
               </Button>
             </Grid>
