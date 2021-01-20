@@ -20,8 +20,12 @@ class MovieContainer extends Component {
   render() {
     return (
       <div>
-           <MovieGrid  movies={this.state.movies} />
-           <Watchlist/>
+       Trending
+<MovieGrid  movies={this.state.movies} />
+      Watchlist
+       <Watchlist/>
+      
+          
    
       </div>
     );

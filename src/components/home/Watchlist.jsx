@@ -64,7 +64,7 @@ const Watchlist = () => {
                 title: classes.title,
               }}
               actionIcon={
-                <Link to={"/movie/" + movie.id}>
+                <Link to={"/movie/"+ movie.movie.movie_id}>
                   <IconButton
                     aria-label={`info about ${movie.title}`}
                     className={classes.icon}

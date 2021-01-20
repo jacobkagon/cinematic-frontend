@@ -9,6 +9,9 @@ import Button from "@material-ui/core/Button";
 import deleteReview from "./deleteReview";
 import {Link} from 'react-router-dom'
 import UserProfile from './userProfile/UserProfile'
+import Avatar from '@material-ui/core/Avatar';
+import { deepOrange, deepPurple } from '@material-ui/core/colors'
+
 
 const token = localStorage.getItem("token");
 
@@ -24,6 +27,10 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: "nowrap",
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: "translateZ(0)",
+  },
+  orange: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: deepOrange[500],
   },
 }));
 
@@ -100,7 +107,7 @@ export default function ReviewScroll({ movieId }) {
                <Link to= {'/'+review.user.username+'/'+review.user.id}>
                 <GridListTileBar
                
-                  title={review.user.username}
+                  title=<Avatar className={classes.orange}>{review.user.username[0]}</Avatar>
                   classes={{
                     root: classes.titleBar,
                     title: classes.title,

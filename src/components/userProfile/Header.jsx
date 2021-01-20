@@ -10,6 +10,7 @@ import Link from "@material-ui/core/Link";
 
 
 const token = localStorage.getItem('token')
+const currentUser = localStorage.getItem('user_id')
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -41,10 +42,23 @@ export default function Header(props) {
       .then((data) => handleUserData(data));
   }, []);
 
+  const followUser = () => {
+    fetch(`http://localhost:3000/api/v1/friendships`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`},
+    body: JSON.stringify({
+      follower_id: currentUser,
+      followee_id: userId
+    })
+    }).then(resp => resp.json())
+    .then(data => console.log(data))
+  }
+
   return (
     <React.Fragment>
       <Toolbar className={classes.toolbar}>
-        <Button size="small">Follow</Button>
+        <Button size="small" onClick={() => followUser()}>Follow</Button>
         <Typography
           component="h2"
           variant="h5"
