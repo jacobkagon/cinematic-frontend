@@ -1,115 +1,78 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import { fade, makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import clsx from "clsx";
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+import Avatar from '@material-ui/core/Avatar';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
+  toolbar: {
+    borderBottom: `1px solid ${theme.palette.divider}`,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
+  toolbarTitle: {
+    flex: 1,
   },
-  title: {
-    flexGrow: 1,
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
+  toolbarSecondary: {
+    justifyContent: 'space-between',
+    overflowX: 'auto',
   },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto',
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputRoot: {
-    color: 'inherit',
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
+  toolbarLink: {
+    padding: theme.spacing(1),
+    flexShrink: 0,
   },
 }));
 
-export default function SearchAppBar() {
+export default function Header(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  const { sections, title } = props;
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static" color="inherit"
-       className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}>
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
+    <React.Fragment>
+      <Toolbar className={classes.toolbar}>
+        <IconButton>
+        <Avatar size="small" src="/broken-image.jpg" />
+        </IconButton>
+        <Typography
+          component="h2"
+          variant="h5"
+          color="inherit"
+          align="center"
+          noWrap
+          className={classes.toolbarTitle}
+        >
+          Showings
+        </Typography>
+        <IconButton>
+          <SearchIcon />
+        </IconButton>
+        <Button variant="outlined" size="small">
+          Logout
+        </Button>
+      </Toolbar>
+      <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
+       
+          <Link
             color="inherit"
-            aria-label="open drawer"
-            className={clsx(classes.menuButton, open && classes.hide)}
+            noWrap
+            // key={section.title}
+            variant="body2"
+            // href={section.url}
+            className={classes.toolbarLink}
+            // {sections.title}
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Binge
-          </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
-        </Toolbar>
-      </AppBar>
-    </div>
+           
+          </Link>
+       
+      </Toolbar>
+    </React.Fragment>
   );
 }
+
+Header.propTypes = {
+  sections: PropTypes.array,
+  title: PropTypes.string,
+};

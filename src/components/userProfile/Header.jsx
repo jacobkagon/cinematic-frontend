@@ -33,9 +33,10 @@ export default function Header(props) {
   const { userId, sections, title } = props;
   const [userData, handleUserData] = useState([]);
   const [userFollowers, handleUserFollowers] = useState([]);
-  const [isFollowing, handleIsFollowing] = useState("Follow")
+  const [isFollowing, handleIsFollowing] = useState(false)
 
   useEffect(() => {
+    let followerIds = []
     fetch(`http://localhost:3000/api/v1/users/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -43,6 +44,8 @@ export default function Header(props) {
       .then((data) => {
         handleUserData(data);
         handleUserFollowers(data.followers);
+        data.followers.map(follower => followerIds.push(follower.id))
+        followerIds.includes(+currentUser) ? handleIsFollowing(true) : handleIsFollowing(false)
       });
   }, []);
 
@@ -60,26 +63,29 @@ export default function Header(props) {
     })
       .then((resp) => resp.json())
       .then((data) => console.log(data));
+      window.location.reload()
      
   };
 
-
-
-  useEffect(() => {
-    
-    userData.followers?.map(follower => {
-      if(follower.id == currentUser) {
-        handleIsFollowing("Following")
-      }
+  const unfollowUser = () => {
+    fetch(`http://localhost:3000/api/v1/friendships/${currentUser}/${userId}`, {
+      method: 'DELETE',
+      headers: {Authorization: `Bearer ${token}`}
     })
-  }, [userData])
+    handleIsFollowing("Follow")
+    window.location.reload()
+  }
 
-  
 
   return (
     <React.Fragment>
       <Toolbar className={classes.toolbar}>
-        <Button size="small" onClick={() => followUser()}>{isFollowing}</Button>
+      { isFollowing  ?
+        <Button size="small" onClick={() => unfollowUser() }>Following</Button> :
+        <Button size="small" onClick={() => followUser() }>Follow</Button> 
+
+      
+      }
         <Typography
           component="h2"
           variant="h5"

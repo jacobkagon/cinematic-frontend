@@ -1,44 +1,57 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import movieIdState from "../recoil/movieId";
+import Button from "@material-ui/core/Button";
 
 const token = localStorage.getItem("token");
 const userId = localStorage.getItem("user_id");
 
-const AddWatchlist = ({ movieId }) => {
+const AddWatchlist = ({ handleIsIn, isInWatchlist, movieId }) => {
   const [backendMovieId, handleBackendMovieId] = useRecoilState(movieIdState);
-  const [watchlistId, handleWatchlistId] = useState([]);
-  const [userWatch, handleUserWatch] = useState([])
+  const [watchlist, handleWatchlist] = useState(0);
+  const [isIn, isReallyIn] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/v1/find_movie/${movieId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((resp) => resp.json())
-      .then((data) => {handleWatchlistId(data.watchlists)
-        handleBackendMovieId(data.id)});
+      .then((data) => {
+        // if (data.watchlists !== null) {
+        //   console.log(data)
+        //   data.watchlists.map((newData) =>
+        //    console.log(newData.movie_id)
+        //   // (newData.movie_id === data.id)  && data.user_id === userId ? isReallyIn(true) : isReallyIn(false)
+        //   );
+        // } else {
+        //   isReallyIn(false);
+        // }
+        handleBackendMovieId(data.id);
+      });
   }, []);
 
-  const removeFromWatchlist = () => {
-     watchlistId.map(data => handleUserWatch([...userWatch, data.user_id]))
+  useEffect(async () => {
+    let movies = []
+    await fetch(`http://localhost:3000/api/v1/user_watchlist/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((resp) => resp.json())
+      .then((data) =>(data.map(data => movies.push(data.movie.id))));
+      movies.includes(backendMovieId) ? isReallyIn(true) : isReallyIn(false)
+  }, []);
 
-  
-      console.log("hi") 
-  
-  //  if (watchlistId !== 0) {
-  //   fetch(`http://localhost:3000/api/v1/watchlist/${watchlist_id}`, {
-  //     method: 'DELETE',
-  //     headers: {Authorization: `Bearer ${token}`}
-  //   })
-  // }
-  }
+  const removeFromWatchlist = async () => {
+    await fetch(
+      `http://localhost:3000/api/v1/watchlist/${userId}/${backendMovieId}`,
+      {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  };
 
-  const addToWatchlist = () => {
-    // const watchData = {};
-    // watchData.user_id = localStorage.getItem("user_id");
-    // watchData.movie_id = backendMovieId;
-
-    fetch("http://localhost:3000/api/v1/watchlist", {
+  const addToWatchlist = async () => {
+    await fetch("http://localhost:3000/api/v1/watchlist", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +69,19 @@ const AddWatchlist = ({ movieId }) => {
       .catch((error) => console.log(error));
   };
 
-  return <div>{backendMovieId !== 0 ? removeFromWatchlist() : null}</div>;
+  return (
+    <div>
+      {isIn === false ? (
+        <Button variant="contained" onClick={() => addToWatchlist()}>
+          Add to Watchlist
+        </Button>
+      ) : (
+        <Button variant="contained" onClick={() => removeFromWatchlist()}>
+          Remove from Watchlist
+        </Button>
+      )}
+    </div>
+  );
 };
 
 export default AddWatchlist;

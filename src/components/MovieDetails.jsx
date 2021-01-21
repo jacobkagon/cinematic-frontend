@@ -1,7 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+
 import React, { useEffect, useState } from "react";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import { useParams } from "react-router-dom";
@@ -12,27 +10,42 @@ import Button from "@material-ui/core/Button";
 import AddReviewModal from "./AddReviewModal";
 import ReviewScroll from "./ReviewScroll";
 import AddWatchlist from "./AddWatchlist";
+import PropTypes from "prop-types";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Link from "@material-ui/core/Link";
 
 const token = localStorage.getItem("token");
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
+  mainFeaturedPost: {
+    position: "relative",
+    backgroundColor: theme.palette.grey[800],
+    color: theme.palette.common.white,
+    marginBottom: theme.spacing(4),
+    backgroundImage: "url(https://source.unsplash.com/random)",
+    height: 500,
+
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "left",
   },
-  paper: {
-    padding: theme.spacing(2),
-    margin: "auto",
-    maxWidth: 500,
+  overlay: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    backgroundColor: "rgba(0,0,0,.3)",
   },
-  image: {
-    width: 128,
-    height: 128,
-  },
-  img: {
-    display: "auto",
-    margin: "auto",
-    width: 300,
-    height: 400,
+  mainFeaturedPostContent: {
+    position: "relative",
+    padding: theme.spacing(3),
+    [theme.breakpoints.up("md")]: {
+      padding: theme.spacing(6),
+      left: 500,
+      paddingRight: 0,
+    },
   },
 }));
 
@@ -41,8 +54,9 @@ const MovieDetails = () => {
   let { id } = useParams();
   const [movieInfo, handleMovieInfo] = useState([]);
   const [modal, handleModal] = useState(false);
-  const [watchlist, handleWatchlist] = useState(false);
+  const [watchlist, handleWatchlist] = useState(true);
   const [reviewAdded, handleAddReview] = useState(false);
+  const [isInWatchlist, handleIsIn] = useState(false);
 
   useEffect(() => {
     fetch(
@@ -73,72 +87,81 @@ const MovieDetails = () => {
   };
 
   return (
-    <div className={classes.root}>
+    <div>
       {movieInfo !== [] ? createMovie() : null}
-      {movieInfo.id !== undefined ? (
-        <ReviewScroll movieId={movieInfo.id} reviewAdded={reviewAdded}/>
-      ) : null}
-      {watchlist ? <AddWatchlist movieId={movieInfo.id} /> : null}
-      {modal ? (
-        <AddReviewModal
-          handleAddReview={handleAddReview}
-          open={modal}
-          closeModal={handleModal}
-          movieId={movieInfo.id}
-        />
-      ) : null}
-      <Grid container spacing={10}>
-        <Grid item>
-          <ButtonBase className={classes.image}>
-            <img
-              className={classes.img}
-              alt="complex"
-              src={URL_IMG + IMG_SIZE_LARGE + movieInfo.poster_path}
-            />
-          </ButtonBase>
-        </Grid>
-        <Grid item xs={12} sm container>
-          <Grid item xs container direction="column" spacing={2}>
-            <Grid item xs>
-              <Typography gutterBottom variant="subtitle1">
+      <Paper
+        className={classes.mainFeaturedPost}
+        style={{
+          backgroundImage: `url(${
+            URL_IMG + IMG_SIZE_LARGE + movieInfo.poster_path
+          })`,
+        }}
+      >
+        {modal ? (
+          <AddReviewModal
+            handleAddReview={handleAddReview}
+            open={modal}
+            closeModal={handleModal}
+            movieId={movieInfo.id}
+          />
+        ) : null}
+        {
+          <img
+            style={{ display: "none" }}
+            src={URL_IMG + IMG_SIZE_LARGE + movieInfo.poster_path}
+            alt="movie"
+          />
+        }
+        <div className={classes.overlay} />
+        <Grid container>
+          <Grid item md={6}>
+            <div className={classes.mainFeaturedPostContent}>
+              <Button variant="contained" onClick={() => handleModal(true)}>
+                Review
+              </Button>
+              {movieInfo.id ? (
+                <AddWatchlist
+                  isInWatchlist={isInWatchlist}
+                  handleIsIn={handleIsIn}
+                  movieId={movieInfo.id}
+                />
+              ) : null}
+              <p />
+              <Typography
+                component="h1"
+                variant="h3"
+                color="inherit"
+                gutterBottom
+              >
                 {movieInfo.title}
               </Typography>
-              <Typography variant="body2" gutterBottom>
-                Hello World
+              <Typography variant="h6" color="inherit" paragraph>
+                {movieInfo.vote_average / 2}
               </Typography>
-              <Typography variant="body2" color="textSecondary">
-                ID: 1030114
+              <Typography variant="subtitle1" href="#">
+                {movieInfo.genres
+                  ? movieInfo.genres.map((genre, id) => (
+                      <Chip
+                        key={id}
+                        size="small"
+                        label={genre.name}
+                        color="primary"
+                      />
+                    ))
+                  : null}
+                <p />
               </Typography>
-
-              {movieInfo.genres
-                ? movieInfo.genres.map((genre, id) => (
-                    <Chip
-                      key={id}
-                      size="small"
-                      label={genre.name}
-                      color="primary"
-                    />
-                  ))
-                : null}
-              <Button variant="contained" onClick={() => handleModal(true)}>
-                Add Review
-              </Button>
-
-              <Button variant="contained" onClick={() => handleWatchlist(true)}>
-                Add to Watchlist
-              </Button>
-            </Grid>
-            <Grid item>
-              <Typography variant="body2" style={{ cursor: "pointer" }}>
-                Remove
+              <Typography component="h1" variant="subtitle1" href="#">
+                {movieInfo.overview}
               </Typography>
-            </Grid>
-          </Grid>
-          <Grid item>
-            <Typography variant="subtitle1"></Typography>
+            </div>
           </Grid>
         </Grid>
-      </Grid>
+      </Paper>
+
+      {movieInfo.id !== undefined ? (
+        <ReviewScroll movieId={movieInfo.id} reviewAdded={reviewAdded} />
+      ) : null}
     </div>
   );
 };

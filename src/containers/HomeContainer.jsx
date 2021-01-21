@@ -8,17 +8,21 @@ import NavBar from "../components/Navbar";
 class HomeContainer extends Component {
   render() {
     return (
-      <BrowserRouter>
+    <div>
+    
+     <BrowserRouter>
       <div>
       <NavBar/>
         <Route path='/home' component={MovieContainer}></Route>
         <Route path='/home' component={FolloweeReviews}></Route>
           <Switch>
+          
           <Route path={"/movie/:id"} component={MovieDetails}></Route>
           </Switch>
         
       </div>
       </BrowserRouter>
+      </div>
     );
   }
 }

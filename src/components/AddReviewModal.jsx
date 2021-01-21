@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AddReviewModal({
-
   open,
   closeModal,
   title,
