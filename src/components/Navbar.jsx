@@ -75,7 +75,7 @@ export default function Header(props) {
           noWrap
           className={classes.toolbarTitle}
         >
-          Showings
+        NextWatch
         </Typography>
         <IconButton onClick={() => handleSearch()}> 
           <SearchIcon />

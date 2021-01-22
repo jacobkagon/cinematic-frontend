@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 
 const token = localStorage.getItem("token");
-const currentUser = localStorage.getItem("user_id");
+
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header(props) {
   const classes = useStyles();
-  const { userId, sections, title } = props;
+  const { userId, sections, title, currentUser} = props;
   const [userData, handleUserData] = useState([]);
   const [userFollowers, handleUserFollowers] = useState([]);
   const [isFollowing, handleIsFollowing] = useState(false)
@@ -64,7 +64,6 @@ export default function Header(props) {
       .then((resp) => resp.json())
       .then((data) => console.log(data));
       window.location.reload()
-     
   };
 
   const unfollowUser = () => {
@@ -76,28 +75,29 @@ export default function Header(props) {
     window.location.reload()
   }
 
-
   return (
     <React.Fragment>
-      <Toolbar className={classes.toolbar}>
-      { isFollowing  ?
-        <Button size="small" onClick={() => unfollowUser() }>Following</Button> :
-        <Button size="small" onClick={() => followUser() }>Follow</Button> 
+    {userId != currentUser ? 
 
+       isFollowing  ?
+        <Button size="small" color='primary' onClick={() => unfollowUser() }>Following</Button> :
+        <Button size="small" color='secondary' onClick={() => followUser() }>Follow</Button> 
       
-      }
+      
+     : null
+    } 
         <Typography
           component="h2"
           variant="h5"
           color="inherit"
-          align="center"
+          
           noWrap
           className={classes.toolbarTitle}
         >
           {userData.username}
         </Typography>
         {userData.followers_count} Followers
-      </Toolbar>
+      
 
       <Toolbar
         component="nav"
