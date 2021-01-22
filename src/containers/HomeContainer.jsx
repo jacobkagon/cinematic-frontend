@@ -3,7 +3,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import MovieContainer from "./MovieContainer";
 import MovieDetails from "../components/MovieDetails";
 import FolloweeReviews from "../components/home/FolloweeReviews"
-import NavBar from "../components/Navbar";
+
+
 
 class HomeContainer extends Component {
   render() {
@@ -12,7 +13,8 @@ class HomeContainer extends Component {
     
      <BrowserRouter>
       <div>
-      <NavBar/>
+     
+      
         <Route path='/home' component={MovieContainer}></Route>
         <Route path='/home' component={FolloweeReviews}></Route>
           <Switch>

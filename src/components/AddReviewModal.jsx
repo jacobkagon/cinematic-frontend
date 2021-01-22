@@ -100,6 +100,7 @@ export default function AddReviewModal({
     document.getElementsByTagName("form")[0].reset();
     setRating(1); 
     handleAddReview(true) 
+    window.location.reload()
   };
 
   const body = (
