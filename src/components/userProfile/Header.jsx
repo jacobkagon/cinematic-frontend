@@ -146,10 +146,17 @@ export default function Header(props) {
               >
                 {userData.username}
               </Typography>
-              <Typography variant="h5" color="inherit" paragraph>
+             
+              <Typography variant="h5" color="inherit">
+              <Link color="inherit" onClick={() => console.log("i'm a button")}>
                 {userData.followers_count} Followers
+                </Link>    
+              </Typography>
+               
+              <Typography variant="h5" color="inherit">
                 {userData.followee_count} Following
               </Typography>
+
               <Link variant="subtitle1" href="#">
                 This is where you should put a link
               </Link>

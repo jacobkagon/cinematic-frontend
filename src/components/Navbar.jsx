@@ -9,11 +9,10 @@ import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import Avatar from "@material-ui/core/Avatar";
 import { useHistory } from "react-router-dom";
-import HomeIcon from '@material-ui/icons/Home';
+import HomeIcon from "@material-ui/icons/Home";
 
-const username = localStorage.getItem('username')
-const userId = localStorage.getItem('user_id')
-
+const username = localStorage.getItem("username");
+const userId = localStorage.getItem("user_id");
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -44,19 +43,19 @@ export default function Header(props) {
   };
 
   const userProfile = () => {
-    history.push('/'+username+'/'+userId)
-    window.location.reload()
-  }
+    history.push("/" + username + "/" + userId);
+    window.location.reload();
+  };
 
   const handleSearch = () => {
-    history.push('/search')
-    window.location.reload()
-  }
+    history.push("/search");
+    window.location.reload();
+  };
 
   const goHome = () => {
-    history.push('/home')
-    window.location.reload()
-  }
+    history.push("/home");
+    window.location.reload();
+  };
 
   return (
     <React.Fragment>
@@ -65,19 +64,19 @@ export default function Header(props) {
           <Avatar size="small" src="/broken-image.jpg" />
         </IconButton>
         <IconButton onClick={() => goHome()}>
-        <HomeIcon fontSize='large'/>
+          <HomeIcon fontSize="large" />
         </IconButton>
         <Typography
-          component="h2"
-          variant="h5"
+          component="h1"
+          variant="h4"
           color="inherit"
           align="center"
           noWrap
           className={classes.toolbarTitle}
         >
-        NextWatch
+          filmify
         </Typography>
-        <IconButton onClick={() => handleSearch()}> 
+        <IconButton onClick={() => handleSearch()}>
           <SearchIcon />
         </IconButton>
         <Button variant="outlined" size="small" onClick={() => logout()}>
