@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
+
 import Header from './Header'
 import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
@@ -15,40 +15,37 @@ import Typography from '@material-ui/core/Typography';
 import {Rating} from '@material-ui/lab'
 
 
+
 const token = localStorage.getItem('token')
 
 const useStyles = makeStyles((theme) => ({
-    mainGrid: {
-      marginTop: theme.spacing(3),
+    mainFeaturedPost: {
+      position: 'relative',
+      backgroundColor: theme.palette.grey[800],
+      color: theme.palette.common.white,
+      marginBottom: theme.spacing(4),
+      backgroundImage: 'url(https://source.unsplash.com/random)',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
     },
-    root: {
-      width: '100%',
-      maxWidth: '36ch',
-      backgroundColor: theme.palette.background.paper,
+    overlay: {
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      right: 0,
+      left: 0,
+      backgroundColor: 'rgba(0,0,0,.3)',
     },
-    inline: {
-      display: 'inline',
+    mainFeaturedPostContent: {
+      position: 'relative',
+      padding: theme.spacing(3),
+      [theme.breakpoints.up('md')]: {
+        padding: theme.spacing(6),
+        paddingRight: 0,
+      },
     },
   }));
-
-  const featuredPosts = [
-    {
-      title: 'Featured post',
-      date: 'Nov 12',
-      description:
-        'This is a wider card with supporting text below as a natural lead-in to additional content.',
-      image: 'https://source.unsplash.com/random',
-      imageText: 'Image Text',
-    },
-    {
-      title: 'Post title',
-      date: 'Nov 11',
-      description:
-        'This is a wider card with supporting text below as a natural lead-in to additional content.',
-      image: 'https://source.unsplash.com/random',
-      imageText: 'Image Text',
-    },
-  ];
 
  const UserProfile = () => {
   const currentUser = localStorage.getItem('user_id')
@@ -75,25 +72,7 @@ const useStyles = makeStyles((theme) => ({
 
     return (
         <div>
-         <React.Fragment>
-      <CssBaseline />
-      <Container maxWidth="lg">
-      <Header userId={user_id} currentUser={currentUser}/>
-       
-        <main>
-          <Grid container spacing={4}>
-            
-            
-          </Grid>
-          <Grid container spacing={5} className={classes.mainGrid}>
-            
-            
-          </Grid>
-        </main>
-      </Container>
-
-    </React.Fragment>
-         
+        <Header userId={user_id} currentUser={currentUser}/>
         </div>
     );
 }
