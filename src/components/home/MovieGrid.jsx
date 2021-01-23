@@ -56,7 +56,9 @@ export default function MovieGrid({ movies }) {
   };
 
   return (
+    
     <div className={classes.root}>
+    
 
       <GridList className={classes.gridList} cols={4.5}>
       

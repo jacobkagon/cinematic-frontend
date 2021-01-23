@@ -9,6 +9,8 @@ import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import FollowerModal from './FollowerModal'
+import FollowingModal from './FolloweesModal'
 
 const token = localStorage.getItem("token");
 
@@ -61,6 +63,9 @@ export default function Header(props) {
   const [userData, handleUserData] = useState([]);
   const [userFollowers, handleUserFollowers] = useState([]);
   const [isFollowing, handleIsFollowing] = useState(false);
+  const [followerModal, handleFollowerModal] = useState(false)
+  const [followingModal, handleFollowingModal] = useState(false)
+
 
   useEffect(() => {
     let followerIds = [];
@@ -106,6 +111,7 @@ export default function Header(props) {
 
   return (
     <React.Fragment>
+   
       <Paper
         className={classes.mainFeaturedPost}
         style={{ backgroundImage: null }}
@@ -148,13 +154,15 @@ export default function Header(props) {
               </Typography>
              
               <Typography variant="h5" color="inherit">
-              <Link color="inherit" onClick={() => console.log("i'm a button")}>
+              <Link color="inherit" onClick={() => handleFollowerModal(true)}>
                 {userData.followers_count} Followers
                 </Link>    
               </Typography>
                
               <Typography variant="h5" color="inherit">
+              <Link color="inherit" onClick={() => handleFollowingModal(true)}>
                 {userData.followee_count} Following
+                </Link>
               </Typography>
 
               <Link variant="subtitle1" href="#">
@@ -164,6 +172,8 @@ export default function Header(props) {
           </Grid>
         </Grid>
       </Paper>
+      {followerModal === true ? <FollowerModal followers={userData.followers}/> : null}
+      {followingModal === true ? <FollowingModal followees={userData.followees}/> : null}
     </React.Fragment>
   );
 }
