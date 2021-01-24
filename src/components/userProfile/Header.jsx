@@ -11,6 +11,8 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import FollowerModal from './FollowerModal'
 import FollowingModal from './FolloweesModal'
+import UserWatchlist from './UserWatchlist'
+import SettingsIcon from '@material-ui/icons/Settings';
 
 const token = localStorage.getItem("token");
 
@@ -150,7 +152,7 @@ export default function Header(props) {
                 color="inherit"
                 gutterBottom
               >
-                {userData.username}
+                {userData.username} {userId === currentUser ?<SettingsIcon/> : null}
               </Typography>
              
               <Typography variant="h5" color="inherit">
@@ -165,15 +167,14 @@ export default function Header(props) {
                 </Link>
               </Typography>
 
-              <Link variant="subtitle1" href="#">
-                This is where you should put a link
-              </Link>
+              
             </div>
           </Grid>
         </Grid>
       </Paper>
       {followerModal === true ? <FollowerModal followers={userData.followers}/> : null}
       {followingModal === true ? <FollowingModal followees={userData.followees}/> : null}
+      <UserWatchlist userId={userId} watchlists={userData.watchlists}/>
     </React.Fragment>
   );
 }

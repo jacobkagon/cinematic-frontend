@@ -8,6 +8,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import {Rating} from '@material-ui/lab'
+import {Link} from 'react-router-dom'
 
 const token = localStorage.getItem('token')
 
@@ -39,7 +40,9 @@ export default function FolloweeReviews() {
     {followeeReviews.map(review => (
       <ListItem key={review.id} alignItems="flex-start">
         <ListItemAvatar>
+        <Link to={`/${review.user.username}/${review.user.id}`}>
           <Avatar alt={review.user.username[0]} src="/static/images/avatar/1.jpg" />
+          </Link>
         </ListItemAvatar>
         <ListItemText
           primary={review.movie.title}
@@ -57,6 +60,7 @@ export default function FolloweeReviews() {
              <Typography>
              <Rating name="read-only" value={review.rating} readOnly></Rating>
              </Typography>
+             <Typography>{review.created_at.split("-").splice(0, 1)}</Typography>
 
 
              

@@ -48,15 +48,18 @@ const useStyles = makeStyles((theme) => ({
   }));
 
  const UserProfile = () => {
+  
   const currentUser = localStorage.getItem('user_id')
     const classes = useStyles();
     let { user_id } = useParams();
     const [userData, handleUserData] = useState([])
     const [isOpen, handleisOpen] = useState(false)
     const [reviews, handleReviews] = useState([])
+    const [loaded, handleLoad] = useState(false)
+    
     useEffect(() => {
         handleisOpen(true)
-    });
+    }, [loaded]);
 
     useEffect(() => {
       fetch(`http://localhost:3000/api/v1/users/${currentUser}`, {
