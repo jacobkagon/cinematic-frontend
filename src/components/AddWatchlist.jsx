@@ -37,8 +37,12 @@ const AddWatchlist = ({ handleIsIn, isInWatchlist, movieId }) => {
     })
       .then((resp) => resp.json())
       .then((data) =>(data.map(data => movies.push(data.movie.id))));
-      movies.includes(backendMovieId) ? isReallyIn(true) : isReallyIn(false)
-  }, []);
+     console.log(movies.includes(backendMovieId))
+     
+     if (movies.includes(backendMovieId)) {
+      isReallyIn(true) 
+     }
+  })
 
   const removeFromWatchlist = async () => {
     await fetch(
@@ -82,6 +86,6 @@ const AddWatchlist = ({ handleIsIn, isInWatchlist, movieId }) => {
       )}
     </div>
   );
-};
+}
 
 export default AddWatchlist;

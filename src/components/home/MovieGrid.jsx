@@ -8,7 +8,7 @@ import GridListTileBar from "@material-ui/core/GridListTileBar";
 import InfoIcon from "@material-ui/icons/Info";
 import { Rating } from "@material-ui/lab";
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-import { Link } from "react-router-dom";
+import  Link  from '@material-ui/core/Link';
 import MovieDetails from "../MovieDetails";
 
 import { URL_IMG, IMG_SIZE_LARGE } from "../../const";
@@ -76,7 +76,7 @@ export default function MovieGrid({ movies }) {
                 title: classes.title,
               }}
               actionIcon={
-                <Link to={'/movie/'+movie.id}>
+                <Link href={'/movie/'+movie.id}>
                 <IconButton
                   aria-label={`info about ${movie.title}`}
                   className={classes.icon}
