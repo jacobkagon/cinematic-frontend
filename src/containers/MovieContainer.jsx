@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MovieGrid from "../components/home/MovieGrid";
 import { URL_LIST, API_KEY, SORT_URL } from "../const";
 import Watchlist from "../components/home/Watchlist";
+import FriendsWatchlist from "../components/home/FriendsWatchlist"
 
 class MovieContainer extends Component {
   state = {
@@ -21,12 +22,15 @@ class MovieContainer extends Component {
   render() {
     return (
       <div>
-      <h4 text-align='center'>
+      <h4 align='center'>
        Trending
        </h4>
         <MovieGrid movies={this.state.movies} />
-        <h4>Watchlist</h4>
+        <h4 align='center'>Your Watchlist</h4>
         <Watchlist />
+        
+        <h4 align='center'>What Your Friends are Watching</h4>
+        <FriendsWatchlist/>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import { responsiveFontSizes } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import watchlistIdState from '../../recoil/watchlist'
-import {useRecoilState} from 'recoil'
+import watchlistIdState from "../../recoil/watchlist";
+import { useRecoilState } from "recoil";
 
 import { makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
@@ -13,7 +13,6 @@ import InfoIcon from "@material-ui/icons/Info";
 import { Link } from "react-router-dom";
 
 import { URL_IMG, IMG_SIZE_LARGE } from "../../const";
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,8 +27,8 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: "nowrap",
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: "translateZ(0)",
-    width: 1000,
-    height: 350,
+    width: 900,
+    height: 300,
   },
 
   icon: {
@@ -40,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
 const Watchlist = () => {
   const classes = useStyles();
   const [film, setFilm] = useState([]);
-  const [watchlistId, setWatchlistId] = useRecoilState(watchlistIdState)
-  
+  const [watchlistId, setWatchlistId] = useRecoilState(watchlistIdState);
+
   useEffect(() => {
     const userId = localStorage.getItem("user_id");
     const token = localStorage.getItem("token");
@@ -68,7 +67,7 @@ const Watchlist = () => {
                 title: classes.title,
               }}
               actionIcon={
-                <Link to={"/movie/"+ movie.movie.movie_id}>
+                <Link to={"/movie/" + movie.movie.movie_id}>
                   <IconButton
                     aria-label={`info about ${movie.title}`}
                     className={classes.icon}

@@ -180,7 +180,7 @@ export default function Header(props) {
       </Paper>
       {followerModal === true ? <FollowerModal followers={userData.followers}/> : null}
       {followingModal === true ? <FollowingModal followees={userData.followees}/> : null}
-      {userReviews === true ? <UserReviews currentUser={userId} reviews={userData.reviews}/> : null}
+      {userReviews === true ? <UserReviews currentUser={userId} userId={currentUser} reviews={userData.reviews}/> : null}
       <UserWatchlist userId={userId} watchlists={userData.watchlists}/>
     </React.Fragment>
   );

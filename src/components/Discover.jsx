@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
@@ -9,9 +9,9 @@ import InfoIcon from "@material-ui/icons/Info";
 import { Rating } from "@material-ui/lab";
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import  Link  from '@material-ui/core/Link';
-import MovieDetails from "../MovieDetails";
+import MovieDetails from "./MovieDetails";
 
-import { URL_IMG, IMG_SIZE_LARGE } from "../../const";
+import { URL_IMG, IMG_SIZE_LARGE, API_KEY } from "../const";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,34 +26,30 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: "nowrap",
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: "translateZ(0)",
-    width: 900,
+    width: 960,
     height: 300,
-  },
   
+  },
   
   icon: {
     color: "rgba(255, 255, 255, 0.54)",
   },
-
 }));
 
-export default function MovieGrid({ movies }) {
-  const [spacing, setSpacing] = React.useState(2);
+export default function Discover({ movieId }) {
   const classes = useStyles();
-  const [movieShow, handleMovieShow] = React.useState(false);
+  
+  const [movies, handleMovie] = useState([])
 
-  const handleChange = (event) => {
-    setSpacing(Number(event.target.value));
-  };
+  useEffect(() => {
+    fetch(`https://api.themoviedb.org/3/movie/${movieId}/recommendations${API_KEY}&language=en-US&page=1`)
+    .then(resp => resp.json())
+    .then(data => handleMovie(data.results))
+  }, []);
 
-  const body = "hello";
 
-  const handleShowPage = () => {
-    handleMovieShow(true);
-    if (movieShow === true) {
-      handleMovieShow(false);
-    }
-  };
+
+  
 
   return (
     
@@ -92,3 +88,4 @@ export default function MovieGrid({ movies }) {
     </div>
   );
 }
+

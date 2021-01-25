@@ -5,7 +5,12 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Avatar from "@material-ui/core/Avatar";
 import { deepOrange, deepPurple } from "@material-ui/core/colors";
-import { Link } from "react-router-dom";
+import Link from "@material-ui/core/Link";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -35,24 +40,26 @@ const FollowingModal = ({ followees }) => {
 
   const handleClose = () => {
     setOpen(false);
-    window.location.reload()
+    window.location.reload();
   };
 
   const body = (
-    <div className={classes.paper}>
+    <List className={classes.paper}>
       <h3 id="simple-modal-title">Following</h3>
-      <ul>
+     
         {followees.map((followee) => (
-          <div>
-            <Avatar className={classes.orange}>{followee.username[0]}</Avatar>
-            <Link to={`/${followee.username}/${followee.id}`}>
-              <div>{followee.username}</div>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar className={classes.orange}>{followee.username[0]}</Avatar>
+            </ListItemAvatar>
+
+            <Link href={`/${followee.username}/${followee.id}`}>
+              <ListItemText primary={followee.username} />
             </Link>
-            <br/>
-          </div>
+          </ListItem>
         ))}
-      </ul>
-    </div>
+       <Divider variant="inset" component="li"/>
+    </List>
   );
   return (
     <div>

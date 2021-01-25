@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -6,14 +6,15 @@ import Fade from "@material-ui/core/Fade";
 import Avatar from "@material-ui/core/Avatar";
 import { deepOrange, deepPurple } from "@material-ui/core/colors";
 import { Link } from "react-router-dom";
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Typography from '@material-ui/core/Typography';
-import {Rating} from '@material-ui/lab'
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import Divider from "@material-ui/core/Divider";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Typography from "@material-ui/core/Typography";
+import { Rating } from "@material-ui/lab";
 
+const token = localStorage.getItem('token')
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -31,16 +32,15 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.getContrastText(deepOrange[500]),
     backgroundColor: deepOrange[500],
   },
+  h3: {
+    align: "center",
+  },
 }));
 
-const UserReviews = ({ currentUser }) => {
+const UserReviews = ({ currentUser, userId }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-  const [reviews, handleReviews] = useState([])
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  const [reviews, handleReviews] = useState([]);
 
   const handleClose = () => {
     setOpen(false);
@@ -49,47 +49,63 @@ const UserReviews = ({ currentUser }) => {
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/v1/user_reviews/${currentUser}`)
-    .then(resp => resp.json())
-    .then(data => handleReviews(data))
+      .then((resp) => resp.json())
+      .then((data) => handleReviews(data));
   }, []);
+
+  const deleteReview = (event) => {
+    fetch(`http://localhost:3000/api/v1/reviews/${event}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    window.location.reload()
+  };
 
   const body = (
     <List className={classes.paper}>
-      <h3 id="simple-modal-title">Reviews</h3>
-        {reviews.map((review) => (
-          <ListItem key={review.id} alignItems="flex-start">
-        <ListItemAvatar>
-        
-         
-         
-        </ListItemAvatar>
-        <ListItemText
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-
-              </Typography>
-            <h3>
-            {review.movie.title}
-            </h3>
-             <Typography>
-             <Rating name="read-only" value={review.rating} readOnly></Rating>
-             </Typography>
-             {review.body}
-             <Typography>{review.created_at.split("-").splice(0, 1)}</Typography>
-           </React.Fragment>   
-          }
-           />
-           </ListItem>
-        ))}
-        <Divider variant="inset" component="li" />
-        </List>
-    
+      <h3 align="center" id="simple-modal-title">
+        {reviews !== [] ? "Reviews" : "No Reviews"}
+      </h3>
+      {reviews.map((review) => (
+        <ListItem key={review.id} alignItems="flex-start">
+          <ListItemAvatar></ListItemAvatar>
+          <ListItemText
+            secondary={
+              <React.Fragment>
+                <Typography
+                  component="span"
+                  variant="body2"
+                  className={classes.inline}
+                  color="textPrimary"
+                ></Typography>
+                <h3>{review.movie.title}</h3>
+                <Typography>
+                  <Rating
+                    name="read-only"
+                    value={review.rating}
+                    readOnly
+                  ></Rating>
+                </Typography>
+                {review.body}
+                <Typography>
+                  {review.created_at.split("-").splice(0, 1)}
+                </Typography>
+                {userId === currentUser ? (
+                  <Typography
+                    id={review.id}
+                    onClick={(event) => deleteReview(event.currentTarget.id)}
+                    color='secondary'
+                  >
+                    Delete
+                  </Typography>
+                ) : null}
+              </React.Fragment>
+            }
+          />
+        </ListItem>
+      ))}
+      <Divider variant="inset" component="li" />
+    </List>
   );
   return (
     <div>

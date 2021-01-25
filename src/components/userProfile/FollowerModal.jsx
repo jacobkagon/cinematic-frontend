@@ -5,7 +5,12 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Avatar from "@material-ui/core/Avatar";
 import { deepOrange, deepPurple } from "@material-ui/core/colors";
-import { Link } from "react-router-dom";
+import Link from "@material-ui/core/Link";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -23,6 +28,14 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.getContrastText(deepOrange[500]),
     backgroundColor: deepOrange[500],
   },
+  root: {
+    width: '100%',
+    maxWidth: '36ch',
+    backgroundColor: theme.palette.background.paper,
+  },
+  inline: {
+    display: 'inline',
+  },
 }));
 
 const FollowerModal = ({ followers }) => {
@@ -35,23 +48,29 @@ const FollowerModal = ({ followers }) => {
 
   const handleClose = () => {
     setOpen(false);
-    window.location.reload()
+    window.location.reload();
   };
 
   const body = (
-    <div className={classes.paper}>
+    <List className={classes.paper}>
       <h3 id="simple-modal-title">Followers</h3>
-      <ul>
-        {followers.map((follower) => (
-          <div>
-            <Avatar className={classes.orange}>{follower.username[0]}</Avatar>
-            <Link to={`/${follower.username}/${follower.id}`}>
-              <div>{follower.username}</div>
+        {followers.map((follower, id) => (
+          <ListItem key={id}>
+              <ListItemAvatar>
+              
+                <Avatar alt={follower.username[0]} className={classes.orange}>
+                  {follower.username[0]}
+                </Avatar>
+              
+              </ListItemAvatar>
+              <Link href={`/${follower.username}/${follower.id}`}>
+            <ListItemText primary={follower.username} />
             </Link>
-          </div>
+          </ListItem>
         ))}
-      </ul>
-    </div>
+        <Divider variant="inset" component="li" />
+
+    </List>
   );
   return (
     <div>
