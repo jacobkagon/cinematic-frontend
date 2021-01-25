@@ -35,6 +35,7 @@ const FollowingModal = ({ followees }) => {
 
   const handleClose = () => {
     setOpen(false);
+    window.location.reload()
   };
 
   const body = (

@@ -13,6 +13,7 @@ import FollowerModal from './FollowerModal'
 import FollowingModal from './FolloweesModal'
 import UserWatchlist from './UserWatchlist'
 import SettingsIcon from '@material-ui/icons/Settings';
+import UserReviews from './UserReviews'
 
 const token = localStorage.getItem("token");
 
@@ -67,6 +68,7 @@ export default function Header(props) {
   const [isFollowing, handleIsFollowing] = useState(false);
   const [followerModal, handleFollowerModal] = useState(false)
   const [followingModal, handleFollowingModal] = useState(false)
+  const [userReviews, handleUserReviews] = useState(false)
 
 
   useEffect(() => {
@@ -154,26 +156,31 @@ export default function Header(props) {
               >
                 {userData.username} {userId === currentUser ?<SettingsIcon/> : null}
               </Typography>
-             
+
               <Typography variant="h5" color="inherit">
               <Link color="inherit" onClick={() => handleFollowerModal(true)}>
                 {userData.followers_count} Followers
                 </Link>    
               </Typography>
-               
+
               <Typography variant="h5" color="inherit">
               <Link color="inherit" onClick={() => handleFollowingModal(true)}>
                 {userData.followee_count} Following
                 </Link>
               </Typography>
+              <Typography variant="h5" color="inherit">
+              <Link color="inherit" onClick={() => handleUserReviews(true)}>
+                Reviews
+                </Link>
+              </Typography>
 
-              
             </div>
           </Grid>
         </Grid>
       </Paper>
       {followerModal === true ? <FollowerModal followers={userData.followers}/> : null}
       {followingModal === true ? <FollowingModal followees={userData.followees}/> : null}
+      {userReviews === true ? <UserReviews currentUser={userId} reviews={userData.reviews}/> : null}
       <UserWatchlist userId={userId} watchlists={userData.watchlists}/>
     </React.Fragment>
   );

@@ -100,7 +100,7 @@ handleAddReview(true)
   return (
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={2.5}>
-        {movieReviews !== ""
+        {movieReviews 
           ? movieReviews.map((review) => (
               <GridListTile >
                 <p>{review.body}</p>

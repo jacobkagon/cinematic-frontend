@@ -63,7 +63,6 @@ export default function FolloweeReviews() {
              <Typography>{review.created_at.split("-").splice(0, 1)}</Typography>
 
 
-             
             </React.Fragment>
           }
         />
