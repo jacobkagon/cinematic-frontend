@@ -50,43 +50,47 @@ const FriendsWatchlist = () => {
   }, []);
 
   return (
+    <span>
+     
+   
+      <div className={classes.root}>
       
-    <div className={classes.root}>
-  
-    {film !== [] ? 
-        
-      <GridList className={classes.gridList} cols={4.5}>
-    
-        {film.map((movie, id) => (
-          <GridListTile key={id} style={{ height: "300px" }}>
-            <img
-              src={URL_IMG + IMG_SIZE_LARGE + movie.movie.poster}
-              alt={movie.title}
-            />
-            <GridListTileBar
-              title={movie.movie.title}
-              classes={{
-                root: classes.titleBar,
-                title: classes.title,
-              }}
-              actionIcon={
-                <Link to={"/movie/" + movie.movie.movie_id}>
-                  <IconButton
-                    aria-label={`info about ${movie.title}`}
-                    className={classes.icon}
-                  >
-                    <InfoIcon />
-                  </IconButton>
-                </Link>
-              }
-            />
-          </GridListTile>
-        ))}
-      </GridList> : null
-      }
-    </div> 
-    
+      {film.length !== 0 ? (
+        <span>
+        <h4 align="center"> What Your Friends are Watching</h4>
+        <GridList className={classes.gridList} cols={4.5}>
+          {film.map((movie, id) => (
+            <GridListTile key={id} style={{ height: "300px" }}>
+              <img
+                src={URL_IMG + IMG_SIZE_LARGE + movie.movie.poster}
+                alt={movie.title}
+              />
+              <GridListTileBar
+                title={movie.movie.title}
+                classes={{
+                  root: classes.titleBar,
+                  title: classes.title,
+                }}
+                actionIcon={
+                  <Link to={"/movie/" + movie.movie.movie_id}>
+                    <IconButton
+                      aria-label={`info about ${movie.title}`}
+                      className={classes.icon}
+                    >
+                      <InfoIcon />
+                    </IconButton>
+                  </Link>
+                }
+              />
+            </GridListTile>
+          ))}
+        </GridList>
+        </span>
+      ) : null}
+    </div>
+    </span>
   );
+
 };
 
 export default FriendsWatchlist;

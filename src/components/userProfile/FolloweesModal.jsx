@@ -53,7 +53,7 @@ const FollowingModal = ({ followees }) => {
               <Avatar className={classes.orange}>{followee.username[0]}</Avatar>
             </ListItemAvatar>
 
-            <Link href={`/${followee.username}/${followee.id}`}>
+            <Link color="inherit" href={`/${followee.username}/${followee.id}`}>
               <ListItemText primary={followee.username} />
             </Link>
           </ListItem>

@@ -15,7 +15,8 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
-import Discover from './Discover'
+import Discover from "./Discover";
+import { Rating } from "@material-ui/lab";
 
 const token = localStorage.getItem("token");
 
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.common.white,
     marginBottom: theme.spacing(4),
     backgroundImage: "url(https://source.unsplash.com/random)",
-    height: 500,
+    height: 550,
 
     backgroundRepeat: "no-repeat",
     backgroundPosition: "left",
@@ -55,8 +56,7 @@ const MovieDetails = () => {
   let { id } = useParams();
   const [movieInfo, handleMovieInfo] = useState([]);
   const [modal, handleModal] = useState(false);
-  const [watchlist, handleWatchlist] = useState(true);
-  const [reviewAdded, handleAddReview] = useState(false);
+  const [allReviews, handleAllReviews] = useState(false);
   const [isInWatchlist, handleIsIn] = useState(false);
 
   useEffect(() => {
@@ -100,12 +100,14 @@ const MovieDetails = () => {
       >
         {modal ? (
           <AddReviewModal
-            handleAddReview={handleAddReview}
+            // handleAddReview={handleAddReview}
             open={modal}
             closeModal={handleModal}
             movieId={movieInfo.id}
           />
         ) : null}
+
+        {allReviews ? <ReviewScroll movieId={movieInfo.id} /> : null}
         {
           <img
             style={{ display: "none" }}
@@ -120,8 +122,14 @@ const MovieDetails = () => {
               <Button variant="contained" onClick={() => handleModal(true)}>
                 Review
               </Button>
+              {"  "}{" "}
+              <Button
+                variant="contained"
+                onClick={() => handleAllReviews(true)}
+              >
+                See All Reviews
+              </Button>
               {movieInfo.id ? (
-              
                 <AddWatchlist
                   isInWatchlist={isInWatchlist}
                   handleIsIn={handleIsIn}
@@ -129,16 +137,20 @@ const MovieDetails = () => {
                 />
               ) : null}
               <p />
-              <Typography
-                component="h1"
-                variant="h3"
-                color="inherit"
-                gutterBottom
-              >
+              <Typography component="h1" variant="h3" color="inherit">
                 {movieInfo.title}
               </Typography>
               <Typography variant="h6" color="inherit" paragraph>
-                {movieInfo.vote_average / 2}
+                {movieInfo.release_date
+                  ? movieInfo.release_date.split("-")[0]
+                  : null}
+              </Typography>
+              <Typography variant="h6" color="inherit" paragraph>
+                <Rating
+                  value={movieInfo.vote_average / 2}
+                  precision={0.5}
+                  readOnly
+                ></Rating>
               </Typography>
               <Typography variant="subtitle1" href="#">
                 {movieInfo.genres
@@ -152,6 +164,8 @@ const MovieDetails = () => {
                     ))
                   : null}
                 <p />
+               <Typography fontWeight="fontWeightMedium">Runtime: {movieInfo.runtime} minutes</Typography>
+                <p />
               </Typography>
               <Typography component="h1" variant="subtitle1" href="#">
                 {movieInfo.overview}
@@ -162,14 +176,13 @@ const MovieDetails = () => {
       </Paper>
 
       {movieInfo.id !== undefined ? (
-       <div>
-       <h4 align='center'>You May Also Like</h4>
-        <Discover movieId={movieInfo.id}/>
-      </div>
+        <div>
+          <h4 align="center">You May Also Like</h4>
+          {/* <ReviewScroll movieId={movieInfo.id} reviewAdded={reviewAdded} />  */}
+          <Discover movieId={movieInfo.id} />
+        </div>
       ) : null}
-      
-     </div>
-    /* <ReviewScroll movieId={movieInfo.id} reviewAdded={reviewAdded} /> */
+    </div>
   );
 };
 

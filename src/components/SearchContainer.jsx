@@ -92,7 +92,7 @@ const SearchContainer = () => {
       <SearchBar
         value={input}
         onChange={(newInput) => handleInput(newInput)}
-        onRequestSearch={() => console.log("hello")}
+        onRequestSearch={() => console.log("hello")} //you can probs delete
       />
       {input !== "" && movieData !== undefined ? (
         <Container className={classes.cardGrid} maxWidth="md">

@@ -12,6 +12,7 @@ import userData from "../recoil/userState";
 import {useRecoilState} from 'recoil'
 import loggedInState from "../recoil/login";
 import MovieIdState from '../recoil/movieId'
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -36,13 +37,27 @@ export default function AddReviewModal({
   title,
   poster,
   movieId,
-  handleAddReview
+  // handleAddReview
 }) {
   
   const classes = useStyles();
   const [rating, setRating] = useState(1);
   const [text, setText] = useState("");
   const [backendMovieId, handleBackendMovieId] = useRecoilState(MovieIdState);
+  const [hover, setHover] = React.useState(-1);
+
+  const labels = {
+    0.5: 'Useless',
+    1: 'Useless+',
+    1.5: 'Poor',
+    2: 'Poor+',
+    2.5: 'Ok',
+    3: 'Ok+',
+    3.5: 'Good',
+    4: 'Good+',
+    4.5: 'Excellent',
+    5: 'Excellent+',
+  };
   
   useEffect(() => {
     
@@ -99,7 +114,7 @@ export default function AddReviewModal({
     }
     document.getElementsByTagName("form")[0].reset();
     setRating(1); 
-    handleAddReview(true) 
+    // handleAddReview(true) 
     window.location.reload()
   };
 
@@ -124,6 +139,9 @@ export default function AddReviewModal({
           onChange={(event, newRating) => {
             setRating(newRating);
           }}
+          onChangeActive={(event, newHover) => {
+          setHover(newHover);
+        }}
         />
         <TextareaAutosize
           aria-label="minimum height"
@@ -140,7 +158,10 @@ export default function AddReviewModal({
 
   return (
     <div>
+        
       <Modal
+
+    
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
@@ -154,6 +175,8 @@ export default function AddReviewModal({
       >
         <Fade in={open}>{body}</Fade>
       </Modal>
+      {/* {rating !== null && <Box ml={2}>{labels[hover !== -1 ? hover : rating]}</Box>} */}
+ 
     </div>
   );
 }

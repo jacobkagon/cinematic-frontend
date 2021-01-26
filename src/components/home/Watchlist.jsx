@@ -2,6 +2,7 @@ import { responsiveFontSizes } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import watchlistIdState from "../../recoil/watchlist";
 import { useRecoilState } from "recoil";
+import { borders } from '@material-ui/system';
 
 import { makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
@@ -29,6 +30,12 @@ const useStyles = makeStyles((theme) => ({
     transform: "translateZ(0)",
     width: 900,
     height: 300,
+   
+  },
+
+  gridListTile: {
+    borderRadius: 16
+
   },
 
   icon: {
@@ -52,11 +59,15 @@ const Watchlist = () => {
   }, []);
 
   return (
+    <span>
     <div className={classes.root}>
-    {film !== [] ? 
+    {film.length !== 0 ? 
+    <span>
+    <h4 align="center">My List</h4>
+   
       <GridList className={classes.gridList} cols={4.5}>
         {film.map((movie, id) => (
-          <GridListTile key={id} style={{ height: "300px" }}>
+          <GridListTile borderRadius={16}  key={id} style={{ height: "300px" }}>
             <img
               src={URL_IMG + IMG_SIZE_LARGE + movie.movie.poster}
               alt={movie.title}
@@ -81,8 +92,10 @@ const Watchlist = () => {
           </GridListTile>
         ))}
       </GridList>
+      </span>
       : null}
     </div>
+    </span>
   );
 };
 

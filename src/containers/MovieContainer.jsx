@@ -28,10 +28,7 @@ class MovieContainer extends Component {
        Popular
        </h4>
         <MovieGrid movies={this.state.movies} />
-        <h4 align='center'>Your Watchlist</h4>
         <Watchlist />
-        
-        <h4 align='center'> What Your Friends are Watching</h4>
         <FriendsWatchlist/>
         <h4 align='center'>Now Playing</h4>
        <Popular/>

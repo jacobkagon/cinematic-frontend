@@ -51,6 +51,8 @@ const UserWatchlist = ({watchlists, userId}) => {
   
 
   return (
+    <div>
+    <h3 align='center'>My List</h3>
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={4.5}>
         {film.map((movie, id) => (
@@ -79,6 +81,7 @@ const UserWatchlist = ({watchlists, userId}) => {
           </GridListTile>
         ))}
       </GridList>
+    </div>
     </div>
   );
 };

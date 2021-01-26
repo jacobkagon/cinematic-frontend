@@ -21,7 +21,10 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    display: 'grid',
+    overflow:'scroll',
   },
+  
   paper: {
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",

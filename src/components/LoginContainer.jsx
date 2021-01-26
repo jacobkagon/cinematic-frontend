@@ -23,7 +23,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://github.com/jacobkagon">
+      <Link color="inherit" href="https://github.com/jacobkagon" target="_blank">
       <GitHubIcon fontSize='small' GitHubIcon/> Jacob 
       </Link>{" "}
       {new Date().getFullYear()}
