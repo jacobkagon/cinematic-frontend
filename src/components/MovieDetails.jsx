@@ -121,6 +121,7 @@ const MovieDetails = () => {
                 Review
               </Button>
               {movieInfo.id ? (
+              
                 <AddWatchlist
                   isInWatchlist={isInWatchlist}
                   handleIsIn={handleIsIn}

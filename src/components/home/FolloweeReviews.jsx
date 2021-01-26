@@ -40,6 +40,7 @@ export default function FolloweeReviews() {
     {followeeReviews.map(review => (
       <ListItem key={review.id} alignItems="flex-start">
         <ListItemAvatar>
+        {console.log(review.user.username)}
         <Link color="inherit" href={`/${review.user.username}/${review.user.id}`}>
           <Avatar alt={review.user.username[0]} src="/static/images/avatar/1.jpg" />
           </Link>

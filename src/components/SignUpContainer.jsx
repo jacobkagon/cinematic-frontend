@@ -14,8 +14,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { BrowserRouter as Router, useHistory } from "react-router-dom";
 import userData from "../recoil/userState";
-import loggedInState from '../recoil/login'
+import loggedInState from "../recoil/login";
 import { useRecoilState } from "recoil";
+import GitHubIcon from '@material-ui/icons/GitHub'
 
 // import PropTypes from 'prop-types';
 // import axios from 'axios';
@@ -25,8 +26,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link color="inherit" href="https://github.com/jacobkagon">
+      <GitHubIcon fontSize='small'/>  Jacob
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -54,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
- export default function SignUp({ handleUser }) {
+export default function SignUp({ handleUser }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
@@ -98,8 +99,8 @@ const useStyles = makeStyles((theme) => ({
 
         if (data.user) {
           setUser(data.user);
-          setLoggedIn(true)
-          handleUser(data.user)
+          setLoggedIn(true);
+          handleUser(data.user);
           history.push("/home");
           window.location.reload();
         } else {
@@ -111,24 +112,6 @@ const useStyles = makeStyles((theme) => ({
         console.error(errors);
       });
   };
-
-//  const onSubmitHandler = async (e) => {
-// 		e.preventDefault();
-	
-// 		const { newUser, user } = this.props;
-		
-
-// 		await newUser({lastName, firstName, username, email, password });
-// 		if (user.isLogin === true) {
-// 			history.push('/home');
-// 		} else {
-// 			this.setState(
-// 				{
-// 					message: 'welcome',
-// 				},
-// 			);
-// 		}
-// 	}
 
   return (
     <Container component="main" maxWidth="xs">
@@ -213,9 +196,7 @@ const useStyles = makeStyles((theme) => ({
                 onChange={(event) => setPassword(event.target.value)}
               />
             </Grid>
-            <Grid item xs={12}>
-              
-            </Grid>
+            <Grid item xs={12}></Grid>
           </Grid>
           <Button
             type="submit"
@@ -227,8 +208,8 @@ const useStyles = makeStyles((theme) => ({
             Sign Up
           </Button>
           <Grid container justify="flex-end">
-            <Grid item>
-              <Link href="#" variant="body2">
+            <Grid item container>
+              <Link href="/login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
@@ -241,6 +222,3 @@ const useStyles = makeStyles((theme) => ({
     </Container>
   );
 }
-
-
-

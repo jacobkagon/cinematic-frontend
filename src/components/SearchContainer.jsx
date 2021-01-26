@@ -13,8 +13,9 @@ import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 import { URL_IMG, IMG_SIZE_LARGE } from "../const";
+import ListItemText from "@material-ui/core/ListItemText";
 
-let handleUser = 0
+let handleUser = 0;
 // import Link from 'react-router-dom'
 
 const token = localStorage.getItem("token");
@@ -71,7 +72,6 @@ const SearchContainer = () => {
   const [movieData, handleMovieData] = useState([]);
   const [userData, handleUserData] = useState([]);
 
-
   useEffect(() => {
     fetch(
       `https://api.themoviedb.org/3/search/movie?api_key=5a9cf113085e6d11351ca2f692a38bde&language=en-US&query=${input}&page=1&include_adult=false`
@@ -98,19 +98,17 @@ const SearchContainer = () => {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           {userData.map((user) =>
-          
-            user.username === input ? (
-              
+            user.username.toLowerCase() === input || user.username === input ? (
               <div>
-              {console.log(`/${input}/${handleUser = user.id}`)}
-                <Link>
-                  <h3 key={user.id} >
-                    {user.username}
-                  </h3>
+              <h3>Users:</h3>
+                <Link href={`/${user.username}/${user.id}`}>
+                  <ListItemText primary={user.username} />
                 </Link>
               </div>
             ) : null
           )}
+          <br/>
+          <br/>
           <Grid container spacing={4}>
             {movieData.map((movie, id) => (
               <Grid item key={id} xs={12} sm={6} md={4}>

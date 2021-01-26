@@ -75,6 +75,7 @@ const AddWatchlist = ({ handleIsIn, isInWatchlist, movieId }) => {
 
   return (
     <div>
+    <br/>
       {isIn === false ? (
         <Button variant="contained" onClick={() => addToWatchlist()}>
           Add to Watchlist

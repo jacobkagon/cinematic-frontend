@@ -50,8 +50,13 @@ const FriendsWatchlist = () => {
   }, []);
 
   return (
+      
     <div className={classes.root}>
+  
+    {film !== [] ? 
+        
       <GridList className={classes.gridList} cols={4.5}>
+    
         {film.map((movie, id) => (
           <GridListTile key={id} style={{ height: "300px" }}>
             <img
@@ -77,8 +82,10 @@ const FriendsWatchlist = () => {
             />
           </GridListTile>
         ))}
-      </GridList>
-    </div>
+      </GridList> : null
+      }
+    </div> 
+    
   );
 };
 

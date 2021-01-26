@@ -1,4 +1,3 @@
-import { responsiveFontSizes } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import watchlistIdState from "../../recoil/watchlist";
 import { useRecoilState } from "recoil";
@@ -12,7 +11,7 @@ import GridListTileBar from "@material-ui/core/GridListTileBar";
 import InfoIcon from "@material-ui/icons/Info";
 import { Link } from "react-router-dom";
 
-import { URL_IMG, IMG_SIZE_LARGE } from "../../const";
+import { URL_IMG, IMG_SIZE_LARGE, API_KEY } from "../../const";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,39 +35,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Watchlist = () => {
+const Popular = () => {
   const classes = useStyles();
   const [film, setFilm] = useState([]);
-  const [watchlistId, setWatchlistId] = useRecoilState(watchlistIdState);
 
   useEffect(() => {
     const userId = localStorage.getItem("user_id");
     const token = localStorage.getItem("token");
-    fetch(`http://localhost:3000/api/v1//user_watchlist/${userId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    fetch(`https://api.themoviedb.org/3/movie/now_playing${API_KEY}&language=en-US&page=1`)
       .then((resp) => resp.json())
-      .then((data) => setFilm(data));
+      .then((data) => setFilm(data.results));
   }, []);
 
   return (
+      
     <div className={classes.root}>
-    {film !== [] ? 
+  
+    {film? 
+      
+        
+      
       <GridList className={classes.gridList} cols={4.5}>
+    
         {film.map((movie, id) => (
           <GridListTile key={id} style={{ height: "300px" }}>
             <img
-              src={URL_IMG + IMG_SIZE_LARGE + movie.movie.poster}
+              src={URL_IMG + IMG_SIZE_LARGE + movie.poster_path}
               alt={movie.title}
             />
             <GridListTileBar
-              title={movie.movie.title}
+              title={movie.title}
               classes={{
                 root: classes.titleBar,
                 title: classes.title,
               }}
               actionIcon={
-                <Link to={"/movie/" + movie.movie.movie_id}>
+                <Link to={"/movie/" + movie.id}>
                   <IconButton
                     aria-label={`info about ${movie.title}`}
                     className={classes.icon}
@@ -80,10 +82,11 @@ const Watchlist = () => {
             />
           </GridListTile>
         ))}
-      </GridList>
-      : null}
-    </div>
+      </GridList> : null
+      }
+    </div> 
+    
   );
 };
 
-export default Watchlist;
+export default Popular;

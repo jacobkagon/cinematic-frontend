@@ -16,14 +16,15 @@ import { Route, useHistory } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import userState from "../recoil/userState";
 import loggedInState from '../recoil/login'
+import GitHubIcon from '@material-ui/icons/GitHub'
 
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link color="inherit" href="https://github.com/jacobkagon">
+      <GitHubIcon fontSize='small' GitHubIcon/> Jacob 
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -167,12 +168,10 @@ export default function SignInSide({handleUser}) {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
+               
               </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
+              <Grid item container>
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
