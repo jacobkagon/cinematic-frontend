@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
   },
   card: {
-    height: "90%",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
   },
@@ -87,6 +87,7 @@ const SearchContainer = () => {
       .then((resp) => resp.json())
       .then((data) => handleUserData(data));
   }, []);
+
   return (
     <div>
       <SearchBar
@@ -101,8 +102,8 @@ const SearchContainer = () => {
             user.username.toLowerCase() === input || user.username === input ? (
               <div>
               <h3>Users:</h3>
-                <Link href={`/${user.username}/${user.id}`}>
-                  <ListItemText primary={user.username} />
+                <Link  color="inherit" href={`/${user.username}/${user.id}`}>
+                 <Button variant="contained"><ListItemText primary={user.username} /></Button>
                 </Link>
               </div>
             ) : null
@@ -112,7 +113,7 @@ const SearchContainer = () => {
           <Grid container spacing={4}>
             {movieData.map((movie, id) => (
               <Grid item key={id} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
+                <Card className={classes.card} >
                   <Link href={"/movie/" + movie.id}>
                     <CardMedia
                       className={classes.cardMedia}

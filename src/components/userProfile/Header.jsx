@@ -9,11 +9,11 @@ import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import FollowerModal from './FollowerModal'
-import FollowingModal from './FolloweesModal'
-import UserWatchlist from './UserWatchlist'
-import SettingsIcon from '@material-ui/icons/Settings';
-import UserReviews from './UserReviews'
+import FollowerModal from "./FollowerModal";
+import FollowingModal from "./FolloweesModal";
+import UserWatchlist from "./UserWatchlist";
+import SettingsIcon from "@material-ui/icons/Settings";
+import UserReviews from "./UserReviews";
 import FriendsReviews from "./FriendsReviews";
 
 const token = localStorage.getItem("token");
@@ -66,11 +66,10 @@ export default function Header(props) {
   const { userId, currentUser } = props;
   const [userData, handleUserData] = useState([]);
   const [isFollowing, handleIsFollowing] = useState(false);
-  const [followerModal, handleFollowerModal] = useState(false)
-  const [followingModal, handleFollowingModal] = useState(false)
-  const [userReviews, handleUserReviews] = useState(false)
-  const [friendsReviews, handleFriendsReviews] = useState(false)
-
+  const [followerModal, handleFollowerModal] = useState(false);
+  const [followingModal, handleFollowingModal] = useState(false);
+  const [userReviews, handleUserReviews] = useState(false);
+  const [friendsReviews, handleFriendsReviews] = useState(false);
 
   useEffect(() => {
     let followerIds = [];
@@ -115,7 +114,6 @@ export default function Header(props) {
 
   return (
     <React.Fragment>
-   
       <Paper
         className={classes.mainFeaturedPost}
         style={{ backgroundImage: null }}
@@ -154,40 +152,60 @@ export default function Header(props) {
                 color="inherit"
                 gutterBottom
               >
-                {userData.username} {userId === currentUser ?<SettingsIcon/> : null}
+                {userData.username}{" "}
+                {/* {userId === currentUser ? <SettingsIcon /> : null} */}
               </Typography>
 
               <Typography variant="h5" color="inherit">
-              <Link color="inherit" onClick={() => handleFollowerModal(true)}>
-                {userData.followers_count} Followers
-                </Link>    
-              </Typography>
-
-              <Typography variant="h5" color="inherit">
-              <Link color="inherit" onClick={() => handleFollowingModal(true)}>
-                {userData.followee_count} Following
-                </Link>
-              </Typography>
-              <Typography variant="h5" color="inherit">
-              <Link color="inherit" onClick={() => handleUserReviews(true)}>
-               Your Reviews
-                </Link>
-              </Typography>
-              <Typography variant="h5" color="inherit">
-              <Link color="inherit" onClick={() => handleFriendsReviews(true)}>
-                Friends Reviews
+                <Link color="inherit" onClick={() => handleFollowerModal(true)}>
+                  {userData.followers_count} Followers
                 </Link>
               </Typography>
 
+              <Typography variant="h5" color="inherit">
+                <Link
+                  color="inherit"
+                  onClick={() => handleFollowingModal(true)}
+                >
+                  {userData.followee_count} Following
+                </Link>
+              </Typography>
+              <Typography variant="h5" color="inherit">
+                <Link color="inherit" onClick={() => handleUserReviews(true)}>
+                  {currentUser === userId ? "Your Reviews" : "Reviews" }
+                </Link>
+              </Typography>
+              {currentUser === userId ? (
+                <Typography variant="h5" color="inherit">
+                  <Link
+                    color="inherit"
+                    onClick={() => handleFriendsReviews(true)}
+                  >
+                    Friends Reviews
+                  </Link>
+                </Typography>
+              ) : null}
             </div>
           </Grid>
         </Grid>
       </Paper>
-      {followerModal === true ? <FollowerModal followers={userData.followers}/> : null}
-      {followingModal === true ? <FollowingModal followees={userData.followees}/> : null}
-      {userReviews === true ? <UserReviews currentUser={userId} userId={currentUser} reviews={userData.reviews}/> : null}
-      {friendsReviews === true ? <FriendsReviews/> : null}
-      {userData.watchlists? <UserWatchlist userId={userId} watchlists={userData.watchlists}/> : null}
+      {followerModal === true ? (
+        <FollowerModal followers={userData.followers} />
+      ) : null}
+      {followingModal === true ? (
+        <FollowingModal followees={userData.followees} />
+      ) : null}
+      {userReviews === true ? (
+        <UserReviews
+          currentUser={userId}
+          userId={currentUser}
+          reviews={userData.reviews}
+        />
+      ) : null}
+      {friendsReviews === true ? <FriendsReviews /> : null}
+      {userData.watchlists ? (
+        <UserWatchlist userId={userId} watchlists={userData.watchlists} />
+      ) : null}
     </React.Fragment>
   );
 }

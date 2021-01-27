@@ -5,6 +5,7 @@ import MovieDetails from "../components/MovieDetails";
 import FolloweeReviews from "../components/home/FolloweeReviews"
 import { makeStyles } from "@material-ui/core/styles";
 
+
 const useStyles = makeStyles((theme) => ({
 img: {
 maxWidth: 100,
@@ -26,10 +27,10 @@ class HomeContainer extends Component {
       <div>
      
       
+      
+     
         <Route path='/home' component={MovieContainer}></Route>
-        
           <Switch>
-          
           <Route path={"/movie/:id"} component={MovieDetails}></Route>
           </Switch>
         

@@ -11,6 +11,7 @@ import GridListTileBar from "@material-ui/core/GridListTileBar";
 import InfoIcon from "@material-ui/icons/Info";
 import { Link } from "react-router-dom";
 
+
 import { URL_IMG, IMG_SIZE_LARGE, API_KEY } from "../../const";
 
 const useStyles = makeStyles((theme) => ({
@@ -26,8 +27,9 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: "nowrap",
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: "translateZ(0)",
-    width: 900,
+    width: 900, 
     height: 320,
+    display: "flex",
   },
 
   icon: {
@@ -53,12 +55,11 @@ const Popular = () => {
   
     {film? 
       
-        
       
-      <GridList className={classes.gridList} cols={4.5}>
+      <GridList className={classes.gridList} cols={4.5} >
     
         {film.map((movie, id) => (
-          <GridListTile key={id} style={{ height: "300px" }}>
+          <GridListTile key={id}  borderRadius="80" style={{ height: "300px" }}>
             <img
               src={URL_IMG + IMG_SIZE_LARGE + movie.poster_path}
               alt={movie.title}

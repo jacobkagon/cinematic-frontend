@@ -2,7 +2,7 @@ import { responsiveFontSizes } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import watchlistIdState from "../../recoil/watchlist";
 import { useRecoilState } from "recoil";
-import { borders } from '@material-ui/system';
+import { borders } from "@material-ui/system";
 
 import { makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
@@ -30,12 +30,15 @@ const useStyles = makeStyles((theme) => ({
     transform: "translateZ(0)",
     width: 900,
     height: 300,
-   
   },
-
   gridListTile: {
-    borderRadius: 16
-
+    flexWrap: "nowrap",
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: "translateZ(0)",
+    width: 900,
+    height: 320,
+    display: "flex",
+    borderRadius: '20%'
   },
 
   icon: {
@@ -60,41 +63,41 @@ const Watchlist = () => {
 
   return (
     <span>
-    <div className={classes.root}>
-    {film.length !== 0 ? 
-    <span>
-    <h4 align="center">My List</h4>
-   
-      <GridList className={classes.gridList} cols={4.5}>
-        {film.map((movie, id) => (
-          <GridListTile borderRadius={16}  key={id} style={{ height: "300px" }}>
-            <img
-              src={URL_IMG + IMG_SIZE_LARGE + movie.movie.poster}
-              alt={movie.title}
-            />
-            <GridListTileBar
-              title={movie.movie.title}
-              classes={{
-                root: classes.titleBar,
-                title: classes.title,
-              }}
-              actionIcon={
-                <Link to={"/movie/" + movie.movie.movie_id}>
-                  <IconButton
-                    aria-label={`info about ${movie.title}`}
-                    className={classes.icon}
-                  >
-                    <InfoIcon />
-                  </IconButton>
-                </Link>
-              }
-            />
-          </GridListTile>
-        ))}
-      </GridList>
-      </span>
-      : null}
-    </div>
+      <div className={classes.root}>
+        {film.length !== 0 ? (
+          <span>
+            <h4 align="center">My List</h4>
+
+            <GridList className={classes.gridList} cols={4.5}>
+              {film.map((movie, id) => (
+                <GridListTile key={id} style={{ height: "300px" }}>
+                  <img
+                    src={URL_IMG + IMG_SIZE_LARGE + movie.movie.poster}
+                    alt={movie.title}
+                  />
+                  <GridListTileBar
+                    title={movie.movie.title}
+                    classes={{
+                      root: classes.titleBar,
+                      title: classes.title,
+                    }}
+                    actionIcon={
+                      <Link to={"/movie/" + movie.movie.movie_id}>
+                        <IconButton
+                          aria-label={`info about ${movie.title}`}
+                          className={classes.icon}
+                        >
+                          <InfoIcon />
+                        </IconButton>
+                      </Link>
+                    }
+                  />
+                </GridListTile>
+              ))}
+            </GridList>
+          </span>
+        ) : null}
+      </div>
     </span>
   );
 };
