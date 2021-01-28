@@ -16,7 +16,8 @@ import { BrowserRouter as Router, useHistory } from "react-router-dom";
 import userData from "../recoil/userState";
 import loggedInState from "../recoil/login";
 import { useRecoilState } from "recoil";
-import GitHubIcon from '@material-ui/icons/GitHub'
+import GitHubIcon from "@material-ui/icons/GitHub";
+import Toolbar from "@material-ui/core/Toolbar";
 
 // import PropTypes from 'prop-types';
 // import axios from 'axios';
@@ -24,14 +25,27 @@ import GitHubIcon from '@material-ui/icons/GitHub'
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://github.com/jacobkagon" target="_blank">
-      <GitHubIcon fontSize='small'/>  Jacob
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
+    <div>
+      <Typography variant="body2" color="textSecondary" align="center">
+        {"Copyright © "}
+        <Link
+          color="inherit"
+          href="https://github.com/jacobkagon"
+          target="_blank"
+        >
+          <GitHubIcon fontSize="small" /> Jacob
+        </Link>{" "}
+        {new Date().getFullYear()}
+        {"."}
+      </Typography>
+      <a href="https://www.themoviedb.org/" target="_blank" color='inherit'>
+      <Typography variant="body2" color="textSecondary" align="center">
+     
+        API courtesy of TMDB
+      </Typography>
+      </a>
+    
+    </div>
   );
 }
 
@@ -52,6 +66,12 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+  },
+  toolbarTitle: {
+    flex: 1,
+  },
+  toolbar: {
+    borderBottom: `1px solid ${theme.palette.divider}`,
   },
 }));
 
@@ -114,111 +134,133 @@ export default function SignUp({ handleUser }) {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
-        <form
-          className={classes.form}
-          noValidate
-          onSubmit={(e) => handleSubmit(e)}
+    <div>
+      <Toolbar className={classes.toolbar}>
+        <Typography
+          component="h1"
+          variant="h3"
+          color="inherit"
+          align="center"
+          noWrap
+          className={classes.toolbarTitle}
         >
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-                value={firstName}
-                onChange={(event) => setFirstName(event.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-                value={lastName}
-                onChange={(event) => setLastName(event.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="username"
-                label="Username"
-                name="username"
-                autoComplete="username"
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}></Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
+          filmify
+        </Typography>
+      </Toolbar>
+
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <form
+            className={classes.form}
+            noValidate
+            onSubmit={(e) => handleSubmit(e)}
           >
-            Sign Up
-          </Button>
-          <Grid container justify="flex-end">
-            <Grid item container>
-              <Link href="/login" variant="body2">
-                Already have an account? Sign in
-              </Link>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="fname"
+                  name="firstName"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                  value={firstName}
+                  onChange={(event) => setFirstName(event.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="lname"
+                  value={lastName}
+                  onChange={(event) => setLastName(event.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="username"
+                  label="Username"
+                  name="username"
+                  autoComplete="username"
+                  value={username}
+                  onChange={(event) => setUsername(event.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}></Grid>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
-    </Container>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign Up
+            </Button>
+            <Grid container justify="flex-end">
+              <Grid item container>
+                <Link href="/login" variant="body2" color="textSecondary">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+              <a href="https://www.themoviedb.org/" target="_blank">
+                <img
+                  align="right"
+                  width="40"
+                  src="https://pbs.twimg.com/profile_images/1243623122089041920/gVZIvphd_400x400.jpg"
+                />
+              </a>
+            </Grid>
+          </form>
+        </div>
+        <Box mt={5}>
+          <Copyright />
+        </Box>
+      </Container>
+    </div>
   );
 }

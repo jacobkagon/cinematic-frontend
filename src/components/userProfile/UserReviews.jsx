@@ -14,17 +14,17 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Typography from "@material-ui/core/Typography";
 import { Rating } from "@material-ui/lab";
 
-const token = localStorage.getItem('token')
+const token = localStorage.getItem("token");
 
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    display: 'grid',
-    overflow:'scroll',
+    display: "grid",
+    overflow: "scroll",
   },
-  
+
   paper: {
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
@@ -47,7 +47,7 @@ const UserReviews = ({ currentUser, userId }) => {
 
   const handleClose = () => {
     setOpen(false);
-    window.location.reload()
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -61,14 +61,19 @@ const UserReviews = ({ currentUser, userId }) => {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
-    window.location.reload()
+    window.location.reload();
   };
 
   const body = (
     <List className={classes.paper}>
-      <h3 align="center" id="simple-modal-title">
+      <Typography
+        variant="h5"
+        color="textPrimary"
+        align="center"
+        id="simple-modal-title"
+      >
         {reviews !== [] ? "Reviews" : "No Reviews"}
-      </h3>
+      </Typography>
       {reviews.map((review) => (
         <ListItem key={review.id} alignItems="flex-start">
           <ListItemAvatar></ListItemAvatar>
@@ -81,7 +86,9 @@ const UserReviews = ({ currentUser, userId }) => {
                   className={classes.inline}
                   color="textPrimary"
                 ></Typography>
-                <h3>{review.movie.title}</h3>
+                <Typography color="textPrimary" variant="h6">
+                  {review.movie.title}
+                </Typography>
                 <Typography>
                   <Rating
                     name="read-only"
@@ -89,15 +96,18 @@ const UserReviews = ({ currentUser, userId }) => {
                     readOnly
                   ></Rating>
                 </Typography>
+                <Typography color='textPrimary'>
                 {review.body}
-                <Typography>
+                </Typography>
+                <Typography color='textPrimary'>
+                
                   {review.created_at.split("-").splice(0, 1)}
                 </Typography>
                 {userId === currentUser ? (
                   <Typography
                     id={review.id}
                     onClick={(event) => deleteReview(event.currentTarget.id)}
-                    color='secondary'
+                    color="secondary"
                   >
                     Delete
                   </Typography>

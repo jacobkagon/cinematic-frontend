@@ -11,6 +11,7 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -53,7 +54,9 @@ const FollowerModal = ({ followers }) => {
 
   const body = (
     <List className={classes.paper}>
-      <h3 id="simple-modal-title">Followers</h3>
+    
+    
+      <Typography color='textPrimary' variant='h5' id="simple-modal-title">Followers</Typography>
         {followers.map((follower, id) => (
           <ListItem key={id}>
               <ListItemAvatar>
@@ -64,12 +67,12 @@ const FollowerModal = ({ followers }) => {
               
               </ListItemAvatar>
               <Link color="inherit" href={`/${follower.username}/${follower.id}`}>
-            <ListItemText primary={follower.username} />
+            <ListItemText color='textPrimary' primary={follower.username} />
             </Link>
           </ListItem>
         ))}
         <Divider variant="inset" component="li" />
-
+        
     </List>
   );
   return (

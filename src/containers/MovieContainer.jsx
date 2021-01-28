@@ -4,10 +4,18 @@ import { URL_LIST, API_KEY, SORT_URL } from "../const";
 import Watchlist from "../components/home/Watchlist";
 import FriendsWatchlist from "../components/home/FriendsWatchlist"
 import Popular from "../components/home/Popular"
+import { Typography } from "@material-ui/core";
+
+import Paper from '@material-ui/core/Paper';
+
+
 class MovieContainer extends Component {
+   
   state = {
     movies: [],
   };
+
+ 
 
   componentDidMount() {
     fetch(URL_LIST + API_KEY + SORT_URL)
@@ -19,12 +27,12 @@ class MovieContainer extends Component {
       );
   }
 
+ 
   render() {
     return (
-      <div>
       
-
-      <h4 align='center'>
+  <Paper>
+      <h4  align='center'>
        Popular
        </h4>
         <MovieGrid movies={this.state.movies} />
@@ -32,7 +40,10 @@ class MovieContainer extends Component {
         <FriendsWatchlist/>
         <h4 align='center'>Now Playing</h4>
        <Popular/>
-      </div>
+       
+     
+       </Paper>
+       
     );
   }
 }

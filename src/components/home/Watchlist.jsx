@@ -11,7 +11,7 @@ import IconButton from "@material-ui/core/IconButton";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import InfoIcon from "@material-ui/icons/Info";
-import { Link } from "react-router-dom";
+import Link from '@material-ui/core/Link';
 
 import { URL_IMG, IMG_SIZE_LARGE } from "../../const";
 
@@ -82,7 +82,7 @@ const Watchlist = () => {
                       title: classes.title,
                     }}
                     actionIcon={
-                      <Link to={"/movie/" + movie.movie.movie_id}>
+                      <Link href={"/movie/" + movie.movie.movie_id}>
                         <IconButton
                           aria-label={`info about ${movie.title}`}
                           className={classes.icon}

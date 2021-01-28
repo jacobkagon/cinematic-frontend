@@ -17,10 +17,12 @@ import { useRecoilState } from "recoil";
 import userState from "../recoil/userState";
 import loggedInState from '../recoil/login'
 import GitHubIcon from '@material-ui/icons/GitHub'
+import Toolbar from "@material-ui/core/Toolbar";
 
 
 function Copyright() {
   return (
+    <div>
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://github.com/jacobkagon" target="_blank">
@@ -29,6 +31,10 @@ function Copyright() {
       {new Date().getFullYear()}
       {"."}
     </Typography>
+    <a href="https://www.themoviedb.org/" target="_blank" color='inherit'>
+    <Typography variant="body2" color="textSecondary" align="center">API courtesy of TMDB</Typography>
+    </a>
+    </div>
   );
 }
 
@@ -63,6 +69,12 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+  },
+  toolbarTitle: {
+    flex: 1,
+  },
+  toolbar: {
+    borderBottom: `1px solid ${theme.palette.divider}`,
   },
 }));
 
@@ -110,6 +122,17 @@ export default function SignInSide({handleUser}) {
   };
 
   return (
+    <div>
+    <Toolbar className={classes.toolbar}><Typography
+          component="h1"
+          variant="h3"
+          color="inherit"
+          align="center"
+          noWrap
+          className={classes.toolbarTitle}
+        >
+          filmify
+        </Typography></Toolbar>
     <Grid container component="main" className={classes.root}>
     {console.log(stateUser)}
       <CssBaseline />
@@ -171,7 +194,7 @@ export default function SignInSide({handleUser}) {
                
               </Grid>
               <Grid item container>
-                <Link href="/signup" variant="body2">
+                <Link href="/signup" variant="body2" color='inherit'>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
@@ -181,7 +204,10 @@ export default function SignInSide({handleUser}) {
             </Box>
           </form>
         </div>
+       
       </Grid>
+     
     </Grid>
+    </div>
   );
 }

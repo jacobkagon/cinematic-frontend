@@ -1,33 +1,41 @@
 import React, { Component } from "react";
 import HomeContainer from "./HomeContainer";
-import {BrowserRouter, Route, Switch } from "react-router-dom";
-
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import MovieDetails from "../components/MovieDetails";
-import UserProfile from '../components/userProfile/UserProfile'
-import SearchContainer from  "../components/SearchContainer"
+import UserProfile from "../components/userProfile/UserProfile";
+import SearchContainer from "../components/SearchContainer";
 import NavBar from "../components/Navbar";
+import Paper from '@material-ui/core/Paper';
 class MainApp extends Component {
-  
-
-
-  
   render() {
     return (
-      <BrowserRouter>
-     <div>
-     <NavBar/>
+      
+      <Paper>
+        <BrowserRouter>
+          {localStorage.getItem("token") ? (
+            <div>
+              <NavBar theme={this.props.theme} setTheme={this.props.setTheme}/>
 
-    
-      {/* <Route path="/home" component={NavBar}/> */}
-      <Route path="/home" component={HomeContainer} />
-      <Switch>
-      <Route path={"/movie/:id"} component={MovieDetails}></Route>
-      <Route path={'/:username/:user_id'} component={UserProfile}></Route>
-      <Route path='/search' component={SearchContainer}/>
-      </Switch>
-      </div>
-      </BrowserRouter>
+              {/* <Route path="/home" component={NavBar}/> */}
+              <Route path="/home" component={HomeContainer} />
+              <Switch>
+                <Route path={"/movie/:id"} component={MovieDetails}></Route>
+                <Route
+                  path={"/:username/:user_id"}
+                  component={UserProfile}
+                ></Route>
+                <Route path="/search" component={SearchContainer} />
+              </Switch>
+            </div>
+          ) : (
+            <div>
+              <Redirect to="/login" />
+            </div>
+          )}
+          </BrowserRouter>
+        </Paper>
+      
     );
   }
 }

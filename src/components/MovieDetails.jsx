@@ -18,6 +18,7 @@ import Link from "@material-ui/core/Link";
 import Discover from "./Discover";
 import { Rating } from "@material-ui/lab";
 
+
 const token = localStorage.getItem("token");
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.common.white,
     marginBottom: theme.spacing(4),
     backgroundImage: "url(https://source.unsplash.com/random)",
-    height: 550,
+    height: 600,
 
     backgroundRepeat: "no-repeat",
     backgroundPosition: "left",
@@ -88,6 +89,7 @@ const MovieDetails = () => {
   };
 
   return (
+    <Paper>
     <div>
       {movieInfo !== [] ? createMovie() : null}
       <Paper
@@ -176,13 +178,18 @@ const MovieDetails = () => {
       </Paper>
 
       {movieInfo.id !== undefined ? (
+        <Paper>
         <div>
+        
           <h4 align="center">You May Also Like</h4>
           {/* <ReviewScroll movieId={movieInfo.id} reviewAdded={reviewAdded} />  */}
           <Discover movieId={movieInfo.id} />
+         
         </div>
+        </Paper>
       ) : null}
     </div>
+    </Paper>
   );
 };
 

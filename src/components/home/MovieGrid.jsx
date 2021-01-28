@@ -8,7 +8,7 @@ import GridListTileBar from "@material-ui/core/GridListTileBar";
 import InfoIcon from "@material-ui/icons/Info";
 import { Rating } from "@material-ui/lab";
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-import  Link  from '@material-ui/core/Link';
+import Link from '@material-ui/core/Link';
 import MovieDetails from "../MovieDetails";
 
 import { URL_IMG, IMG_SIZE_LARGE } from "../../const";

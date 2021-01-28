@@ -96,10 +96,13 @@ export default function ReviewScroll({ movieId }) {
 
   const body = (
     <List className={classes.paper}>
-        <h3 align="center" id="simple-modal-title">
-          {movieReviews ? "Reviews" : "No Reviews"}
-        </h3>
+        <Typography color='textPrimary' variant="h5" align="center" id="simple-modal-title">
+          {movieReviews.length !== 0 ? "Reviews" : "No Reviews"}
+        </Typography>
         {movieReviews.map((review) => (
+          
+          
+          
           <ListItem key={review.id} alignItems="flex-start">
             <ListItemAvatar></ListItemAvatar>
             <ListItemText
@@ -113,7 +116,7 @@ export default function ReviewScroll({ movieId }) {
                   ></Typography>
                  
                   <Link color="inherit" href={`/${review.user.username}/${review.user.id}`}>
-                    <h4>{review.user.username}</h4>
+                    <Typography color='textPrimary'>{review.user.username}</Typography>
                     </Link>
                   <Typography>
                     <Rating
@@ -122,8 +125,8 @@ export default function ReviewScroll({ movieId }) {
                       readOnly
                     ></Rating>
                   </Typography>
-                  {review.body}
-                  <Typography>
+                  <Typography color='textPrimary'>{review.body}</Typography>
+                  <Typography color='textPrimary'>
                     {review.created_at.split("-").splice(0, 1)}
                   </Typography>
                 
@@ -132,6 +135,8 @@ export default function ReviewScroll({ movieId }) {
               }
             />
           </ListItem>
+        
+         
         ))}
         <Divider variant="inset" component="li" />
       </List>

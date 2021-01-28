@@ -14,6 +14,7 @@ import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 import { URL_IMG, IMG_SIZE_LARGE } from "../const";
 import ListItemText from "@material-ui/core/ListItemText";
+import Paper from '@material-ui/core/Paper';
 
 let handleUser = 0;
 // import Link from 'react-router-dom'
@@ -22,6 +23,7 @@ const token = localStorage.getItem("token");
 
 function Copyright() {
   return (
+    
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
@@ -89,7 +91,9 @@ const SearchContainer = () => {
   }, []);
 
   return (
+    <Paper>
     <div>
+   
       <SearchBar
         value={input}
         onChange={(newInput) => handleInput(newInput)}
@@ -135,6 +139,8 @@ const SearchContainer = () => {
         </Container>
       ) : null}
     </div>
+    
+    </Paper>
   );
 };
 

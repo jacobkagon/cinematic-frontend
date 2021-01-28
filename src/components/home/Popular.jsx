@@ -9,7 +9,8 @@ import IconButton from "@material-ui/core/IconButton";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import InfoIcon from "@material-ui/icons/Info";
-import { Link } from "react-router-dom";
+import Link from '@material-ui/core/Link';
+import Box from '@material-ui/core/Box';
 
 
 import { URL_IMG, IMG_SIZE_LARGE, API_KEY } from "../../const";
@@ -30,6 +31,12 @@ const useStyles = makeStyles((theme) => ({
     width: 900, 
     height: 320,
     display: "flex",
+    
+  },
+  gridListTile: {
+    borderRadius: "50%",
+    height: '300px',
+
   },
 
   icon: {
@@ -56,11 +63,12 @@ const Popular = () => {
     {film? 
       
       
-      <GridList className={classes.gridList} cols={4.5} >
+      <GridList  className={classes.gridList} cols={4.5} >
     
         {film.map((movie, id) => (
-          <GridListTile key={id}  borderRadius="80" style={{ height: "300px" }}>
-            <img
+         
+          <GridListTile key={id}  className={classes.gridListTile} style={{ height: "300px" }}>
+            <img 
               src={URL_IMG + IMG_SIZE_LARGE + movie.poster_path}
               alt={movie.title}
             />
@@ -71,7 +79,7 @@ const Popular = () => {
                 title: classes.title,
               }}
               actionIcon={
-                <Link to={"/movie/" + movie.id}>
+                <Link href={"/movie/" + movie.id}>
                   <IconButton
                     aria-label={`info about ${movie.title}`}
                     className={classes.icon}
@@ -82,6 +90,7 @@ const Popular = () => {
               }
             />
           </GridListTile>
+          
         ))}
       </GridList> : null
       }

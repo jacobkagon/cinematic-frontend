@@ -11,6 +11,7 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -30,6 +31,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 const FollowingModal = ({ followees }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
@@ -45,7 +48,7 @@ const FollowingModal = ({ followees }) => {
 
   const body = (
     <List className={classes.paper}>
-      <h3 id="simple-modal-title">Following</h3>
+      <Typography color='textPrimary'variant='h5' id="simple-modal-title">Following</Typography>
      
         {followees.map((followee) => (
           <ListItem>
@@ -54,7 +57,7 @@ const FollowingModal = ({ followees }) => {
             </ListItemAvatar>
 
             <Link color="inherit" href={`/${followee.username}/${followee.id}`}>
-              <ListItemText primary={followee.username} />
+              <Typography color='textPrimary'  >{followee.username}</Typography>
             </Link>
           </ListItem>
         ))}

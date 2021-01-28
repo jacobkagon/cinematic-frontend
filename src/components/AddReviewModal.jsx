@@ -9,10 +9,10 @@ import Rating from "@material-ui/lab/Rating";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Alert from "@material-ui/lab/Alert";
 import userData from "../recoil/userState";
-import {useRecoilState} from 'recoil'
+import { useRecoilState } from "recoil";
 import loggedInState from "../recoil/login";
-import MovieIdState from '../recoil/movieId'
-import Box from '@material-ui/core/Box';
+import MovieIdState from "../recoil/movieId";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -39,7 +39,6 @@ export default function AddReviewModal({
   movieId,
   // handleAddReview
 }) {
-  
   const classes = useStyles();
   const [rating, setRating] = useState(1);
   const [text, setText] = useState("");
@@ -47,21 +46,19 @@ export default function AddReviewModal({
   const [hover, setHover] = React.useState(-1);
 
   const labels = {
-    0.5: 'Useless',
-    1: 'Useless+',
-    1.5: 'Poor',
-    2: 'Poor+',
-    2.5: 'Ok',
-    3: 'Ok+',
-    3.5: 'Good',
-    4: 'Good+',
-    4.5: 'Excellent',
-    5: 'Excellent+',
+    0.5: "Useless",
+    1: "Useless+",
+    1.5: "Poor",
+    2: "Poor+",
+    2.5: "Ok",
+    3: "Ok+",
+    3.5: "Good",
+    4: "Good+",
+    4.5: "Excellent",
+    5: "Excellent+",
   };
-  
+
   useEffect(() => {
-    
-   
     const data = {};
     data.title = title;
     data.poster = poster;
@@ -78,27 +75,24 @@ export default function AddReviewModal({
     })
       .then((resp) => resp.json())
       .then((dataArr) => findMovie());
-  }, [])
+  }, []);
 
   const findMovie = () => {
-
     if (movieId !== 0) {
       fetch(`http://localhost:3000/api/v1/find_movie/${movieId}`)
         .then((resp) => resp.json())
         .then((data) => handleBackendMovieId(data.id));
     }
-  }
+  };
 
   const handleClose = () => {
     closeModal(false);
   };
 
   const handleSubmit = (event) => {
-   
-
     const movieData = {};
     movieData.movie_id = backendMovieId;
-    movieData.user_id = localStorage.getItem("user_id")
+    movieData.user_id = localStorage.getItem("user_id");
     movieData.rating = rating;
     movieData.body = text;
 
@@ -113,9 +107,9 @@ export default function AddReviewModal({
         .then((data) => console.log(data));
     }
     document.getElementsByTagName("form")[0].reset();
-    setRating(1); 
-    // handleAddReview(true) 
-    window.location.reload()
+    setRating(1);
+    // handleAddReview(true)
+    window.location.reload();
   };
 
   const body = (
@@ -140,8 +134,8 @@ export default function AddReviewModal({
             setRating(newRating);
           }}
           onChangeActive={(event, newHover) => {
-          setHover(newHover);
-        }}
+            setHover(newHover);
+          }}
         />
         <TextareaAutosize
           aria-label="minimum height"
@@ -149,7 +143,7 @@ export default function AddReviewModal({
           placeholder=""
           onChange={(event) => setText(event.target.value)}
         />
-        <Button type="submit" color="primary" className={classes.submit}>
+        <Button type="submit" color="textPrimary" className={classes.submit}>
           Submit
         </Button>
       </form>
@@ -158,10 +152,7 @@ export default function AddReviewModal({
 
   return (
     <div>
-        
       <Modal
-
-    
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
@@ -176,7 +167,6 @@ export default function AddReviewModal({
         <Fade in={open}>{body}</Fade>
       </Modal>
       {/* {rating !== null && <Box ml={2}>{labels[hover !== -1 ? hover : rating]}</Box>} */}
- 
     </div>
   );
 }
