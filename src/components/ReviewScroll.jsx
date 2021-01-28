@@ -127,7 +127,7 @@ export default function ReviewScroll({ movieId }) {
                   </Typography>
                   <Typography color='textPrimary'>{review.body}</Typography>
                   <Typography color='textPrimary'>
-                    {review.created_at.split("-").splice(0, 1)}
+                    {new Date(review.created_at).toDateString()}
                   </Typography>
                 
                    

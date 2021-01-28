@@ -18,9 +18,14 @@ const token = localStorage.getItem("token");
 
 const useStyles = makeStyles((theme) => ({
   modal: {
-    display: "flex",
     alignItems: "center",
     justifyContent: "center",
+   
+    position:'absolute',
+   
+    display: 'grid',
+    overflow:'scroll',
+
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
@@ -94,7 +99,7 @@ const FriendsReviews = () => {
                 {review.body}
                 </Typography>
                 <Typography color='textPrimary'>
-                  {review.created_at.split("-").splice(0, 1)}
+                  {new Date(review.created_at).toDateString()}
                 </Typography>
               </React.Fragment>
             }

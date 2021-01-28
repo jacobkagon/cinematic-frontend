@@ -16,6 +16,7 @@ import { Rating } from "@material-ui/lab";
 
 const token = localStorage.getItem("token");
 
+
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
@@ -38,9 +39,21 @@ const useStyles = makeStyles((theme) => ({
   h3: {
     align: "center",
   },
+  modal: {
+    alignItems: "center",
+    justifyContent: "center",
+   
+    position:'absolute',
+   
+    display: 'grid',
+    overflow:'scroll',
+
+  },
 }));
 
 const UserReviews = ({ currentUser, userId }) => {
+   let date = ""
+  let newDate = ""
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const [reviews, handleReviews] = useState([]);
@@ -76,6 +89,8 @@ const UserReviews = ({ currentUser, userId }) => {
       </Typography>
       {reviews.map((review) => (
         <ListItem key={review.id} alignItems="flex-start">
+        
+     
           <ListItemAvatar></ListItemAvatar>
           <ListItemText
             secondary={
@@ -100,8 +115,7 @@ const UserReviews = ({ currentUser, userId }) => {
                 {review.body}
                 </Typography>
                 <Typography color='textPrimary'>
-                
-                  {review.created_at.split("-").splice(0, 1)}
+                  {new Date(review.created_at).toDateString()}
                 </Typography>
                 {userId === currentUser ? (
                   <Typography
