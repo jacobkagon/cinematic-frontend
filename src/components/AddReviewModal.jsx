@@ -94,6 +94,7 @@ export default function AddReviewModal({
     movieData.movie_id = backendMovieId;
     movieData.user_id = localStorage.getItem("user_id");
     movieData.rating = rating;
+    movieData.likes = 0;
     movieData.body = text;
 
     event.preventDefault();
