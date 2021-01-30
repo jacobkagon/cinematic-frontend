@@ -72,6 +72,7 @@ export default function Header(props) {
   const [userReviews, handleUserReviews] = useState(false);
   const [friendsReviews, handleFriendsReviews] = useState(false);
   const [updateProfile, handleProfileUpdate] = useState(false)
+  const [closeUpdateModal, handleClose] = useState(false)
 
   useEffect(() => {
     let followerIds = [];
@@ -191,7 +192,7 @@ export default function Header(props) {
           </Grid>
         </Grid>
       </Paper>
-      {updateProfile ? <UpdateProfile/> : null}
+      {updateProfile ? <UpdateProfile handleCloseModal={handleClose}/> : null}
       {followerModal === true ? (
         <FollowerModal followers={userData.followers} handleFollowerModal={handleFollowerModal}/>
       ) : null}

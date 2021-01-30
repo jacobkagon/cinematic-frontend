@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UpdateProfile = ({}) => {
+const UpdateProfile = ({handleCloseModal}) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const [firstName, setFirstName] = useState("");
@@ -75,6 +75,8 @@ e.preventDefault()
         body: JSON.stringify(data)
     }).then(resp => resp.json())
     .then(data => console.log(data))
+
+    window.location.reload()
   };
 
   const body = (
