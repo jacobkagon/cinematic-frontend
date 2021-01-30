@@ -18,7 +18,6 @@ import Link from "@material-ui/core/Link";
 import Discover from "./Discover";
 import { Rating } from "@material-ui/lab";
 
-
 const token = localStorage.getItem("token");
 
 const useStyles = makeStyles((theme) => ({
@@ -90,105 +89,111 @@ const MovieDetails = () => {
 
   return (
     <Paper>
-    <div>
-      {movieInfo !== [] ? createMovie() : null}
-      <Paper
-        className={classes.mainFeaturedPost}
-        style={{
-          backgroundImage: `url(${
-            URL_IMG + IMG_SIZE_LARGE + movieInfo.poster_path
-          })`,
-        }}
-      >
-        {modal ? (
-          <AddReviewModal
-            // handleAddReview={handleAddReview}
-            open={modal}
-            closeModal={handleModal}
-            movieId={movieInfo.id}
-          />
-        ) : null}
+      <div>
+        {movieInfo !== [] ? createMovie() : null}
+        <Paper
+          className={classes.mainFeaturedPost}
+          style={{
+            backgroundImage: `url(${
+              URL_IMG + IMG_SIZE_LARGE + movieInfo.poster_path
+            })`,
+          }}
+        >
+          {modal ? (
+            <AddReviewModal
+              // handleAddReview={handleAddReview}
+             
+              open={modal}
+              closeModal={handleModal}
+              movieId={movieInfo.id}
+            />
+          ) : null}
 
-        {allReviews ? <ReviewScroll movieId={movieInfo.id} /> : null}
-        {
-          <img
-            style={{ display: "none" }}
-            src={URL_IMG + IMG_SIZE_LARGE + movieInfo.poster_path}
-            alt="movie"
-          />
-        }
-        <div className={classes.overlay} />
-        <Grid container>
-          <Grid item md={6}>
-            <div className={classes.mainFeaturedPostContent}>
-              <Button variant="contained" onClick={() => handleModal(true)}>
-                Review
-              </Button>
-              {"  "}{" "}
-              <Button
-                variant="contained"
-                onClick={() => handleAllReviews(true)}
-              >
-                See All Reviews
-              </Button>
-              {movieInfo.id ? (
-                <AddWatchlist
-                  isInWatchlist={isInWatchlist}
-                  handleIsIn={handleIsIn}
-                  movieId={movieInfo.id}
-                />
-              ) : null}
-              <p />
-              <Typography component="h1" variant="h3" color="inherit">
-                {movieInfo.title}
-              </Typography>
-              <Typography variant="h6" color="inherit" paragraph>
-                {movieInfo.release_date
-                  ? movieInfo.release_date.split("-")[0]
-                  : null}
-              </Typography>
-              <Typography variant="h6" color="inherit" paragraph>
-                <Rating
-                  value={movieInfo.vote_average / 2}
-                  precision={0.5}
-                  readOnly
-                ></Rating>
-              </Typography>
-              <Typography variant="subtitle1" href="#">
-                {movieInfo.genres
-                  ? movieInfo.genres.map((genre, id) => (
-                      <Chip
-                        key={id}
-                        size="small"
-                        label={genre.name}
-                        color="primary"
-                      />
-                    ))
-                  : null}
+          {allReviews ? (
+            <ReviewScroll
+              handleModal={handleAllReviews}
+              movieId={movieInfo.id}
+            />
+          ) : null}
+          {
+            <img
+              style={{ display: "none" }}
+              src={URL_IMG + IMG_SIZE_LARGE + movieInfo.poster_path}
+              alt="movie"
+            />
+          }
+          <div className={classes.overlay} />
+          <Grid container>
+            <Grid item md={6}>
+              <div className={classes.mainFeaturedPostContent}>
+                <Button variant="contained" onClick={() => handleModal(true)}>
+                  Review
+                </Button>
+                {"  "}{" "}
+                <Button
+                  variant="contained"
+                  onClick={() => handleAllReviews(true)}
+                >
+                  See All Reviews
+                </Button>
+                {movieInfo.id ? (
+                  <AddWatchlist
+                    isInWatchlist={isInWatchlist}
+                    handleIsIn={handleIsIn}
+                    movieId={movieInfo.id}
+                  />
+                ) : null}
                 <p />
-               <Typography fontWeight="fontWeightMedium">Runtime: {movieInfo.runtime} minutes</Typography>
-                <p />
-              </Typography>
-              <Typography component="h1" variant="subtitle1" href="#">
-                {movieInfo.overview}
-              </Typography>
-            </div>
+                <Typography component="h1" variant="h3" color="inherit">
+                  {movieInfo.title}
+                </Typography>
+                <Typography variant="h6" color="inherit" paragraph>
+                  {movieInfo.release_date
+                    ? movieInfo.release_date.split("-")[0]
+                    : null}
+                </Typography>
+                <Typography variant="h6" color="inherit" paragraph>
+                  <Rating
+                    value={movieInfo.vote_average / 2}
+                    precision={0.5}
+                    readOnly
+                  ></Rating>
+                </Typography>
+                <Typography variant="subtitle1" href="#">
+                  {movieInfo.genres
+                    ? movieInfo.genres.map((genre, id) => (
+                        <Chip
+                          key={id}
+                          size="small"
+                          label={genre.name}
+                          color="primary"
+                        />
+                      ))
+                    : null}
+                  <p />
+                  <Typography fontWeight="fontWeightMedium">
+                    Runtime: {movieInfo.runtime} minutes
+                  </Typography>
+                  <p />
+                </Typography>
+                <Typography component="h1" variant="subtitle1" href="#">
+                  {movieInfo.overview}
+                </Typography>
+              </div>
+            </Grid>
           </Grid>
-        </Grid>
-      </Paper>
-
-      {movieInfo.id !== undefined ? (
-        <Paper>
-        <div>
-        
-          <h4 align="center">You May Also Like</h4>
-          {/* <ReviewScroll movieId={movieInfo.id} reviewAdded={reviewAdded} />  */}
-          <Discover movieId={movieInfo.id} />
-         
-        </div>
         </Paper>
-      ) : null}
-    </div>
+
+        {movieInfo.id !== undefined ? (
+          <Paper>
+            <div>
+              <h4 align="center">You May Also Like</h4>
+              {/* <ReviewScroll movieId={movieInfo.id} reviewAdded={reviewAdded} />  */}
+              <Discover movieId={movieInfo.id} />
+            </div>
+          </Paper>
+        ) : null}
+      </div>
     </Paper>
   );
 };

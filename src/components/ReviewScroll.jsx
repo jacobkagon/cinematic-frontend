@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ReviewScroll({ movieId }) {
+export default function ReviewScroll({ handleModal, movieId }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const [movieReviews, handleMovieReviews] = useState([]);
@@ -73,7 +73,7 @@ export default function ReviewScroll({ movieId }) {
 
   const handleClose = () => {
     setOpen(false);
-    window.location.reload();
+    handleModal(false)
   };
 
   useEffect(() => {
@@ -88,7 +88,7 @@ export default function ReviewScroll({ movieId }) {
         handleMovieReviews(data);
       });
     handleAddReview(false);
-  }, []);
+  }, [addReview]);
 
   const addLike = (review) => {
     const data = {};
@@ -140,7 +140,7 @@ export default function ReviewScroll({ movieId }) {
         id="simple-modal-title"
       ></Typography>
       <div>
-        <strong >Sort by:</strong>
+        <strong>Sort by:</strong>
         <label>
           <input
           

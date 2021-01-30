@@ -42,14 +42,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FriendsReviews = () => {
+const FriendsReviews = ({handleFriendsReviews}) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const [reviews, handleReviews] = useState([]);
 
   const handleClose = () => {
     setOpen(false);
-    window.location.reload();
+    handleFriendsReviews(false)
   };
 
   useEffect(() => {

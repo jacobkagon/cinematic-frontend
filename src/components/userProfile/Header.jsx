@@ -15,6 +15,7 @@ import UserWatchlist from "./UserWatchlist";
 import SettingsIcon from "@material-ui/icons/Settings";
 import UserReviews from "./UserReviews";
 import FriendsReviews from "./FriendsReviews";
+import UpdateProfile from './UpdateProfile'
 
 const token = localStorage.getItem("token");
 
@@ -70,6 +71,7 @@ export default function Header(props) {
   const [followingModal, handleFollowingModal] = useState(false);
   const [userReviews, handleUserReviews] = useState(false);
   const [friendsReviews, handleFriendsReviews] = useState(false);
+  const [updateProfile, handleProfileUpdate] = useState(false)
 
   useEffect(() => {
     let followerIds = [];
@@ -153,7 +155,7 @@ export default function Header(props) {
                 gutterBottom
               >
                 {userData.username}{" "}
-                {/* {userId === currentUser ? <SettingsIcon /> : null} */}
+                {userId === currentUser ? <SettingsIcon onClick={() => handleProfileUpdate(true)}/> : null}
               </Typography>
 
               <Typography variant="h5" color="inherit">
@@ -189,20 +191,22 @@ export default function Header(props) {
           </Grid>
         </Grid>
       </Paper>
+      {updateProfile ? <UpdateProfile/> : null}
       {followerModal === true ? (
-        <FollowerModal followers={userData.followers} />
+        <FollowerModal followers={userData.followers} handleFollowerModal={handleFollowerModal}/>
       ) : null}
       {followingModal === true ? (
-        <FollowingModal followees={userData.followees} />
+        <FollowingModal followees={userData.followees} handleFollowingModal={handleFollowingModal} />
       ) : null}
       {userReviews === true ? (
         <UserReviews
+        handleUserReviews={handleUserReviews}
           currentUser={userId}
           userId={currentUser}
           reviews={userData.reviews}
         />
       ) : null}
-      {friendsReviews === true ? <FriendsReviews /> : null}
+      {friendsReviews === true ? <FriendsReviews handleFriendsReviews={handleFriendsReviews} /> : null}
       {userData.watchlists ? (
         <UserWatchlist userId={userId} watchlists={userData.watchlists} />
       ) : null}

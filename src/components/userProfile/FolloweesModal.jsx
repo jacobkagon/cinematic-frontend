@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const FollowingModal = ({ followees }) => {
+const FollowingModal = ({ handleFollowingModal, followees }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
@@ -43,7 +43,7 @@ const FollowingModal = ({ followees }) => {
 
   const handleClose = () => {
     setOpen(false);
-    window.location.reload();
+   handleFollowingModal(false)
   };
 
   const body = (

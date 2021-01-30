@@ -51,16 +51,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserReviews = ({ currentUser, userId }) => {
+const UserReviews = ({ handleUserReviews,currentUser, userId }) => {
    let date = ""
   let newDate = ""
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const [reviews, handleReviews] = useState([]);
+  const [deleteReviews, handleDeleteReviews] = useState(false)
 
   const handleClose = () => {
     setOpen(false);
-    window.location.reload();
+    handleUserReviews(false)
   };
 
   useEffect(() => {
@@ -74,7 +75,7 @@ const UserReviews = ({ currentUser, userId }) => {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
-    window.location.reload();
+    handleDeleteReviews(true)
   };
 
   const body = (

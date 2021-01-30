@@ -13,6 +13,7 @@ import { useRecoilState } from "recoil";
 import loggedInState from "../recoil/login";
 import MovieIdState from "../recoil/movieId";
 import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -37,6 +38,7 @@ export default function AddReviewModal({
   title,
   poster,
   movieId,
+
   // handleAddReview
 }) {
   const classes = useStyles();
@@ -110,7 +112,7 @@ export default function AddReviewModal({
     document.getElementsByTagName("form")[0].reset();
     setRating(1);
     // handleAddReview(true)
-    window.location.reload();
+   window.location.reload()
   };
 
   const body = (
