@@ -12,7 +12,7 @@ import { useHistory } from "react-router-dom";
 import HomeIcon from "@material-ui/icons/Home";
 import Brightness2Icon from "@material-ui/icons/Brightness2";
 import Brightness5Icon from "@material-ui/icons/Brightness5";
-import Paper from '@material-ui/core/Paper';
+import Paper from "@material-ui/core/Paper";
 
 import { ThemeProvider } from "@material-ui/core";
 
@@ -37,15 +37,14 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
   },
 }));
-const theme = localStorage.getItem('theme')
+const theme = localStorage.getItem("theme");
 
 export default function Header(props) {
   const classes = useStyles();
-  const { sections, title, theme, setTheme  } = props;
+  const { sections, title, theme, setTheme } = props;
   const history = useHistory();
 
-
-   const icon = !theme ? <Brightness2Icon /> : <Brightness5Icon />;
+  const icon = !theme ? <Brightness2Icon /> : <Brightness5Icon />;
 
   const logout = () => {
     localStorage.clear();
@@ -68,12 +67,8 @@ export default function Header(props) {
     window.location.reload();
   };
 
-  
- 
-
   return (
-    
-      <React.Fragment>
+    <React.Fragment>
       <Paper>
         <Toolbar className={classes.toolbar}>
           <IconButton onClick={() => userProfile()}>
@@ -90,7 +85,7 @@ export default function Header(props) {
             noWrap
             className={classes.toolbarTitle}
           >
-            filmify
+            Cinematic
           </Typography>
           <IconButton
             edge="end"
@@ -109,20 +104,18 @@ export default function Header(props) {
             Logout
           </Button>
         </Toolbar>
-        
-          <Link
-            color="inherit"
-            noWrap
-            // key={section.title}
-            variant="body2"
-            // href={section.url}
-            className={classes.toolbarLink}
-            // {sections.title}
-          ></Link>
-       
-        </Paper>
-      </React.Fragment>
-    
+
+        <Link
+          color="inherit"
+          noWrap
+          // key={section.title}
+          variant="body2"
+          // href={section.url}
+          className={classes.toolbarLink}
+          // {sections.title}
+        ></Link>
+      </Paper>
+    </React.Fragment>
   );
 }
 
@@ -130,5 +123,3 @@ Header.propTypes = {
   sections: PropTypes.array,
   title: PropTypes.string,
 };
-
-

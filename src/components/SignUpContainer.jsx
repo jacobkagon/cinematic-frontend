@@ -38,13 +38,11 @@ function Copyright() {
         {new Date().getFullYear()}
         {"."}
       </Typography>
-      <a href="https://www.themoviedb.org/" target="_blank" color='inherit'>
-      <Typography variant="body2" color="textSecondary" align="center">
-     
-        API courtesy of TMDB
-      </Typography>
+      <a href="https://www.themoviedb.org/" target="_blank" color="inherit">
+        <Typography variant="body2" color="textSecondary" align="center">
+          API courtesy of TMDB
+        </Typography>
       </a>
-    
     </div>
   );
 }
@@ -144,7 +142,7 @@ export default function SignUp({ handleUser }) {
           noWrap
           className={classes.toolbarTitle}
         >
-          filmify
+          Cinematic
         </Typography>
       </Toolbar>
 
