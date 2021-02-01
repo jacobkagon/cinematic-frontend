@@ -54,7 +54,7 @@ const Watchlist = () => {
   useEffect(() => {
     const userId = localStorage.getItem("user_id");
     const token = localStorage.getItem("token");
-    fetch(`http://localhost:3000/api/v1//user_watchlist/${userId}`, {
+    fetch(`https://cinematic-backend.herokuapp.com/user_watchlist/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((resp) => resp.json())

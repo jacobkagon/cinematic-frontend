@@ -66,7 +66,7 @@ export default function AddReviewModal({
     data.poster = poster;
     data.movie_id = movieId;
 
-    fetch("http://localhost:3000/api/v1/movies", {
+    fetch("https://cinematic-backend.herokuapp.com/api/v1/movies", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -81,7 +81,7 @@ export default function AddReviewModal({
 
   const findMovie = () => {
     if (movieId !== 0) {
-      fetch(`http://localhost:3000/api/v1/find_movie/${movieId}`)
+      fetch(`https://cinematic-backend.herokuapp.com/api/v1/find_movie/${movieId}`)
         .then((resp) => resp.json())
         .then((data) => handleBackendMovieId(data.id));
     }
@@ -101,7 +101,7 @@ export default function AddReviewModal({
 
     event.preventDefault();
     if (text !== "") {
-      fetch("http://localhost:3000/api/v1/reviews", {
+      fetch("https://cinematic-backend.herokuapp.com/api/v1/reviews", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(movieData),

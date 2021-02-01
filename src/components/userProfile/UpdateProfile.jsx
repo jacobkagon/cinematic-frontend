@@ -54,7 +54,7 @@ const UpdateProfile = ({ handleCloseModal }) => {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/v1/users/${userId}`, {
+    fetch(`https://cinematic-backend.herokuapp.com/api/v1/users/${userId}`, {
       headers: {Authorization: `Bearer ${token}`}
     })
       .then((resp) => resp.json())
@@ -83,7 +83,7 @@ const UpdateProfile = ({ handleCloseModal }) => {
     data.email = email;
     data.password = password;
 
-    fetch(`http://localhost:3000/api/v1/users/${userId}`, {
+    fetch(`https://cinematic-backend.herokuapp.com/api/v1/users/${userId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

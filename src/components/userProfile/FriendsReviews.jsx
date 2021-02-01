@@ -53,7 +53,7 @@ const FriendsReviews = ({handleFriendsReviews}) => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/v1/followee_reviews", {
+    fetch("https://cinematic-backend.herokuapp.com/api/v1/followee_reviews", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     })

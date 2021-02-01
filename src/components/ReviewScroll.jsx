@@ -80,7 +80,7 @@ export default function ReviewScroll({ handleModal, movieId }) {
     // error i'm getting is movieReviews is not a function.
     //You must create a ternary to prevent data from going to state.
 
-    fetch(`http://localhost:3000/api/v1/movie_review/${movieId}`, {
+    fetch(`https://cinematic-backend.herokuapp.com/api/v1/movie_review/${movieId}`, {
       Authorization: `Bearer ${token}`,
     })
       .then((resp) => resp.json())
@@ -98,7 +98,7 @@ export default function ReviewScroll({ handleModal, movieId }) {
     data.user_id = review.user.id;
     data.likes = review.likes + 1;
     if (review !== null) {
-      fetch(`http://localhost:3000/api/v1/review/${review.id}`, {
+      fetch(`https://cinematic-backend.herokuapp.com/api/v1/review/${review.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
 
@@ -216,7 +216,7 @@ export default function ReviewScroll({ handleModal, movieId }) {
   );
 
   const deleteReview = (event) => {
-    fetch(`http://localhost:3000/api/v1/reviews/${event}`, {
+    fetch(`https://cinematic-backend.herokuapp.com/api/v1/reviews/${event}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });

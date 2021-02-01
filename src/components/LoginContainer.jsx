@@ -89,7 +89,7 @@ export default function SignInSide({handleUser}) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    fetch("http://localhost:3000/api/v1/login", {
+    fetch("https://cinematic-backend.herokuapp.com/api/v1/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

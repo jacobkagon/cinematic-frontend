@@ -76,7 +76,7 @@ export default function Header(props) {
 
   useEffect(() => {
     let followerIds = [];
-    fetch(`http://localhost:3000/api/v1/users/${userId}`, {
+    fetch(`https://cinematic-backend.herokuapp.com/api/v1/users/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((resp) => resp.json())
@@ -90,7 +90,7 @@ export default function Header(props) {
   }, []);
 
   const followUser = () => {
-    fetch(`http://localhost:3000/api/v1/friendships`, {
+    fetch(`https://cinematic-backend.herokuapp.com/api/v1/friendships`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -107,7 +107,7 @@ export default function Header(props) {
   };
 
   const unfollowUser = () => {
-    fetch(`http://localhost:3000/api/v1/friendships/${currentUser}/${userId}`, {
+    fetch(`https://cinematic-backend.herokuapp.com/api/v1/friendships/${currentUser}/${userId}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });

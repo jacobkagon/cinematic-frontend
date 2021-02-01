@@ -69,7 +69,7 @@ const MovieDetails = () => {
 
   const createMovie = () => {
     if (movieInfo !== " ") {
-      fetch("http://localhost:3000/api/v1/movies", {
+      fetch("https://cinematic-backend.herokuapp.com/api/v1/movies", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

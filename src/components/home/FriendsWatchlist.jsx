@@ -42,7 +42,7 @@ const FriendsWatchlist = () => {
   useEffect(() => {
     const userId = localStorage.getItem("user_id");
     const token = localStorage.getItem("token");
-    fetch(`http://localhost:3000/api/v1/followee_watchlist`, {
+    fetch(`https://cinematic-backend.herokuapp.com/api/v1/followee_watchlist`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((resp) => resp.json())

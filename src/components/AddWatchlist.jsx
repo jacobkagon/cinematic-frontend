@@ -12,7 +12,7 @@ const AddWatchlist = ({ handleIsIn, isInWatchlist, movieId }) => {
   const [isIn, isReallyIn] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/v1/find_movie/${movieId}`, {
+    fetch(`https://cinematic-backend.herokuapp.com/api/v1/find_movie/${movieId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((resp) => resp.json())
@@ -32,7 +32,7 @@ const AddWatchlist = ({ handleIsIn, isInWatchlist, movieId }) => {
 
   useEffect(async () => {
     let movies = []
-    await fetch(`http://localhost:3000/api/v1/user_watchlist/${userId}`, {
+    await fetch(`https://cinematic-backend.herokuapp.com/api/v1/user_watchlist/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((resp) => resp.json())
@@ -46,7 +46,7 @@ const AddWatchlist = ({ handleIsIn, isInWatchlist, movieId }) => {
 
   const removeFromWatchlist = async () => {
     await fetch(
-      `http://localhost:3000/api/v1/watchlist/${userId}/${backendMovieId}`,
+      `https://cinematic-backend.herokuapp.com/api/v1/watchlist/${userId}/${backendMovieId}`,
       {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
@@ -55,7 +55,7 @@ const AddWatchlist = ({ handleIsIn, isInWatchlist, movieId }) => {
   };
 
   const addToWatchlist = async () => {
-    await fetch("http://localhost:3000/api/v1/watchlist", {
+    await fetch("https://cinematic-backend.herokuapp.com/api/v1/watchlist", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

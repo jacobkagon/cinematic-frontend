@@ -83,7 +83,7 @@ const SearchContainer = () => {
   }, [input]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/v1/users", {
+    fetch("https://cinematic-backend.herokuapp.com/api/v1/users", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((resp) => resp.json())

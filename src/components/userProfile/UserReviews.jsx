@@ -65,13 +65,13 @@ const UserReviews = ({ handleUserReviews,currentUser, userId }) => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/v1/user_reviews/${currentUser}`)
+    fetch(`https://cinematic-backend.herokuapp.com/api/v1/user_reviews/${currentUser}`)
       .then((resp) => resp.json())
       .then((data) => handleReviews(data));
   }, []);
 
   const deleteReview = (event) => {
-    fetch(`http://localhost:3000/api/v1/reviews/${event}`, {
+    fetch(`https://cinematic-backend.herokuapp.com/api/v1/reviews/${event}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
