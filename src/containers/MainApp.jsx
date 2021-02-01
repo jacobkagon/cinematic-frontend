@@ -1,21 +1,21 @@
 import React, { Component } from "react";
 import HomeContainer from "./HomeContainer";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect, Link } from "react-router-dom";
 
 import MovieDetails from "../components/MovieDetails";
 import UserProfile from "../components/userProfile/UserProfile";
 import SearchContainer from "../components/SearchContainer";
 import NavBar from "../components/Navbar";
-import Paper from '@material-ui/core/Paper';
+import Paper from "@material-ui/core/Paper";
+import { withRouter } from "react-router";
 class MainApp extends Component {
   render() {
     return (
-      
       <Paper>
         <BrowserRouter>
           {localStorage.getItem("token") ? (
             <div>
-              <NavBar theme={this.props.theme} setTheme={this.props.setTheme}/>
+              <NavBar theme={this.props.theme} setTheme={this.props.setTheme} />
 
               {/* <Route path="/home" component={NavBar}/> */}
               <Route path="/home" component={HomeContainer} />
@@ -29,15 +29,12 @@ class MainApp extends Component {
               </Switch>
             </div>
           ) : (
-            <div>
-              <Redirect to="/login" />
-            </div>
+            <div>{this.props.history.push("/login")}</div>
           )}
-          </BrowserRouter>
-        </Paper>
-      
+        </BrowserRouter>
+      </Paper>
     );
   }
 }
 
-export default MainApp;
+export default withRouter(MainApp);
