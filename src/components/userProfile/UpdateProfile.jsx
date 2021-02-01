@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -20,7 +20,8 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 
-const userId = localStorage.getItem('user_id')
+const userId = localStorage.getItem("user_id");
+const token = localStorage.getItem("token");
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UpdateProfile = ({handleCloseModal}) => {
+const UpdateProfile = ({ handleCloseModal }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const [firstName, setFirstName] = useState("");
@@ -51,6 +52,19 @@ const UpdateProfile = ({handleCloseModal}) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/v1/users/${userId}`, {
+      headers: {Authorization: `Bearer ${token}`}
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setFirstName(data.first_name);
+        setLastName(data.last_name);
+        setEmail(data.email);
+        setUsername(data.username)
+      });
+  }, []);
 
   const handleOpen = () => {
     setOpen(true);
@@ -61,22 +75,23 @@ const UpdateProfile = ({handleCloseModal}) => {
   };
 
   const handleSubmit = (e) => {
-e.preventDefault()
-    let data = {}
-    data.first_name = firstName
-    data.lastName = lastName
-    data.username = username
-    data.email = email
-    data.password = password
-    
-    fetch(`http://localhost:3000/api/v1/users/${userId}`, {
-        method: 'PATCH',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
-    }).then(resp => resp.json())
-    .then(data => console.log(data))
+    e.preventDefault();
+    let data = {};
+    data.first_name = firstName;
+    data.lastName = lastName;
+    data.username = username;
+    data.email = email;
+    data.password = password;
 
-    window.location.reload()
+    fetch(`http://localhost:3000/api/v1/users/${userId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((resp) => resp.json())
+      .then((data) => console.log(data));
+
+    window.location.reload();
   };
 
   const body = (
@@ -111,7 +126,7 @@ e.preventDefault()
                   required
                   fullWidth
                   id="firstName"
-                  label="New First Name"
+                  label="First Name"
                   autoFocus
                   value={firstName}
                   onChange={(event) => setFirstName(event.target.value)}
@@ -123,7 +138,7 @@ e.preventDefault()
                   required
                   fullWidth
                   id="lastName"
-                  label="New Last Name"
+                  label="Last Name"
                   name="lastName"
                   autoComplete="lname"
                   value={lastName}
@@ -136,7 +151,7 @@ e.preventDefault()
                   required
                   fullWidth
                   id="username"
-                  label="New Username"
+                  label=" Username"
                   name="username"
                   autoComplete="username"
                   value={username}
@@ -149,7 +164,7 @@ e.preventDefault()
                   required
                   fullWidth
                   id="email"
-                  label="New Email Address"
+                  label="Email Address"
                   name="email"
                   autoComplete="email"
                   value={email}
@@ -162,7 +177,7 @@ e.preventDefault()
                   required
                   fullWidth
                   name="password"
-                  label="New Password"
+                  label="Password"
                   type="password"
                   id="password"
                   autoComplete="current-password"

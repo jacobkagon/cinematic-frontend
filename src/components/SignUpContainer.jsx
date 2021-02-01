@@ -124,7 +124,7 @@ export default function SignUp({ handleUser }) {
           history.push("/home");
           window.location.reload();
         } else {
-          alert("Please fill in empty fields");
+          alert("Please fill in empty fields or choose unique username");
         }
       })
       .catch((errors) => {
