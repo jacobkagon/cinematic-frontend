@@ -14,7 +14,7 @@ import { createMuiTheme } from "@material-ui/core/styles";
 
 
 export default function App() {
-  const [theme, setTheme] = useState(false);
+  const [theme, setTheme] = useState(true);
   const history = useHistory()
   const handleUser = (userData) => {
     localStorage.setItem("user_id", userData.id);

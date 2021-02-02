@@ -46,7 +46,6 @@ export default function Header(props) {
 
   const icon = localStorage.getItem('theme') === 'true' ? <Brightness5Icon/> :  <Brightness2Icon />;
 
- 
 
   const darkMode = () => {
     setTheme(!theme)
