@@ -21,7 +21,9 @@ export default function App() {
     localStorage.setItem("username", userData.username);
   };
 
-  const appliedTheme = createMuiTheme(theme ? light : isDark);
+  
+
+  const appliedTheme = createMuiTheme(localStorage.getItem('theme') === 'true' ? light : isDark);
 
   return (
     <ThemeProvider theme={appliedTheme}>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -44,7 +44,14 @@ export default function Header(props) {
   const { sections, title, theme, setTheme } = props;
   const history = useHistory();
 
-  const icon = !theme ? <Brightness2Icon /> : <Brightness5Icon />;
+  const icon = localStorage.getItem('theme') === 'true' ? <Brightness5Icon/> :  <Brightness2Icon />;
+
+ 
+
+  const darkMode = () => {
+    setTheme(!theme)
+    localStorage.setItem('theme', theme)
+  }
 
   const logout = () => {
     localStorage.clear();
@@ -67,8 +74,13 @@ export default function Header(props) {
     window.location.reload();
   };
 
+
+
   return (
     <React.Fragment>
+
+
+   
       <Paper>
         <Toolbar className={classes.toolbar}>
           <IconButton onClick={() => userProfile()}>
@@ -91,7 +103,7 @@ export default function Header(props) {
             edge="end"
             color="inherit"
             aria-label="mode"
-            onClick={() => setTheme(!theme)}
+            onClick={() =>  darkMode()}
 
             // onClick={() => localStorage.setItem('newTheme', !theme) }
           >
