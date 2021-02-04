@@ -72,6 +72,7 @@ export default function Header(props) {
   const [friendsReviews, handleFriendsReviews] = useState(false);
   const [updateProfile, handleProfileUpdate] = useState(false);
   const [closeUpdateModal, handleClose] = useState(false);
+  const [toggleFollow, handleToggleFollow] = useState(false);
 
   useEffect(() => {
     let followerIds = [];
@@ -88,6 +89,8 @@ export default function Header(props) {
       });
   }, []);
 
+ 
+
   const followUser = () => {
     fetch(`https://cinematic-backend.herokuapp.com/api/v1/friendships`, {
       method: "POST",
@@ -102,7 +105,7 @@ export default function Header(props) {
     })
       .then((resp) => resp.json())
       .then((data) => console.log(data));
-    window.location.reload();
+    window.location.reload()
   };
 
   const unfollowUser = () => {
