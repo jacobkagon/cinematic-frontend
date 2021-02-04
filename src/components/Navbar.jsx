@@ -14,9 +14,6 @@ import Brightness2Icon from "@material-ui/icons/Brightness2";
 import Brightness5Icon from "@material-ui/icons/Brightness5";
 import Paper from "@material-ui/core/Paper";
 
-import { ThemeProvider } from "@material-ui/core";
-
-import { createMuiTheme } from "@material-ui/core/styles";
 
 const username = localStorage.getItem("username");
 const userId = localStorage.getItem("user_id");
@@ -37,11 +34,11 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
   },
 }));
-const theme = localStorage.getItem("theme");
+
 
 export default function Header(props) {
   const classes = useStyles();
-  const { sections, title, theme, setTheme } = props;
+  const { theme, setTheme } = props;
   const history = useHistory();
 
   const icon = localStorage.getItem('theme') === 'true' ? <Brightness5Icon/> :  <Brightness2Icon />;

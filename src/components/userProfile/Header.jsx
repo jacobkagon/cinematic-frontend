@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
-import Toolbar from "@material-ui/core/Toolbar";
+
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import SearchIcon from "@material-ui/icons/Search";
+
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
@@ -15,7 +14,7 @@ import UserWatchlist from "./UserWatchlist";
 import SettingsIcon from "@material-ui/icons/Settings";
 import UserReviews from "./UserReviews";
 import FriendsReviews from "./FriendsReviews";
-import UpdateProfile from './UpdateProfile'
+import UpdateProfile from "./UpdateProfile";
 
 const token = localStorage.getItem("token");
 
@@ -71,8 +70,8 @@ export default function Header(props) {
   const [followingModal, handleFollowingModal] = useState(false);
   const [userReviews, handleUserReviews] = useState(false);
   const [friendsReviews, handleFriendsReviews] = useState(false);
-  const [updateProfile, handleProfileUpdate] = useState(false)
-  const [closeUpdateModal, handleClose] = useState(false)
+  const [updateProfile, handleProfileUpdate] = useState(false);
+  const [closeUpdateModal, handleClose] = useState(false);
 
   useEffect(() => {
     let followerIds = [];
@@ -107,10 +106,13 @@ export default function Header(props) {
   };
 
   const unfollowUser = () => {
-    fetch(`https://cinematic-backend.herokuapp.com/api/v1/friendships/${currentUser}/${userId}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    fetch(
+      `https://cinematic-backend.herokuapp.com/api/v1/friendships/${currentUser}/${userId}`,
+      {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     handleIsFollowing("Follow");
     window.location.reload();
   };
@@ -156,7 +158,9 @@ export default function Header(props) {
                 gutterBottom
               >
                 {userData.username}{" "}
-                {userId === currentUser ? <SettingsIcon onClick={() => handleProfileUpdate(true)}/> : null}
+                {userId === currentUser ? (
+                  <SettingsIcon onClick={() => handleProfileUpdate(true)} />
+                ) : null}
               </Typography>
 
               <Typography variant="h5" color="inherit">
@@ -175,7 +179,7 @@ export default function Header(props) {
               </Typography>
               <Typography variant="h5" color="inherit">
                 <Link color="inherit" onClick={() => handleUserReviews(true)}>
-                  {currentUser === userId ? "Your Reviews" : "Reviews" }
+                  {currentUser === userId ? "Your Reviews" : "Reviews"}
                 </Link>
               </Typography>
               {currentUser === userId ? (
@@ -192,22 +196,30 @@ export default function Header(props) {
           </Grid>
         </Grid>
       </Paper>
-      {updateProfile ? <UpdateProfile handleCloseModal={handleClose}/> : null}
+      {updateProfile ? <UpdateProfile handleCloseModal={handleClose} /> : null}
       {followerModal === true ? (
-        <FollowerModal followers={userData.followers} handleFollowerModal={handleFollowerModal}/>
+        <FollowerModal
+          followers={userData.followers}
+          handleFollowerModal={handleFollowerModal}
+        />
       ) : null}
       {followingModal === true ? (
-        <FollowingModal followees={userData.followees} handleFollowingModal={handleFollowingModal} />
+        <FollowingModal
+          followees={userData.followees}
+          handleFollowingModal={handleFollowingModal}
+        />
       ) : null}
       {userReviews === true ? (
         <UserReviews
-        handleUserReviews={handleUserReviews}
+          handleUserReviews={handleUserReviews}
           currentUser={userId}
           userId={currentUser}
           reviews={userData.reviews}
         />
       ) : null}
-      {friendsReviews === true ? <FriendsReviews handleFriendsReviews={handleFriendsReviews} /> : null}
+      {friendsReviews === true ? (
+        <FriendsReviews handleFriendsReviews={handleFriendsReviews} />
+      ) : null}
       {userData.watchlists ? (
         <UserWatchlist userId={userId} watchlists={userData.watchlists} />
       ) : null}

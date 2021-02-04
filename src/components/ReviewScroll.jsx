@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles, withTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
-import UserProfile from "./userProfile/UserProfile";
-import Avatar from "@material-ui/core/Avatar";
-import { deepOrange, deepPurple, red } from "@material-ui/core/colors";
-import { useRecoilState } from "recoil";
-import MovieIdState from "../recoil/movieId";
+
+import { deepOrange } from "@material-ui/core/colors";
+
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
@@ -18,6 +16,7 @@ import Typography from "@material-ui/core/Typography";
 import { Rating } from "@material-ui/lab";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import Card from "@material-ui/core/Card";
+import Container from "@material-ui/core/Container";
 
 const token = localStorage.getItem("token");
 
@@ -60,8 +59,8 @@ const useStyles = makeStyles((theme) => ({
     align: "center",
   },
   strong: {
-    fontWeight: theme.typography.fontWeightBold
-  }
+    fontWeight: theme.typography.fontWeightBold,
+  },
 }));
 
 export default function ReviewScroll({ handleModal, movieId }) {
@@ -70,19 +69,23 @@ export default function ReviewScroll({ handleModal, movieId }) {
   const [movieReviews, handleMovieReviews] = useState([]);
   const [addReview, handleAddReview] = useState(false);
   const [sort, handleSort] = useState("review date");
+  const [addLikes, handleAddLike] = useState(false);
 
   const handleClose = () => {
     setOpen(false);
-    handleModal(false)
+    handleModal(false);
   };
 
   useEffect(() => {
     // error i'm getting is movieReviews is not a function.
     //You must create a ternary to prevent data from going to state.
 
-    fetch(`https://cinematic-backend.herokuapp.com/api/v1/movie_review/${movieId}`, {
-      Authorization: `Bearer ${token}`,
-    })
+    fetch(
+      `https://cinematic-backend.herokuapp.com/api/v1/movie_review/${movieId}`,
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    )
       .then((resp) => resp.json())
       .then((data) => {
         handleMovieReviews(data);
@@ -91,19 +94,31 @@ export default function ReviewScroll({ handleModal, movieId }) {
   }, [addReview]);
 
   const addLike = (review) => {
+    let like = null;
+    if (addLikes === false) {
+      like = review.likes + 1;
+      handleAddLike(true);
+    } else {
+      like = review.likes - 1;
+      handleAddLike(false);
+    }
+
     const data = {};
     data.body = review.body;
     data.rating = review.rating;
     data.movie_id = review.movie.id;
     data.user_id = review.user.id;
-    data.likes = review.likes + 1;
+    data.likes = like;
     if (review !== null) {
-      fetch(`https://cinematic-backend.herokuapp.com/api/v1/review/${review.id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+      fetch(
+        `https://cinematic-backend.herokuapp.com/api/v1/review/${review.id}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
 
-        body: JSON.stringify(data),
-      }).then((resp) => resp.json());
+          body: JSON.stringify(data),
+        }
+      ).then((resp) => resp.json());
       // .then((data) => console.log(data));
       handleAddReview(true);
     }
@@ -140,30 +155,42 @@ export default function ReviewScroll({ handleModal, movieId }) {
         id="simple-modal-title"
       ></Typography>
       <div>
-        <strong>Sort by:</strong>
-        <label>
-          <input
-          
-            type="radio"
-            value="Rating"
-            name="Sort"
-            onChange={() => handleSort("Rating")}
-          />
-          Rating
-        </label>
-        <label>
-
-          <input
-            type="radio"
-            value="Helpfullness"
-            name="Sort"
-            onChange={() => handleSort("Helpfullness")}
-          />
-
-         Helpfullness
-        </label>
-        {movieReviews.length !== 0
-          ? filterReviews().map((review) => (
+        {movieReviews.length !== 0 ? (
+          <div>
+            <Typography align="center" color="textPrimary" variant="h5">
+              Reviews
+            </Typography>
+            <Container align="center">
+              <label>Sort By:</label>
+              <label>
+                <input
+                  type="radio"
+                  value="Rating"
+                  name="Sort"
+                  onChange={() => handleSort("Rating")}
+                />
+                Rating
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  value="Helpfullness"
+                  name="Sort"
+                  onChange={() => handleSort("Helpfullness")}
+                />
+                Helpfullness
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  value="Review Date"
+                  name="Sort"
+                  onChange={() => handleSort("Review Date")}
+                />
+                Review Date
+              </label>
+            </Container>
+            {filterReviews().map((review) => (
               <Card>
                 <ListItem key={review.id} alignItems="flex-start">
                   <ListItemAvatar></ListItemAvatar>
@@ -207,10 +234,15 @@ export default function ReviewScroll({ handleModal, movieId }) {
                   <ThumbUpIcon onClick={() => addLike(review)} />
                 </ListItem>
               </Card>
-            ))
-          : null}
+            ))}
 
-        <Divider variant="inset" component="li" />
+            <Divider variant="inset" component="li" />
+          </div>
+        ) : (
+          <Typography variant="h5" color="textPrimary">
+            No Reviews
+          </Typography>
+        )}
       </div>
     </List>
   );

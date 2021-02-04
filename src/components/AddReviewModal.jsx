@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -8,23 +7,23 @@ import Button from "@material-ui/core/Button";
 import Rating from "@material-ui/lab/Rating";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Alert from "@material-ui/lab/Alert";
-import userData from "../recoil/userState";
+
 import { useRecoilState } from "recoil";
-import loggedInState from "../recoil/login";
+
 import MovieIdState from "../recoil/movieId";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
+
 
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    
   },
 
   paper: {
     position: "absolute",
-    width: 300,
+    width: 350,
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
@@ -47,18 +46,8 @@ export default function AddReviewModal({
   const [backendMovieId, handleBackendMovieId] = useRecoilState(MovieIdState);
   const [hover, setHover] = React.useState(-1);
 
-  const labels = {
-    0.5: "Useless",
-    1: "Useless+",
-    1.5: "Poor",
-    2: "Poor+",
-    2.5: "Ok",
-    3: "Ok+",
-    3.5: "Good",
-    4: "Good+",
-    4.5: "Excellent",
-    5: "Excellent+",
-  };
+  
+  
 
   useEffect(() => {
     const data = {};

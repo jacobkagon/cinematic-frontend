@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import watchlistIdState from "../../recoil/watchlist";
-import { useRecoilState } from "recoil";
+
 
 import { makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import IconButton from "@material-ui/core/IconButton";
-import ListSubheader from "@material-ui/core/ListSubheader";
+
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import InfoIcon from "@material-ui/icons/Info";
 import Link  from '@material-ui/core/Link';

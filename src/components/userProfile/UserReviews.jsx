@@ -3,9 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import Avatar from "@material-ui/core/Avatar";
-import { deepOrange, deepPurple } from "@material-ui/core/colors";
-import { Link } from "react-router-dom";
+
+import { deepOrange } from "@material-ui/core/colors";
+
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
@@ -79,6 +79,7 @@ const UserReviews = ({ handleUserReviews,currentUser, userId }) => {
   };
 
   const body = (
+    
     <List className={classes.paper}>
       <Typography
         variant="h5"

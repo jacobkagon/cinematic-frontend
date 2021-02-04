@@ -8,7 +8,7 @@ export const URL_YOUTUBE = 'https://www.youtube.com/embed/';
 export const URL_CAST = '/casts';
 export const URL_VIDEO = '/videos';
 export const IMG_SIZE_XSMALL = 'w45/';
-export const IMG_SIZE_SMALL = 'w150/';
+export const IMG_SIZE_SMALL = 'w45/';
 export const IMG_SIZE_LARGE = 'w342/';
 export const API_KEY = "?api_key=5a9cf113085e6d11351ca2f692a38bde";
 export const API_KEY_ALT = '&api_key=5a9cf113085e6d11351ca2f692a38bde';

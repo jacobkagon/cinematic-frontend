@@ -13,6 +13,8 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import Typography from "@material-ui/core/Typography";
 import { Rating } from "@material-ui/lab";
+import ThumbUpIcon from "@material-ui/icons/ThumbUp";
+import Card from "@material-ui/core/Card";
 
 const token = localStorage.getItem("token");
 
@@ -20,12 +22,11 @@ const useStyles = makeStyles((theme) => ({
   modal: {
     alignItems: "center",
     justifyContent: "center",
-   
-    position:'absolute',
-   
-    display: 'grid',
-    overflow:'scroll',
 
+    position: "absolute",
+
+    display: "grid",
+    overflow: "scroll",
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
@@ -42,14 +43,46 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FriendsReviews = ({handleFriendsReviews}) => {
+const FriendsReviews = ({ handleFriendsReviews }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const [reviews, handleReviews] = useState([]);
+  const [addLikes, handleAddLike] = useState(false);
+  const [addReview, handleAddReview] = useState(false);
 
   const handleClose = () => {
     setOpen(false);
-    handleFriendsReviews(false)
+    handleFriendsReviews(false);
+  };
+
+  const addLike = (review) => {
+    let like = null;
+    if (addLikes === false) {
+      like = review.likes + 1;
+      handleAddLike(true);
+    } else {
+      like = review.likes - 1;
+      handleAddLike(false);
+    }
+    const data = {};
+    data.body = review.body;
+    data.rating = review.rating;
+    data.movie_id = review.movie.id;
+    data.user_id = review.user.id;
+    data.likes = like;
+    if (review !== null) {
+      fetch(
+        `https://cinematic-backend.herokuapp.com/api/v1/review/${review.id}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+
+          body: JSON.stringify(data),
+        }
+      ).then((resp) => resp.json());
+      // .then((data) => console.log(data));
+      handleAddReview(true);
+    }
   };
 
   useEffect(() => {
@@ -59,7 +92,8 @@ const FriendsReviews = ({handleFriendsReviews}) => {
     })
       .then((resp) => resp.json())
       .then((data) => handleReviews(data));
-  }, []);
+      handleAddReview(false)
+  }, [addReview]);
 
   const body = (
     <List className={classes.paper}>
@@ -72,39 +106,46 @@ const FriendsReviews = ({handleFriendsReviews}) => {
         {reviews !== [] ? " Friends' Reviews" : "No Reviews"}
       </Typography>
       {reviews.map((review) => (
-        <ListItem key={review.id} alignItems="flex-start">
-          <ListItemAvatar></ListItemAvatar>
-          <ListItemText
-            secondary={
-              <React.Fragment>
-                <Typography
-                  component="span"
-                  variant="body2"
-                  className={classes.inline}
-                  color="textPrimary"
-                ></Typography>
-                
-                <Typography color="textPrimary" variant="h6">
-                  {review.movie.title}
-                </Typography>
-                <Typography color='textPrimary'>{review.user.username}</Typography>
-                <Typography>
-                  <Rating
-                    name="read-only"
-                    value={review.rating}
-                    readOnly
-                  ></Rating>
-                </Typography>
-                <Typography color='textPrimary'>
-                {review.body}
-                </Typography>
-                <Typography color='textPrimary'>
-                  {new Date(review.created_at).toDateString()}
-                </Typography>
-              </React.Fragment>
-            }
-          />
-        </ListItem>
+        <Card>
+          <ListItem key={review.id} alignItems="flex-start">
+            <ListItemAvatar></ListItemAvatar>
+            <ListItemText
+              secondary={
+                <React.Fragment>
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    className={classes.inline}
+                    color="textPrimary"
+                  ></Typography>
+
+                  <Typography color="textPrimary" variant="h6">
+                    {review.movie.title}
+                  </Typography>
+                  <Typography color="textPrimary">
+                    {review.user.username}
+                  </Typography>
+                  <Typography>
+                    <Rating
+                      name="read-only"
+                      value={review.rating}
+                      readOnly
+                    ></Rating>
+                  </Typography>
+                  <Typography color="textPrimary">{review.body}</Typography>
+                  <Typography color="textPrimary">
+                    {new Date(review.created_at).toDateString()}
+                  </Typography>
+                </React.Fragment>
+              }
+            />
+            <div style={{ margin: "6px" }}>
+              {review.likes}
+              {""}
+            </div>
+            <ThumbUpIcon onClick={() => addLike(review)} />
+          </ListItem>
+        </Card>
       ))}
       <Divider variant="inset" component="li" />
     </List>

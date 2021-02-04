@@ -4,9 +4,9 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import CssBaseline from "@material-ui/core/CssBaseline";
+
 import Grid from "@material-ui/core/Grid";
-import Toolbar from "@material-ui/core/Toolbar";
+
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -14,26 +14,12 @@ import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 import { URL_IMG, IMG_SIZE_LARGE } from "../const";
 import ListItemText from "@material-ui/core/ListItemText";
-import Paper from '@material-ui/core/Paper';
+import Paper from "@material-ui/core/Paper";
 
 let handleUser = 0;
 // import Link from 'react-router-dom'
 
 const token = localStorage.getItem("token");
-
-function Copyright() {
-  return (
-    
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -66,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(6),
   },
 }));
-const cards = [1, 2, 3, 4, 5];
 
 const SearchContainer = () => {
   const classes = useStyles();
@@ -92,54 +77,55 @@ const SearchContainer = () => {
 
   return (
     <Paper>
-    <div>
-   
-      <SearchBar
-        value={input}
-        onChange={(newInput) => handleInput(newInput)}
-        onRequestSearch={() => console.log("hello")} //you can probs delete
-      />
-      {input !== "" && movieData !== undefined ? (
-        <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
-          {userData.map((user) =>
-            user.username.toLowerCase() === input || user.username === input ? (
-              <div>
-              <h3>Users:</h3>
-                <Link  color="inherit" href={`/${user.username}/${user.id}`}>
-                 <Button variant="contained"><ListItemText primary={user.username} /></Button>
-                </Link>
-              </div>
-            ) : null
-          )}
-          <br/>
-          <br/>
-          <Grid container spacing={4}>
-            {movieData.map((movie, id) => (
-              <Grid item key={id} xs={12} sm={6} md={4}>
-                <Card className={classes.card} >
-                  <Link href={"/movie/" + movie.id}>
-                    <CardMedia
-                      className={classes.cardMedia}
-                      image={URL_IMG + IMG_SIZE_LARGE + movie.poster_path}
-                      title={movie.title}
-                    />
+      <div>
+        <SearchBar
+          value={input}
+          onChange={(newInput) => handleInput(newInput)}
+          onRequestSearch={() => console.log("hello")} //you can probs delete
+        />
+        {input !== "" && movieData !== undefined ? (
+          <Container className={classes.cardGrid} maxWidth="md">
+            {/* End hero unit */}
+            {userData.map((user) =>
+              user.username.toLowerCase() === input ||
+              user.username === input ? (
+                <div>
+                  <h3>Users:</h3>
+                  <Link color="inherit" href={`/${user.username}/${user.id}`}>
+                    <Button variant="contained">
+                      <ListItemText primary={user.username} />
+                    </Button>
                   </Link>
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h4" component="h2">
-                      {movie.title}
-                    </Typography>
-                  </CardContent>
+                </div>
+              ) : null
+            )}
+            <br />
+            <br />
+            <Grid container spacing={4}>
+              {movieData.map((movie, id) => (
+                <Grid item key={id} xs={12} sm={6} md={4}>
+                  <Card className={classes.card}>
+                    <Link href={"/movie/" + movie.id}>
+                      <CardMedia
+                        className={classes.cardMedia}
+                        image={URL_IMG + IMG_SIZE_LARGE + movie.poster_path}
+                        title={movie.title}
+                      />
+                    </Link>
+                    <CardContent className={classes.cardContent}>
+                      <Typography gutterBottom variant="h4" component="h2">
+                        {movie.title}
+                      </Typography>
+                    </CardContent>
 
-                  <CardActions></CardActions>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      ) : null}
-    </div>
-    
+                    <CardActions></CardActions>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
+        ) : null}
+      </div>
     </Paper>
   );
 };
