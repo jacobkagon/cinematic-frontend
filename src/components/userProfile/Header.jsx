@@ -72,7 +72,6 @@ export default function Header(props) {
   const [friendsReviews, handleFriendsReviews] = useState(false);
   const [updateProfile, handleProfileUpdate] = useState(false);
   const [closeUpdateModal, handleClose] = useState(false);
-  const [toggleFollow, handleToggleFollow] = useState(false);
 
   useEffect(() => {
     let followerIds = [];
