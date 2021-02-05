@@ -132,7 +132,7 @@ export default function ReviewScroll({ handleModal, movieId }) {
     let sortedReviews = movieReviews;
     if (sort === "Review Date") {
       sortedReviews = sortedReviews.sort((reviewA, reviewB) =>
-        compare(+reviewA.created_at, +reviewB.created_at)
+        compare(reviewA.created_at, reviewB.created_at)
       );
     } else if (sort === "Rating") {
       sortedReviews = sortedReviews.sort((reviewA, reviewB) =>
