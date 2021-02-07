@@ -115,7 +115,7 @@ export default function SignInSide({ handleUser }) {
           setUser([...stateUser, data.user]);
           handleUser(newData.user);
           setLoggedIn(true);
-          history.push("/home");
+          history.push("/");
           window.location.reload();
         } else {
           alert("Incorrect credentials");

@@ -66,7 +66,7 @@ export default function Header(props) {
   };
 
   const goHome = () => {
-    history.push("/home");
+    history.push("/");
     window.location.reload();
   };
 

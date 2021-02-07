@@ -46,8 +46,8 @@ export default function App() {
             )}
           />
           <Route path="/welcome" component={Welcome} />
-          <Route path="/" component={(props) => <MainApp {...props} theme={theme} history={history}
-                setTheme={setTheme} />} />
+          <MainApp  theme={theme} history={history}
+                setTheme={setTheme} /> 
         </Switch>
       </Router>
     </ThemeProvider>

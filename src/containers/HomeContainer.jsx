@@ -16,7 +16,7 @@ class HomeContainer extends Component {
         <BrowserRouter>
        
           <div>
-            <Route path="/home" component={MovieContainer}></Route>
+            <Route exact path={"/"} component={MovieContainer}></Route>
             
             <Switch>
               <Route path={"/movie/:id"} component={MovieDetails}></Route>

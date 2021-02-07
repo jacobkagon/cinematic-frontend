@@ -95,32 +95,35 @@ export default function ReviewScroll({ handleModal, movieId }) {
 
   const addLike = (review) => {
     let like = null;
-    if (addLikes === false) {
+    let reviewCount = review.likes;
+    if (reviewCount++) {
+      like = review.likes - 1
+    } else {
+      console.log(reviewCount);
+
       like = review.likes + 1;
       handleAddLike(true);
-    } else {
-      like = review.likes - 1;
-      handleAddLike(false);
     }
 
-    const data = {};
-    data.body = review.body;
-    data.rating = review.rating;
-    data.movie_id = review.movie.id;
-    data.user_id = review.user.id;
-    data.likes = like;
-    if (review !== null) {
-      fetch(
-        `https://cinematic-backend.herokuapp.com/api/v1/review/${review.id}`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
+      const data = {};
+      data.body = review.body;
+      data.rating = review.rating;
+      data.movie_id = review.movie.id;
+      data.user_id = review.user.id;
+      data.likes = like;
+      if (review !== null) {
+        fetch(
+          `https://cinematic-backend.herokuapp.com/api/v1/review/${review.id}`,
+          {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
 
-          body: JSON.stringify(data),
-        }
-      ).then((resp) => resp.json());
-      // .then((data) => console.log(data));
-      handleAddReview(true);
+            body: JSON.stringify(data),
+          }
+        ).then((resp) => resp.json());
+        //  .then((data) => console.log(review.count));
+        handleAddReview(true);
+      
     }
   };
 

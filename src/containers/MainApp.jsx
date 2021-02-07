@@ -16,10 +16,11 @@ class MainApp extends Component {
           {localStorage.getItem("token") ? (
             <div>
               <NavBar theme={this.props.theme} setTheme={this.props.setTheme} />
-
+              
               {/* <Route path="/home" component={NavBar}/> */}
-              <Route path="/home" component={HomeContainer} />
+
               <Switch>
+              <Route exact path='/' component={HomeContainer}/>
                 <Route path={"/movie/:id"} component={MovieDetails}></Route>
                 <Route
                   path={"/:username/:user_id"}
@@ -27,7 +28,6 @@ class MainApp extends Component {
                 ></Route>
                 <Route path="/search" component={SearchContainer} />
               </Switch>
-              {}
             </div>
           ) : (
             <div>{this.props.history.push("/login")}</div>
