@@ -45,8 +45,13 @@ export default function Header(props) {
 
 
   const darkMode = () => {
+    
     setTheme(!theme)
     localStorage.setItem('theme', theme)
+    if(localStorage.getItem('theme')=== 'true') {
+      localStorage.setItem('theme', 'false')
+    }
+    localStorage.setItem('theme', !theme )
   }
 
   const logout = () => {

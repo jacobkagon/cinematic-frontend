@@ -45,7 +45,7 @@ export default function App() {
               />
             )}
           />
-          <Route path="/welcome" component={Welcome} />
+          
           <MainApp  theme={theme} history={history}
                 setTheme={setTheme} /> 
         </Switch>
