@@ -70,7 +70,7 @@ export default function ReviewScroll({ handleModal, movieId }) {
   const [addReview, handleAddReview] = useState(false);
   const [sort, handleSort] = useState("review date");
   const [addLikes, handleAddLike] = useState(false);
-  let [likeCount, setLikeCount] = useState(0) 
+  let [likeCount, setLikeCount] = useState(0);
 
   const handleClose = () => {
     setOpen(false);
@@ -95,32 +95,22 @@ export default function ReviewScroll({ handleModal, movieId }) {
   }, [addReview]);
 
   const addLike = (review) => {
+    let like = null;
+    if (review.likes >= 15) {
+      like = 0;
+    } else {
+      like = review.likes + 1;
+    }
 
-    
+    //   let reviewCount = review.likes
 
-let newLike = review.likes + 1
-  let like = null;
-  setLikeCount(review.likes)
-  if(addLikes === true) {
-    like = review.likes - 1
-    handleAddLike(false)
-
-
-  } else {
-  like = review.likes + 1
-  handleAddLike(true)
-
-  }
-  //   let reviewCount = review.likes 
-
-  
-  //   if (addLikes === true){
-  //   like = review.likes - 1 
-  //  handleAddLike(false)
-  //   } else {
-  //     like = review.likes + 1;
-  //     handleAddLike(true)
-  //   }
+    //   if (addLikes === true){
+    //   like = review.likes - 1
+    //  handleAddLike(false)
+    //   } else {
+    //     like = review.likes + 1;
+    //     handleAddLike(true)
+    //   }
 
     // if (localStorage.getItem('liked') === 'false') {
     //   like = review.likes + 1
@@ -134,27 +124,47 @@ let newLike = review.likes + 1
     //   localStorage.setItem('liked', 'false')
     // }
 
-      const data = {};
-      data.body = review.body;
-      data.rating = review.rating;
-      data.movie_id = review.movie.id;
-      data.user_id = review.user.id;
-      data.likes = like;
-      if (review !== null) {
-        fetch(
-          `https://cinematic-backend.herokuapp.com/api/v1/review/${review.id}`,
-          {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
+    const data = {};
+    data.body = review.body;
+    data.rating = review.rating;
+    data.movie_id = review.movie.id;
+    data.user_id = review.user.id;
+    data.likes = like;
+    if (review !== null) {
+      fetch(
+        `https://cinematic-backend.herokuapp.com/api/v1/review/${review.id}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
 
-            body: JSON.stringify(data),
-          }
-        ).then((resp) => resp.json());
-        //  .then((data) => console.log(review.count));
-        handleAddReview(true);
+          body: JSON.stringify(data),
+        }
+      ).then((resp) => resp.json());
+      //  .then((data) => console.log(review.count));
+      handleAddReview(true);
     }
+  };
 
-   
+  const removeLike = (review) => {
+    let likes = review.likes - 1;
+
+    const data = {};
+    data.body = review.body;
+    data.rating = review.rating;
+    data.movie_id = review.movie.id;
+    data.user_id = review.user.id;
+    data.likes = likes;
+    if (review !== null) {
+      fetch(
+        `https://cinematic-backend.herokuapp.com/api/v1/review/${review.id}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+
+          body: JSON.stringify(data),
+        }
+      ).then((resp) => resp.json());
+    }
   };
 
   const compare = (a, b) => {
@@ -264,7 +274,11 @@ let newLike = review.likes + 1
                     {review.likes}
                     {""}
                   </div>
-                  <ThumbUpIcon onClick={() => addLike(review)} />
+                  {addLikes === false ? (
+                    <ThumbUpIcon onClick={() => addLike(review)} />
+                  ) : (
+                    <ThumbUpIcon onClick={() => removeLike(review)} />
+                  )}
                 </ListItem>
               </Card>
             ))}
