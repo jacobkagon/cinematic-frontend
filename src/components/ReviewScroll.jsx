@@ -95,13 +95,6 @@ export default function ReviewScroll({ handleModal, movieId }) {
   }, [addReview]);
 
   const addLike = (review) => {
-    let like = null;
-    if (review.likes >= 15) {
-      like = 0;
-    } else {
-      like = review.likes + 1;
-    }
-
     //   let reviewCount = review.likes
 
     //   if (addLikes === true){
@@ -125,22 +118,19 @@ export default function ReviewScroll({ handleModal, movieId }) {
     // }
 
     const data = {};
-    data.body = review.body;
-    data.rating = review.rating;
-    data.movie_id = review.movie.id;
-    data.user_id = review.user.id;
-    data.likes = like;
+    data.user_id = localStorage.getItem("user_id");
+    data.review_id = review.id;
     if (review !== null) {
-      fetch(
-        `https://cinematic-backend.herokuapp.com/api/v1/review/${review.id}`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
+      fetch(`http://localhost:3000/api/v1/like`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
 
-          body: JSON.stringify(data),
-        }
-      ).then((resp) => resp.json());
-      //  .then((data) => console.log(review.count));
+        body: JSON.stringify(data),
+      }).then((resp) => resp.json())
+       .then((data) => console.log(data));
       handleAddReview(true);
     }
   };
@@ -151,7 +141,7 @@ export default function ReviewScroll({ handleModal, movieId }) {
     const data = {};
     data.body = review.body;
     data.rating = review.rating;
-    data.movie_id = review.movie.id;
+    data.review_id = review.id;
     data.user_id = review.user.id;
     data.likes = likes;
     if (review !== null) {
