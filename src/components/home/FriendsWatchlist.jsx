@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-
 import { makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
@@ -8,7 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import InfoIcon from "@material-ui/icons/Info";
-import Link  from '@material-ui/core/Link';
+import Link from "@material-ui/core/Link";
 
 import { URL_IMG, IMG_SIZE_LARGE } from "../../const";
 
@@ -50,46 +49,43 @@ const FriendsWatchlist = () => {
 
   return (
     <span>
-     
-   
       <div className={classes.root}>
-      
-      {film.length !== 0 ? (
-        <span>
-        <h4 align="center"> What Your Friends are Watching</h4>
-        <GridList className={classes.gridList} cols={4.5}>
-          {film.map((movie, id) => (
-            <GridListTile key={id} style={{ height: "300px" }}>
-              <img
-                src={URL_IMG + IMG_SIZE_LARGE + movie.movie.poster}
-                alt={movie.title}
-              />
-              <GridListTileBar
-                title={movie.movie.title}
-                classes={{
-                  root: classes.titleBar,
-                  title: classes.title,
-                }}
-                actionIcon={
-                  <Link href={"/movie/" + movie.movie.movie_id}>
-                    <IconButton
-                      aria-label={`info about ${movie.title}`}
-                      className={classes.icon}
-                    >
-                      <InfoIcon />
-                    </IconButton>
-                  </Link>
-                }
-              />
-            </GridListTile>
-          ))}
-        </GridList>
-        </span>
-      ) : null}
-    </div>
+        {film.length !== 0 ? (
+          <span>
+            {console.log(film)}
+            <h4 align="center"> What Your Friends are Watching</h4>
+            <GridList className={classes.gridList} cols={4.5}>
+              {film.map((movie, id) => (
+                <GridListTile key={id} style={{ height: "300px" }}>
+                  <img
+                    src={URL_IMG + IMG_SIZE_LARGE + movie.movie.poster}
+                    alt={movie.title}
+                  />
+                  <GridListTileBar
+                    title={movie.movie.title}
+                    classes={{
+                      root: classes.titleBar,
+                      title: classes.title,
+                    }}
+                    actionIcon={
+                      <Link href={"/movie/" + movie.movie.movie_id}>
+                        <IconButton
+                          aria-label={`info about ${movie.title}`}
+                          className={classes.icon}
+                        >
+                          <InfoIcon />
+                        </IconButton>
+                      </Link>
+                    }
+                  />
+                </GridListTile>
+              ))}
+            </GridList>
+          </span>
+        ) : null}
+      </div>
     </span>
   );
-
 };
 
 export default FriendsWatchlist;

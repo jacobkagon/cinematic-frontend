@@ -121,16 +121,16 @@ export default function ReviewScroll({ handleModal, movieId }) {
     data.user_id = localStorage.getItem("user_id");
     data.review_id = review.id;
     if (review !== null) {
-      fetch(`http://localhost:3000/api/v1/like`, {
+      fetch("https://cinematic-backend.herokuapp.com/api/v1/like", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
 
         body: JSON.stringify(data),
-      }).then((resp) => resp.json())
-       .then((data) => console.log(data));
+      })
+        .then((resp) => resp.json())
+        .then((data) => console.log(data));
       handleAddReview(true);
     }
   };
@@ -261,7 +261,8 @@ export default function ReviewScroll({ handleModal, movieId }) {
                     }
                   />
                   <div style={{ margin: "6px" }}>
-                    {review.likes}
+                    {0}
+                  
                     {""}
                   </div>
                   {addLikes === false ? (
