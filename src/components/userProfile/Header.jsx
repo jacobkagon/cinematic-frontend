@@ -120,6 +120,7 @@ export default function Header(props) {
   };
 
   return (
+    
     <React.Fragment>
       <Paper
         className={classes.mainFeaturedPost}
@@ -198,7 +199,7 @@ export default function Header(props) {
           </Grid>
         </Grid>
       </Paper>
-      {updateProfile ? <UpdateProfile handleCloseModal={handleClose} /> : null}
+      {updateProfile ? <UpdateProfile open ={updateProfile} handleCloseModal={handleProfileUpdate} /> : null}
       {followerModal === true ? (
         <FollowerModal
           followers={userData.followers}
@@ -226,6 +227,7 @@ export default function Header(props) {
         <UserWatchlist userId={userId} watchlists={userData.watchlists} />
       ) : null}
     </React.Fragment>
+   
   );
 }
 

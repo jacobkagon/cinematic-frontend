@@ -4,7 +4,9 @@ import MovieContainer from "./MovieContainer";
 import MovieDetails from "../components/MovieDetails";
 
 
+
 import Paper from '@material-ui/core/Paper';
+import UserProfile from "../components/userProfile/UserProfile";
 
 
 class HomeContainer extends Component {
@@ -20,6 +22,7 @@ class HomeContainer extends Component {
             
             <Switch>
               <Route path={"/movie/:id"} component={MovieDetails}></Route>
+              <Route path={"/:username/:id"} component={UserProfile}></Route>
             </Switch>
              
           

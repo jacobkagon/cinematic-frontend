@@ -44,9 +44,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UpdateProfile = ({ handleCloseModal }) => {
+const UpdateProfile = ({ handleCloseModal}) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
@@ -63,6 +63,8 @@ const UpdateProfile = ({ handleCloseModal }) => {
         setLastName(data.last_name);
         setEmail(data.email);
         setUsername(data.username)
+        setPassword(data.password)
+        console.log(data)
       });
   }, []);
 
@@ -71,7 +73,7 @@ const UpdateProfile = ({ handleCloseModal }) => {
   };
 
   const handleClose = () => {
-    setOpen(false);
+   setOpen(false);
   };
 
   const handleSubmit = (e) => {
@@ -177,7 +179,7 @@ const UpdateProfile = ({ handleCloseModal }) => {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label="New Password"
                   type="password"
                   id="password"
                   autoComplete="current-password"

@@ -70,6 +70,7 @@ export default function ReviewScroll({ handleModal, movieId }) {
   const [addReview, handleAddReview] = useState(false);
   const [sort, handleSort] = useState("review date");
   const [addLikes, handleAddLike] = useState(false);
+  let [likeCount, setLikeCount] = useState(0) 
 
   const handleClose = () => {
     setOpen(false);
@@ -94,15 +95,19 @@ export default function ReviewScroll({ handleModal, movieId }) {
   }, [addReview]);
 
   const addLike = (review) => {
-    let like = null;
-    let reviewCount = review.likes;
-    if (reviewCount++) {
-      like = review.likes - 1
-    } else {
-      console.log(reviewCount);
 
+    localStorage.getItem('liked', 'false')
+
+    let like = null;
+    let reviewCount = review.likes 
+
+  
+    if (localStorage.getItem('liked') === 'true' && reviewCount++) {
+    like = review.likes - 1 
+    localStorage.setItem('liked', 'false')
+    } else {
       like = review.likes + 1;
-      handleAddLike(true);
+      localStorage.setItem('liked', 'true')
     }
 
       const data = {};
