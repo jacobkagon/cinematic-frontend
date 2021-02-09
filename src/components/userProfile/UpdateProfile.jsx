@@ -74,6 +74,7 @@ const UpdateProfile = ({ handleCloseModal}) => {
 
   const handleClose = () => {
    setOpen(false);
+   window.location.reload()
   };
 
   const handleSubmit = (e) => {

@@ -96,19 +96,43 @@ export default function ReviewScroll({ handleModal, movieId }) {
 
   const addLike = (review) => {
 
-    localStorage.getItem('liked', 'false')
+    
 
-    let like = null;
-    let reviewCount = review.likes 
+let newLike = review.likes + 1
+  let like = null;
+  setLikeCount(review.likes)
+  if(addLikes === true) {
+    like = review.likes - 1
+    handleAddLike(false)
+
+
+  } else {
+  like = review.likes + 1
+  handleAddLike(true)
+
+  }
+  //   let reviewCount = review.likes 
 
   
-    if (localStorage.getItem('liked') === 'true' && reviewCount++) {
-    like = review.likes - 1 
-    localStorage.setItem('liked', 'false')
-    } else {
-      like = review.likes + 1;
-      localStorage.setItem('liked', 'true')
-    }
+  //   if (addLikes === true){
+  //   like = review.likes - 1 
+  //  handleAddLike(false)
+  //   } else {
+  //     like = review.likes + 1;
+  //     handleAddLike(true)
+  //   }
+
+    // if (localStorage.getItem('liked') === 'false') {
+    //   like = review.likes + 1
+    // } else {
+    //   like = review.likes - 1
+    // }
+
+    // if (review.likes + 1) {
+    //   localStorage.setItem('liked', 'true')
+    // } else {
+    //   localStorage.setItem('liked', 'false')
+    // }
 
       const data = {};
       data.body = review.body;
@@ -128,8 +152,9 @@ export default function ReviewScroll({ handleModal, movieId }) {
         ).then((resp) => resp.json());
         //  .then((data) => console.log(review.count));
         handleAddReview(true);
-      
     }
+
+   
   };
 
   const compare = (a, b) => {
