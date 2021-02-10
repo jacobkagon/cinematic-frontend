@@ -97,6 +97,18 @@ const SearchContainer = () => {
                     </Button>
                   </Link>
                 </div>
+              ) :null)}
+              {userData.map(user => 
+
+                input === "users" || input === "Users" ? (
+                <div>
+                 <br/>
+                  <Link color="inherit" href={`/${user.username}/${user.id}`}>
+                    <Button variant="contained">
+                      <ListItemText primary={user.username} />
+                    </Button>
+                  </Link>
+                </div>
               ) : null
             )}
             <br />
