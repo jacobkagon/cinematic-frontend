@@ -72,7 +72,6 @@ export default function ReviewScroll({ handleModal, movieId }) {
   const [movieReviews, handleMovieReviews] = useState([]);
   const [addReview, handleAddReview] = useState(false);
   const [sort, handleSort] = useState("review date");
- 
 
   const handleClose = () => {
     setOpen(false);
@@ -98,15 +97,14 @@ export default function ReviewScroll({ handleModal, movieId }) {
 
   const addLike = (review) => {
     let userLikes;
-    
-      review.likes.map((like) => {
-        if (like.user_id !== userId) {
-          userLikes = true;
-        } else {
-          userLikes = false;
-        }
-      });
-    
+
+    review.likes.map((like) => {
+      if (like.user_id !== userId) {
+        userLikes = true;
+      } else {
+        userLikes = false;
+      }
+    });
 
     if (userLikes === true || review.likes.length >= 0) {
       const data = {};

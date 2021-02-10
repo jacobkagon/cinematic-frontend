@@ -49,42 +49,7 @@ const FriendsReviews = ({ handleFriendsReviews }) => {
   const [reviews, handleReviews] = useState([]);
   const [addLikes, handleAddLike] = useState(false);
   const [addReview, handleAddReview] = useState(false);
-
-  const handleClose = () => {
-    setOpen(false);
-    handleFriendsReviews(false);
-  };
-
-  const addLike = (review) => {
-    let like = null;
-    if (addLikes === false) {
-      like = review.likes + 1;
-      handleAddLike(true);
-    } else {
-      like = review.likes - 1;
-      handleAddLike(false);
-    }
-    const data = {};
-    data.body = review.body;
-    data.rating = review.rating;
-    data.movie_id = review.movie.id;
-    data.user_id = review.user.id;
-    data.likes = like;
-    if (review !== null) {
-      fetch(
-        `https://cinematic-backend.herokuapp.com/api/v1/review/${review.id}`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-
-          body: JSON.stringify(data),
-        }
-      ).then((resp) => resp.json());
-      // .then((data) => console.log(data));
-      handleAddReview(true);
-    }
-  };
-
+  
   useEffect(() => {
     fetch("https://cinematic-backend.herokuapp.com/api/v1/followee_reviews", {
       method: "GET",
@@ -92,8 +57,12 @@ const FriendsReviews = ({ handleFriendsReviews }) => {
     })
       .then((resp) => resp.json())
       .then((data) => handleReviews(data));
-      handleAddReview(false)
+    handleAddReview(false);
   }, [addReview]);
+  const handleClose = () => {
+    setOpen(false);
+    handleFriendsReviews(false);
+  };
 
   const body = (
     <List className={classes.paper}>
@@ -103,7 +72,7 @@ const FriendsReviews = ({ handleFriendsReviews }) => {
         align="center"
         id="simple-modal-title"
       >
-        {reviews !== [] ? " Friends' Reviews" : "No Reviews"}
+        {reviews.length !== 0 ? " Friends' Reviews" : "No Reviews"}
       </Typography>
       {reviews.map((review) => (
         <Card>
@@ -139,11 +108,7 @@ const FriendsReviews = ({ handleFriendsReviews }) => {
                 </React.Fragment>
               }
             />
-            <div style={{ margin: "6px" }}>
-              {review.likes}
-              {""}
-            </div>
-            <ThumbUpIcon onClick={() => addLike(review)} />
+            <div style={{ margin: "6px" }}>{""}</div>
           </ListItem>
         </Card>
       ))}

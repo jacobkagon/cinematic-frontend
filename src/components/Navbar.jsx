@@ -57,22 +57,21 @@ export default function Header(props) {
   const logout = () => {
     localStorage.clear();
     history.push("/login");
-    window.location.reload();
+    
   };
 
   const userProfile = () => {
     history.push("/" + username + "/" + userId);
-    window.location.reload();
+    
   };
 
   const handleSearch = () => {
     history.push("/search");
-    window.location.reload();
+    
   };
 
   const goHome = () => {
     history.push("/");
-    window.location.reload();
   };
 
 

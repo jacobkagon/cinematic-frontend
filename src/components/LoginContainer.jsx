@@ -116,7 +116,7 @@ export default function SignInSide({ handleUser }) {
           handleUser(newData.user);
           setLoggedIn(true);
           history.push("/");
-          window.location.reload();
+          
         } else {
           alert("Incorrect credentials");
         }

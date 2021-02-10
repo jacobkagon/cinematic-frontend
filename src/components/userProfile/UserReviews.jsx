@@ -87,7 +87,7 @@ const UserReviews = ({ handleUserReviews,currentUser, userId }) => {
         align="center"
         id="simple-modal-title"
       >
-        {reviews !== [] ? "Reviews" : "No Reviews"}
+        {reviews.length !== 0 ? "Reviews" : "No Reviews"}
       </Typography>
       {reviews.map((review) => (
         <ListItem key={review.id} alignItems="flex-start">

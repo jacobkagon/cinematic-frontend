@@ -86,7 +86,7 @@ export default function Header(props) {
           ? handleIsFollowing(true)
           : handleIsFollowing(false);
       });
-  }, []);
+  }, [isFollowing]);
 
  
 
@@ -104,7 +104,7 @@ export default function Header(props) {
     })
       .then((resp) => resp.json())
       .then((data) => console.log(data));
-    window.location.reload()
+    handleIsFollowing(true)
   };
 
   const unfollowUser = () => {
@@ -115,8 +115,7 @@ export default function Header(props) {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    handleIsFollowing("Follow");
-    window.location.reload();
+    handleIsFollowing(false)
   };
 
   return (
@@ -199,7 +198,7 @@ export default function Header(props) {
           </Grid>
         </Grid>
       </Paper>
-      {updateProfile ? <UpdateProfile open ={updateProfile} handleCloseModal={handleProfileUpdate} /> : null}
+      {updateProfile ? <UpdateProfile open={updateProfile} handleCloseModal={handleProfileUpdate} /> : null}
       {followerModal === true ? (
         <FollowerModal
           followers={userData.followers}

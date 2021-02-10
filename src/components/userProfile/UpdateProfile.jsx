@@ -74,7 +74,7 @@ const UpdateProfile = ({ handleCloseModal}) => {
 
   const handleClose = () => {
    setOpen(false);
-   window.location.reload()
+   handleCloseModal(false)
   };
 
   const handleSubmit = (e) => {
@@ -94,7 +94,7 @@ const UpdateProfile = ({ handleCloseModal}) => {
       .then((resp) => resp.json())
       .then((data) => console.log(data));
 
-    window.location.reload();
+    handleCloseModal(false)
   };
 
   const body = (
