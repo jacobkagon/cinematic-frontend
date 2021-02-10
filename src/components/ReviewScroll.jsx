@@ -17,8 +17,11 @@ import { Rating } from "@material-ui/lab";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import Card from "@material-ui/core/Card";
 import Container from "@material-ui/core/Container";
+import ThumbUpAltRoundedIcon from "@material-ui/icons/ThumbUpAltRounded";
 
 const token = localStorage.getItem("token");
+const userId = localStorage.getItem("user_id");
+let likez;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -95,65 +98,36 @@ export default function ReviewScroll({ handleModal, movieId }) {
   }, [addReview]);
 
   const addLike = (review) => {
-    //   let reviewCount = review.likes
+    let userLikes;
+    
+      review.likes.map((like) => {
+        if (like.user_id !== userId) {
+          userLikes = true;
+        } else {
+          userLikes = false;
+        }
+      });
+    
 
-    //   if (addLikes === true){
-    //   like = review.likes - 1
-    //  handleAddLike(false)
-    //   } else {
-    //     like = review.likes + 1;
-    //     handleAddLike(true)
-    //   }
-
-    // if (localStorage.getItem('liked') === 'false') {
-    //   like = review.likes + 1
-    // } else {
-    //   like = review.likes - 1
-    // }
-
-    // if (review.likes + 1) {
-    //   localStorage.setItem('liked', 'true')
-    // } else {
-    //   localStorage.setItem('liked', 'false')
-    // }
-
-    const data = {};
-    data.user_id = localStorage.getItem("user_id");
-    data.review_id = review.id;
-    if (review !== null) {
-      fetch("https://cinematic-backend.herokuapp.com/api/v1/like", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify(data),
-      })
-        .then((resp) => resp.json())
-        .then((data) => console.log(data));
-      handleAddReview(true);
-    }
-  };
-
-  const removeLike = (review) => {
-    let likes = review.likes - 1;
-
-    const data = {};
-    data.body = review.body;
-    data.rating = review.rating;
-    data.review_id = review.id;
-    data.user_id = review.user.id;
-    data.likes = likes;
-    if (review !== null) {
-      fetch(
-        `https://cinematic-backend.herokuapp.com/api/v1/review/${review.id}`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
+    if (userLikes === true || review.likes.length >= 0) {
+      const data = {};
+      data.user_id = userId;
+      data.review_id = review.id;
+      if (review !== null) {
+        fetch("https://cinematic-backend.herokuapp.com/api/v1/like", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
 
           body: JSON.stringify(data),
-        }
-      ).then((resp) => resp.json());
+        })
+          .then((resp) => resp.json())
+          .then((data) => console.log(data));
+        handleAddReview(true);
+      }
+    } else {
+      console.log("you've already liked this");
     }
   };
 
@@ -261,14 +235,19 @@ export default function ReviewScroll({ handleModal, movieId }) {
                     }
                   />
                   <div style={{ margin: "6px" }}>
-                    {0}
-                  
+                    {review.likes.length}
+
                     {""}
                   </div>
-                  {addLikes === false ? (
+
+                  {review.likes.map((like) => {
+                    like.user_id !== userId ? (likez = true) : (likez = false);
+                  })}
+
+                  {likez === true || review.likes.length === 0 ? (
                     <ThumbUpIcon onClick={() => addLike(review)} />
                   ) : (
-                    <ThumbUpIcon onClick={() => removeLike(review)} />
+                    <ThumbUpIcon color="primary" />
                   )}
                 </ListItem>
               </Card>
@@ -284,15 +263,6 @@ export default function ReviewScroll({ handleModal, movieId }) {
       </div>
     </List>
   );
-
-  const deleteReview = (event) => {
-    fetch(`https://cinematic-backend.herokuapp.com/api/v1/reviews/${event}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    //handleAddReview(true)
-  };
 
   return (
     <div>
