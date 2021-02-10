@@ -20,7 +20,7 @@ import Container from "@material-ui/core/Container";
 import ThumbUpAltRoundedIcon from "@material-ui/icons/ThumbUpAltRounded";
 
 const token = localStorage.getItem("token");
-const userId = localStorage.getItem("user_id");
+const userId = +localStorage.getItem("user_id");
 let likez;
 
 const useStyles = makeStyles((theme) => ({
