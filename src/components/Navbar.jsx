@@ -57,7 +57,7 @@ export default function Header(props) {
   const logout = () => {
     localStorage.clear();
     history.push("/login");
-    
+    window.location.reload()
   };
 
   const userProfile = () => {
