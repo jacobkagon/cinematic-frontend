@@ -72,8 +72,7 @@ export default function ReviewScroll({ handleModal, movieId }) {
   const [movieReviews, handleMovieReviews] = useState([]);
   const [addReview, handleAddReview] = useState(false);
   const [sort, handleSort] = useState("review date");
-  const [addLikes, handleAddLike] = useState(false);
-  let [likeCount, setLikeCount] = useState(0);
+ 
 
   const handleClose = () => {
     setOpen(false);
