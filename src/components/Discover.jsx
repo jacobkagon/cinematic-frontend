@@ -51,8 +51,10 @@ export default function Discover({ movieId }) {
   return (
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={4.5}>
+     
         {movies.map((movie) => (
           <GridListTile key={movie.id} style={{ height: "300px" }}>
+          <Link href={"/movie/" + movie.id}>
             <img
               src={URL_IMG + IMG_SIZE_LARGE + movie.poster_path}
               alt={movie.title}
@@ -63,17 +65,9 @@ export default function Discover({ movieId }) {
                 root: classes.titleBar,
                 title: classes.title,
               }}
-              actionIcon={
-                <Link href={"/movie/" + movie.id}>
-                  <IconButton
-                    aria-label={`info about ${movie.title}`}
-                    className={classes.icon}
-                  >
-                    <InfoIcon />
-                  </IconButton>
-                </Link>
-              }
+      
             />
+            </Link>
           </GridListTile>
         ))}
       </GridList>

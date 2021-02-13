@@ -13,7 +13,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Typography from "@material-ui/core/Typography";
 import { Rating } from "@material-ui/lab";
-
+import Link from "@material-ui/core/Link";
 const token = localStorage.getItem("token");
 
 
@@ -103,9 +103,11 @@ const UserReviews = ({ handleUserReviews,currentUser, userId }) => {
                   className={classes.inline}
                   color="textPrimary"
                 ></Typography>
+                 <Link href={'/movie/'+review.movie.movie_id}>
                 <Typography color="textPrimary" variant="h6">
                   {review.movie.title}
                 </Typography>
+                </Link>
                 <Typography>
                   <Rating
                     name="read-only"

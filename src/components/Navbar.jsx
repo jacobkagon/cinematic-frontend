@@ -41,14 +41,13 @@ export default function Header(props) {
   const { theme, setTheme } = props;
   const history = useHistory();
 
-  const icon = localStorage.getItem('theme') === 'true' ? <Brightness5Icon/> :  <Brightness2Icon />;
-
-
+  const icon = localStorage.getItem('theme') === 'true' ? <Brightness5Icon/> : <Brightness2Icon />;
+  
   const darkMode = () => {
     
     setTheme(!theme)
     localStorage.setItem('theme', theme)
-    if(localStorage.getItem('theme')=== 'true') {
+    if(localStorage.getItem('theme') === 'true') {
       localStorage.setItem('theme', 'false')
     }
     localStorage.setItem('theme', !theme )
@@ -67,15 +66,13 @@ export default function Header(props) {
 
   const handleSearch = () => {
     history.push("/search");
-    
+    window.location.reload()
   };
 
   const goHome = () => {
     history.push("/");
+    window.location.reload()
   };
-
-
-
   return (
     <React.Fragment>
 

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: "translateZ(0)",
     width: 900,
-    height: 300,
+    height: 310,
   },
 
   icon: {
@@ -56,29 +56,21 @@ const FriendsWatchlist = () => {
             <h4 align="center"> What Your Friends are Watching</h4>
             <GridList className={classes.gridList} cols={4.5}>
               {film.map((movie, id) => (
-                <GridListTile key={id} style={{ height: "300px" }}>
-                  <img
-                    src={URL_IMG + IMG_SIZE_LARGE + movie.movie.poster}
-                    alt={movie.title}
-                  />
-                  <GridListTileBar
-                    title={movie.movie.title}
-                    classes={{
-                      root: classes.titleBar,
-                      title: classes.title,
-                    }}
-                    actionIcon={
-                      <Link href={"/movie/" + movie.movie.movie_id}>
-                        <IconButton
-                          aria-label={`info about ${movie.title}`}
-                          className={classes.icon}
-                        >
-                          <InfoIcon />
-                        </IconButton>
-                      </Link>
-                    }
-                  />
-                </GridListTile>
+                <Link href={"/movie/" + movie.movie.movie_id}>
+                  <GridListTile key={id} style={{ height: "300px" }}>
+                    <img
+                      src={URL_IMG + IMG_SIZE_LARGE + movie.movie.poster}
+                      alt={movie.title}
+                    />
+                    <GridListTileBar
+                      title={movie.movie.title}
+                      classes={{
+                        root: classes.titleBar,
+                        title: classes.title,
+                      }}
+                    />
+                  </GridListTile>
+                </Link>
               ))}
             </GridList>
           </span>

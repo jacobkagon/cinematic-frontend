@@ -87,10 +87,11 @@ const FriendsReviews = ({ handleFriendsReviews }) => {
                     className={classes.inline}
                     color="textPrimary"
                   ></Typography>
-
+                   <Link href={'/movie/'+review.movie.movie_id}>
                   <Typography color="textPrimary" variant="h6">
                     {review.movie.title}
                   </Typography>
+                  </Link>
                   <Typography color="textPrimary">
                     {review.user.username}
                   </Typography>

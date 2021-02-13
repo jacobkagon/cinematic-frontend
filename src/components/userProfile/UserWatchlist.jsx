@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import watchlistIdState from '../../recoil/watchlist'
-import {useRecoilState} from 'recoil'
+import watchlistIdState from "../../recoil/watchlist";
+import { useRecoilState } from "recoil";
 
 import { makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
@@ -12,7 +12,6 @@ import InfoIcon from "@material-ui/icons/Info";
 import { Link } from "react-router-dom";
 
 import { URL_IMG, IMG_SIZE_LARGE } from "../../const";
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,52 +35,46 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserWatchlist = ({watchlists, userId}) => {
+const UserWatchlist = ({ watchlists, userId }) => {
   const classes = useStyles();
   const [film, setFilm] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    fetch(`https://cinematic-backend.herokuapp.com/api/v1//user_watchlist/${userId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    fetch(
+      `https://cinematic-backend.herokuapp.com/api/v1//user_watchlist/${userId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
       .then((resp) => resp.json())
       .then((data) => setFilm(data));
   }, []);
-  
 
   return (
     <div>
-    <h3 align='center'>Watchlist</h3>
-    <div className={classes.root}>
-      <GridList className={classes.gridList} cols={4.5}>
-        {film.map((movie, id) => (
-          <GridListTile key={id} style={{ height: "300px" }}>
-            <img
-              src={URL_IMG + IMG_SIZE_LARGE + movie.movie.poster}
-              alt={movie.title}
-            />
-            <GridListTileBar
-              title={movie.movie.title}
-              classes={{
-                root: classes.titleBar,
-                title: classes.title,
-              }}
-              actionIcon={
-                <Link to={"/movie/"+ movie.movie.movie_id}>
-                  <IconButton
-                    aria-label={`info about ${movie.title}`}
-                    className={classes.icon}
-                  >
-                    <InfoIcon />
-                  </IconButton>
-                </Link>
-              }
-            />
-          </GridListTile>
-        ))}
-      </GridList>
-    </div>
+      <h3 align="center">Watchlist</h3>
+      <div className={classes.root}>
+        <GridList className={classes.gridList} cols={4.5}>
+          {film.map((movie, id) => (
+            <GridListTile key={id} style={{ height: "300px" }}>
+              <Link to={"/movie/" + movie.movie.movie_id}>
+                <img
+                  src={URL_IMG + IMG_SIZE_LARGE + movie.movie.poster}
+                  alt={movie.title}
+                />
+                <GridListTileBar
+                  title={movie.movie.title}
+                  classes={{
+                    root: classes.titleBar,
+                    title: classes.title,
+                  }}
+                />
+              </Link>
+            </GridListTile>
+          ))}
+        </GridList>
+      </div>
     </div>
   );
 };

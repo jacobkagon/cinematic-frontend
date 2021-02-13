@@ -69,8 +69,10 @@ const Watchlist = () => {
             <h4 align="center">My List</h4>
 
             <GridList className={classes.gridList} cols={4.5}>
+            
               {film.map((movie, id) => (
                 <GridListTile key={id} style={{ height: "300px" }}>
+                <Link href={"/movie/" + movie.movie.movie_id}>
                   <img
                     src={URL_IMG + IMG_SIZE_LARGE + movie.movie.poster}
                     alt={movie.title}
@@ -81,17 +83,9 @@ const Watchlist = () => {
                       root: classes.titleBar,
                       title: classes.title,
                     }}
-                    actionIcon={
-                      <Link href={"/movie/" + movie.movie.movie_id}>
-                        <IconButton
-                          aria-label={`info about ${movie.title}`}
-                          className={classes.icon}
-                        >
-                          <InfoIcon />
-                        </IconButton>
-                      </Link>
-                    }
+                    
                   />
+                  </Link>
                 </GridListTile>
               ))}
             </GridList>

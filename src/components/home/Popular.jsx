@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: "translateZ(0)",
     width: 900, 
-    height: 320,
+    height: 310,
     display: "flex",
     
   },
@@ -68,6 +68,7 @@ const Popular = () => {
         {film.map((movie, id) => (
          
           <GridListTile key={id}  className={classes.gridListTile} style={{ height: "300px" }}>
+          <Link href={"/movie/" + movie.id}>
             <img 
               src={URL_IMG + IMG_SIZE_LARGE + movie.poster_path}
               alt={movie.title}
@@ -78,17 +79,9 @@ const Popular = () => {
                 root: classes.titleBar,
                 title: classes.title,
               }}
-              actionIcon={
-                <Link href={"/movie/" + movie.id}>
-                  <IconButton
-                    aria-label={`info about ${movie.title}`}
-                    className={classes.icon}
-                  >
-                    <InfoIcon />
-                  </IconButton>
-                </Link>
-              }
+             
             />
+            </Link>
           </GridListTile>
           
         ))}
