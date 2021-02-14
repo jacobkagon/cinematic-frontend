@@ -59,14 +59,7 @@ export default function Discover({ movieId }) {
               src={URL_IMG + IMG_SIZE_LARGE + movie.poster_path}
               alt={movie.title}
             />
-            <GridListTileBar
-              title={movie.title}
-              classes={{
-                root: classes.titleBar,
-                title: classes.title,
-              }}
-      
-            />
+            
             </Link>
           </GridListTile>
         ))}

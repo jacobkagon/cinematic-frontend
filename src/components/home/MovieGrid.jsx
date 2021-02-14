@@ -62,14 +62,7 @@ export default function MovieGrid({ movies }) {
                       alt={movie.title}
                     />
                     
-                    <GridListTileBar
-                      title={movie.title}
-                      classes={{
-                        root: classes.titleBar,
-                        title: classes.title,
-                      }}
-                      
-                    />
+                    
                     </Link>
                   </GridListTile>
                 

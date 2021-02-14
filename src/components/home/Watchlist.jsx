@@ -77,14 +77,7 @@ const Watchlist = () => {
                     src={URL_IMG + IMG_SIZE_LARGE + movie.movie.poster}
                     alt={movie.title}
                   />
-                  <GridListTileBar
-                    title={movie.movie.title}
-                    classes={{
-                      root: classes.titleBar,
-                      title: classes.title,
-                    }}
-                    
-                  />
+                 
                   </Link>
                 </GridListTile>
               ))}
