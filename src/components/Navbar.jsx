@@ -61,7 +61,7 @@ export default function Header(props) {
 
   const userProfile = () => {
     history.push("/" + username + "/" + userId);
-    
+    window.location.reload()
   };
 
   const handleSearch = () => {
