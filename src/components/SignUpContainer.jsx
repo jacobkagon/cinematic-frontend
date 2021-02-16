@@ -119,6 +119,7 @@ export default function SignUp({ handleUser }) {
           setLoggedIn(true);
           handleUser(data.user);
           history.push("/");
+          window.location.reload()
 
         } else {
           alert("Please fill in empty fields or choose unique username");

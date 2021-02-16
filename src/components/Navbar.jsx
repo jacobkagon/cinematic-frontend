@@ -61,17 +61,17 @@ export default function Header(props) {
 
   const userProfile = () => {
     history.push("/" + username + "/" + userId);
-    window.location.reload()
+    
   };
 
   const handleSearch = () => {
     history.push("/search");
-    window.location.reload()
+  
   };
 
   const goHome = () => {
     history.push("/");
-    window.location.reload()
+   
   };
   return (
     <React.Fragment>
