@@ -11,7 +11,7 @@ import IconButton from "@material-ui/core/IconButton";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import InfoIcon from "@material-ui/icons/Info";
-import Link from '@material-ui/core/Link';
+import Link from "@material-ui/core/Link";
 
 import { URL_IMG, IMG_SIZE_LARGE } from "../../const";
 
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: "translateZ(0)",
     width: 900,
-    height: 300,
+    height: 320,
   },
   gridListTile: {
     flexWrap: "nowrap",
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     width: 900,
     height: 320,
     display: "flex",
-    borderRadius: '20%'
+    borderRadius: "20%",
   },
 
   icon: {
@@ -54,35 +54,35 @@ const Watchlist = () => {
   useEffect(() => {
     const userId = localStorage.getItem("user_id");
     const token = localStorage.getItem("token");
-    fetch(`https://cinematic-backend.herokuapp.com/api/v1/user_watchlist/${userId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    fetch(
+      `https://cinematic-backend.herokuapp.com/api/v1/user_watchlist/${userId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
       .then((resp) => resp.json())
       .then((data) => setFilm(data));
   }, []);
 
   return (
     <span>
+    <h4 align="center">My List</h4>
       <div className={classes.root}>
         {film.length !== 0 ? (
-          <span>
-            <h4 align="center">My List</h4>
-
+          
             <GridList className={classes.gridList} cols={4.5}>
-            
               {film.map((movie, id) => (
                 <GridListTile key={id} style={{ height: "300px" }}>
-                <Link href={"/movie/" + movie.movie.movie_id}>
-                  <img
-                    src={URL_IMG + IMG_SIZE_LARGE + movie.movie.poster}
-                    alt={movie.title}
-                  />
-                 
+                  <Link href={"/movie/" + movie.movie.movie_id}>
+                    <img
+                      src={URL_IMG + IMG_SIZE_LARGE + movie.movie.poster}
+                      alt={movie.title}
+                    />
                   </Link>
                 </GridListTile>
               ))}
             </GridList>
-          </span>
+       
         ) : null}
       </div>
     </span>

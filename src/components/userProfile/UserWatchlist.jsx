@@ -10,6 +10,7 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import InfoIcon from "@material-ui/icons/Info";
 import { Link } from "react-router-dom";
+import Paper from "@material-ui/core/Paper";
 
 import { URL_IMG, IMG_SIZE_LARGE } from "../../const";
 
@@ -20,14 +21,19 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-around",
     overflow: "hidden",
     backgroundColor: theme.palette.background.paper,
+    marginTop: 75,
+    height: 475,
+  },
+  paper: {
+    display: "flex",
   },
 
   gridList: {
     flexWrap: "nowrap",
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: "translateZ(0)",
-    width: 700,
-    height: 500,
+    width: 900,
+    height: 320,
   },
 
   icon: {
@@ -53,9 +59,13 @@ const UserWatchlist = ({ watchlists, userId }) => {
 
   return (
     <div>
-      <h3 align="center">Watchlist</h3>
+      <h3 style={{ marginBottom: "21" }} align="center">
+        Watchlist
+      </h3>
+
       <div className={classes.root}>
         <GridList className={classes.gridList} cols={4.5}>
+        
           {film.map((movie, id) => (
             <GridListTile key={id} style={{ height: "300px" }}>
               <Link to={"/movie/" + movie.movie.movie_id}>
@@ -63,11 +73,12 @@ const UserWatchlist = ({ watchlists, userId }) => {
                   src={URL_IMG + IMG_SIZE_LARGE + movie.movie.poster}
                   alt={movie.title}
                 />
-               
               </Link>
             </GridListTile>
           ))}
+          
         </GridList>
+        
       </div>
     </div>
   );

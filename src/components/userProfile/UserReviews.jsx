@@ -68,7 +68,7 @@ const UserReviews = ({ handleUserReviews,currentUser, userId }) => {
     fetch(`https://cinematic-backend.herokuapp.com/api/v1/user_reviews/${currentUser}`)
       .then((resp) => resp.json())
       .then((data) => handleReviews(data));
-  }, [reviews]);
+  }, []);
 
   const deleteReview = (event) => {
     fetch(`https://cinematic-backend.herokuapp.com/api/v1/reviews/${event}`, {

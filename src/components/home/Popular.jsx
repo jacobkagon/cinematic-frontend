@@ -29,15 +29,20 @@ const useStyles = makeStyles((theme) => ({
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: "translateZ(0)",
     width: 900, 
-    height: 310,
+    height: 320,
     display: "flex",
     
   },
   gridListTile: {
-    borderRadius: "50%",
-    height: '300px',
-
+    flexWrap: "nowrap",
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: "translateZ(0)",
+    width: 900,
+    height: 320,
+    display: "flex",
+    borderRadius: '20%'
   },
+
 
   icon: {
     color: "rgba(255, 255, 255, 0.54)",
@@ -63,7 +68,7 @@ const Popular = () => {
     {film? 
       
       
-      <GridList  className={classes.gridList} cols={4.5} >
+      <GridList className={classes.gridList} cols={4.5} >
     
         {film.map((movie, id) => (
          
