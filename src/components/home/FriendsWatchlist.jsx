@@ -27,6 +27,15 @@ const useStyles = makeStyles((theme) => ({
     width: 900,
     height: 320,
   },
+  gridListTile: {
+    flexWrap: "nowrap",
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: "translateZ(0)",
+    width: 900,
+    height: 320,
+    display: "flex",
+    borderRadius: "20%",
+  },
 
   icon: {
     color: "rgba(255, 255, 255, 0.54)",
@@ -56,15 +65,16 @@ const FriendsWatchlist = () => {
             <h4 align="center"> What Your Friends are Watching</h4>
             <GridList className={classes.gridList} cols={4.5}>
               {film.map((movie, id) => (
-                <Link href={"/movie/" + movie.movie.movie_id}>
+                
                   <GridListTile key={id} style={{ height: "300px" }}>
+                  <Link href={"/movie/" + movie.movie.movie_id}>
                     <img
                       src={URL_IMG + IMG_SIZE_LARGE + movie.movie.poster}
                       alt={movie.title}
                     />
-                   
+                    </Link>
                   </GridListTile>
-                </Link>
+               
               ))}
             </GridList>
           </span>

@@ -66,10 +66,11 @@ const Watchlist = () => {
 
   return (
     <span>
-    <h4 align="center">My List</h4>
+   
       <div className={classes.root}>
         {film.length !== 0 ? (
-          
+          <div>
+          <h4 align="center">My List</h4>
             <GridList className={classes.gridList} cols={4.5}>
               {film.map((movie, id) => (
                 <GridListTile key={id} style={{ height: "300px" }}>
@@ -82,7 +83,7 @@ const Watchlist = () => {
                 </GridListTile>
               ))}
             </GridList>
-       
+            </div>
         ) : null}
       </div>
     </span>
