@@ -14,7 +14,6 @@ import Brightness2Icon from "@material-ui/icons/Brightness2";
 import Brightness5Icon from "@material-ui/icons/Brightness5";
 import Paper from "@material-ui/core/Paper";
 
-
 const username = localStorage.getItem("username");
 const userId = localStorage.getItem("user_id");
 
@@ -35,49 +34,47 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 export default function Header(props) {
   const classes = useStyles();
   const { theme, setTheme } = props;
   const history = useHistory();
 
-  const icon = localStorage.getItem('theme') === 'true' ? <Brightness5Icon/> : <Brightness2Icon />;
-  
+  const icon =
+    localStorage.getItem("theme") === "true" ? (
+      <Brightness2Icon />
+    ) : (
+      <Brightness5Icon />
+    );
+
   const darkMode = () => {
-    
-    setTheme(!theme)
-    localStorage.setItem('theme', theme)
-    if(localStorage.getItem('theme') === 'true') {
-      localStorage.setItem('theme', 'false')
+    setTheme(!theme);
+    localStorage.setItem("theme", theme);
+    if (localStorage.getItem("theme") === "true") {
+      localStorage.setItem("theme", "false");
     }
-    localStorage.setItem('theme', !theme )
-  }
+    localStorage.setItem("theme", !theme);
+  };
 
   const logout = () => {
     localStorage.clear();
     history.push("/login");
-    window.location.reload()
+    window.location.reload();
   };
 
   const userProfile = () => {
     history.push("/" + username + "/" + userId);
-    window.location.reload()
+    window.location.reload();
   };
 
   const handleSearch = () => {
     history.push("/search");
-  
   };
 
   const goHome = () => {
     history.push("/");
-   
   };
   return (
     <React.Fragment>
-
-
-   
       <Paper>
         <Toolbar className={classes.toolbar}>
           <IconButton onClick={() => userProfile()}>
@@ -100,7 +97,7 @@ export default function Header(props) {
             edge="end"
             color="inherit"
             aria-label="mode"
-            onClick={() =>  darkMode()}
+            onClick={() => darkMode()}
 
             // onClick={() => localStorage.setItem('newTheme', !theme) }
           >

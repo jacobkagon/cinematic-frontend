@@ -10,9 +10,6 @@ import React, { useState } from "react";
 
 import { createMuiTheme } from "@material-ui/core/styles";
 
-
-
-
 export default function App() {
   const [theme, setTheme] = useState(false);
   const history = useHistory()
