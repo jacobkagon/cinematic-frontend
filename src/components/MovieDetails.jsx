@@ -174,9 +174,9 @@ const MovieDetails = () => {
                   />
                 ) : null}
                 <p />
-                <Typography component="h1" variant="h3" color="inherit">
+                {/* <Typography component="h1" variant="h3" color="inherit">
                   {movieInfo.title}
-                </Typography>
+                </Typography> */}
                 <Typography variant="h6" color="inherit" paragraph>
                   {movieInfo.release_date
                     ? movieInfo.release_date.split("-")[0]

@@ -83,16 +83,7 @@ export default function Header(props) {
           <IconButton onClick={() => goHome()}>
             <HomeIcon fontSize="large" />
           </IconButton>
-          <Typography
-            component="h1"
-            variant="h4"
-            color="inherit"
-            align="center"
-            noWrap
-            className={classes.toolbarTitle}
-          >
-            Cinematic
-          </Typography>
+          
           <IconButton
             edge="end"
             color="inherit"
@@ -106,7 +97,7 @@ export default function Header(props) {
           <IconButton onClick={() => handleSearch()}>
             <SearchIcon />
           </IconButton>
-          <Button variant="outlined" size="small" onClick={() => logout()}>
+          <Button text-align="right" variant="outlined" size="small" onClick={() => logout()}>
             Logout
           </Button>
         </Toolbar>

@@ -52,7 +52,7 @@ export default function MovieGrid({ movies }) {
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={4.5}>
         {movies.map((movie, id) => (
-          <GridListTile key={id} style={{ height: "300px" }}>
+          <GridListTile className={classes.gridListTile}key={id} style={{ height: "300px" }}>
             <Link href={"/movie/" + movie.id}>
               <img
                 src={URL_IMG + IMG_SIZE_LARGE + movie.poster_path}

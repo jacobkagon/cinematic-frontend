@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     transform: "translateZ(0)",
     width: 900,
     height: 320,
+    display: 'flex'
   },
   gridListTile: {
     flexWrap: "nowrap",
@@ -73,7 +74,7 @@ const Watchlist = () => {
           <h4 align="center">My List</h4>
             <GridList className={classes.gridList} cols={4.5}>
               {film.map((movie, id) => (
-                <GridListTile key={id} style={{ height: "300px" }}>
+                <GridListTile className={classes.gridListTile} key={id} style={{ height: "300px" }}>
                   <Link href={"/movie/" + movie.movie.movie_id}>
                     <img
                       src={URL_IMG + IMG_SIZE_LARGE + movie.movie.poster}
